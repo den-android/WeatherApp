@@ -5,7 +5,13 @@ import net.denis.weatherapp.features.forecast.screen.components.CurrentWeatherIn
 
 @Composable
 fun CityDetailScreen(
+    vm: ForecastViewModel,
 
-) {
-
+    ) {
+    CurrentWeatherInfoDisplay(
+        city =,
+        temp =,
+        weather =,
+        weatherIcon =
+    )
 }
