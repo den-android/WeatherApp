@@ -1,5 +1,6 @@
 package net.denis.weatherapp.core.data.repository
 
+import kotlinx.coroutines.flow.Flow
 import net.denis.weatherapp.core.data.datasource.local.LocalDatasource
 import net.denis.weatherapp.core.data.datasource.remote.RemoteDatasource
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.WeatherDto
@@ -9,14 +10,14 @@ import javax.inject.Inject
 class WeatherRepository @Inject constructor(
     private val localDatasource: LocalDatasource,
     private val remoteDatasource: RemoteDatasource,
-): IWeatherRepository {
+) : IWeatherRepository {
 
     override suspend fun getForecast(
         lat: Double,
         lon: Double,
         exclude: String,
         apiKey: String
-    ): WeatherDto {
+    ): Flow<WeatherDto> {
         TODO("Not yet implemented")
     }
 }

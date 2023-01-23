@@ -1,5 +1,6 @@
 package net.denis.weatherapp.core.data.interfaces
 
+import kotlinx.coroutines.flow.Flow
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.WeatherDto
 
 interface IWeatherRepository {
@@ -8,5 +9,5 @@ interface IWeatherRepository {
         lon: Double,
         exclude: String,
         apiKey: String,
-    ): WeatherDto
+    ): Flow<WeatherDto>
 }

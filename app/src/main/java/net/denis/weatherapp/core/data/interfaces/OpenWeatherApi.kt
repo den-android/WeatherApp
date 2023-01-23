@@ -17,7 +17,3 @@ interface OpenWeatherApi {
         @Query("appid") apiKey: String,
     ): Response<WeatherDto>
 }
-//55.7504461
-//37.6174943
-//alerts
-//b05865d24d90b1dbccfb3ced2627b4e9
