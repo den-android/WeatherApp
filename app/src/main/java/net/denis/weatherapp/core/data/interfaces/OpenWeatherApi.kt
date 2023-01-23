@@ -5,7 +5,4 @@ import retrofit2.http.GET
 
 interface OpenWeatherApi {
 
-    @GET("")
-    suspend fun getWeather(): Response<WeatherDto>
-
 }
