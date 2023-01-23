@@ -1,4 +1,4 @@
-package net.denis.weatherapp
+package net.denis.weatherapp.core.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import net.denis.weatherapp.ui.theme.WeatherAppTheme
+import net.denis.weatherapp.core.presentation.ui.theme.WeatherAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

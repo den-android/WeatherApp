@@ -1,4 +1,4 @@
-package net.denis.weatherapp.ui.theme
+package net.denis.weatherapp.core.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

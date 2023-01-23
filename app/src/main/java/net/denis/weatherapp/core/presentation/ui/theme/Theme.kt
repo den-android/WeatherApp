@@ -1,4 +1,4 @@
-package net.denis.weatherapp.ui.theme
+package net.denis.weatherapp.core.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
