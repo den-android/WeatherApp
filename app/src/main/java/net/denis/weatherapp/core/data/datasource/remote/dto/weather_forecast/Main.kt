@@ -1,4 +1,4 @@
-package net.denis.weatherapp.core.data.datasource.remote.dto
+package net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast
 
 data class Main(
     val feels_like: Double,
