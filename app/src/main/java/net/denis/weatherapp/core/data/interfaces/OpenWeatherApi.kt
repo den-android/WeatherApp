@@ -8,7 +8,7 @@ import retrofit2.http.Query
 
 interface OpenWeatherApi {
 
-    @GET("forecast?lang=ru&units=metric")
+    @GET("forecast?lang=ru&units=metric&cnt=7")
     @Headers("Content-type: application/json")
     suspend fun getForecastMoscow(
         @Query("lat") lat: Double,

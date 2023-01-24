@@ -1,7 +1,7 @@
 package net.denis.weatherapp.features.forecast.screen.components
 
 import android.icu.text.SimpleDateFormat
-import androidx.compose.foundation.*
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.width
@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -19,19 +18,33 @@ import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Mai
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Weather
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
 import net.denis.weatherapp.core.util.WeatherType
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 @Composable
 fun HourlyWeatherDisplay(
     modifier: Modifier = Modifier,
-    main: Main,
     list: List,
     weather: Weather,
+    main: Main,
 ) {
-    val formattedTime = remember(list.dt) {
+    val formattedTime = remember(String) {
         val sdf = SimpleDateFormat("HH:mm")
-        val netDate = Date(list.dt.toLong() * 1000)
-        sdf.format(netDate)
+        val localDateTime = ZonedDateTime
+            .now(ZoneId.of("Europe/Moscow"))
+            .format(DateTimeFormatter.ofPattern("HH:mm"))
+
+        val apiTime = sdf.format(Date(list.dt.toLong() * 1000))
+        val apiTimePlus3H = sdf.format(Date((list.dt.toLong() + 10800) * 1000))
+
+        if (localDateTime > apiTime && localDateTime < apiTimePlus3H) {
+            "Сейчас"
+        } else {
+            apiTime
+        }
+
     }
 
     Column(

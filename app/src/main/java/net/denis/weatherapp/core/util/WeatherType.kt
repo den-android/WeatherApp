@@ -30,7 +30,6 @@ sealed class WeatherType(
     )
 
     // Thunderstorm
-
     object Thunderstorm200 : WeatherType(
         iconRes = R.drawable.ic_thunder
     )
@@ -193,7 +192,6 @@ sealed class WeatherType(
     object Show622 : WeatherType(
         iconRes = R.drawable.ic_rainshower
     )
-
 
     //Testing
     object TestIcon : WeatherType(

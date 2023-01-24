@@ -14,8 +14,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Weather
-import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.WeatherDto
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
 import net.denis.weatherapp.core.presentation.ui.theme.WeatherText
@@ -30,7 +28,6 @@ fun CurrentWeatherInfoDisplay(
     currentDateTime: String,
     weatherIcon: Int,
 ) {
-
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -71,14 +68,14 @@ fun CurrentWeatherInfoDisplay(
 private fun CustomTextBox(
     modifier: Modifier = Modifier,
     text: String,
-    size: Int? = null ?: 20,
-    color: Color? = null ?: PrimaryText,
+    size: Int = 20,
+    color: Color = PrimaryText,
 ) {
     Text(
         text = text,
         textAlign = TextAlign.Center,
-        color = color!!,
-        fontSize = size!!.sp,
+        fontSize = size.sp,
+        color = color,
         fontFamily = FontFamily.SansSerif,
         modifier = modifier
             .background(CityBackground)
