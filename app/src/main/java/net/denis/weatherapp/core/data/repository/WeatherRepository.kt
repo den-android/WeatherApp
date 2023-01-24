@@ -28,7 +28,7 @@ class WeatherRepository @Inject constructor(
                     emit(data.data)
                 }
                 is NetworkResult.Error -> {
-                    
+
                 }
                 is NetworkResult.Exception -> {
 

@@ -53,7 +53,7 @@ fun CurrentWeatherInfoDisplay(
 
             ) {
             CustomTextBox(text = city)
-            CustomTextBox(text = "${temp}°", size = 120)
+            CustomTextBox(text = "${temp}°", size = 100)
             CustomTextBox(text = weatherDesc, color = WeatherText)
             CustomTextBox(text = currentDateTime)
 
