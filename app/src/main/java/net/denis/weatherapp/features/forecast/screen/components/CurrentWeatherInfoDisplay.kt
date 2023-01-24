@@ -3,7 +3,6 @@ package net.denis.weatherapp.features.forecast.screen.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -13,10 +12,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Weather
+import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.WeatherDto
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
 import net.denis.weatherapp.core.presentation.ui.theme.WeatherText
@@ -26,10 +25,12 @@ import net.denis.weatherapp.core.util.WeatherType
 fun CurrentWeatherInfoDisplay(
     modifier: Modifier = Modifier,
     city: String,
-    temp: String,
-    weather: String,
+    temp: Double,
+    weatherDesc: String,
+    currentDateTime: String,
     weatherIcon: Int,
 ) {
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -47,21 +48,19 @@ fun CurrentWeatherInfoDisplay(
                     bottom = 48.dp
                 )
                 .background(color = CityBackground),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceAround,
+
+            ) {
             CustomTextBox(text = city)
             CustomTextBox(text = "${temp}°", size = 120)
-            CustomTextBox(text = weather, color = WeatherText)
-            Row {
-//                CustomTextBox(text = "H: ${lat.toString()}°")
-//                Spacer(Modifier.width(16.dp))
-//                CustomTextBox(text = "L: ${lon.toString()}°")
-            }
+            CustomTextBox(text = weatherDesc, color = WeatherText)
+            CustomTextBox(text = currentDateTime)
 
         }
         Spacer(modifier.height(8.dp))
         Image(
-            painter = painterResource(id = WeatherType.fromWMO(1).iconRes),
+            painter = painterResource(id = WeatherType.fromWMO(code = weatherIcon).iconRes),
             contentDescription = null,
             modifier = modifier.width(200.dp)
         )
@@ -83,17 +82,16 @@ private fun CustomTextBox(
         fontFamily = FontFamily.SansSerif,
         modifier = modifier
             .background(CityBackground)
-
     )
 }
 
-@Preview(showBackground = true)
-@Composable
-fun ShowCurrentWeatherInfoDisplay() {
-    CurrentWeatherInfoDisplay(
-        city = "Moscow",
-        temp = "20",
-        weather = "Cloudy",
-        weatherIcon = 1,
-    )
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun ShowCurrentWeatherInfoDisplay() {
+//    CurrentWeatherInfoDisplay(
+//        city = "Moscow",
+//        temp = "20",
+//        weather = "Overcast cloud",
+//        weatherIcon = 801,
+//    )
+//}

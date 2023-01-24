@@ -10,9 +10,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import net.denis.weatherapp.core.presentation.ui.theme.WeatherAppTheme
+import net.denis.weatherapp.features.forecast.screen.CityDetailScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -26,6 +28,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
 
+                    CityDetailScreen(vm = viewModel())
 
                 }
             }

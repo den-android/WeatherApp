@@ -1,10 +1,13 @@
 package net.denis.weatherapp.core.data.repository
 
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import net.denis.weatherapp.core.data.datasource.local.LocalDatasource
 import net.denis.weatherapp.core.data.datasource.remote.RemoteDatasource
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.WeatherDto
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
+import net.denis.weatherapp.core.util.NetworkResult
 import javax.inject.Inject
 
 class WeatherRepository @Inject constructor(
@@ -18,6 +21,19 @@ class WeatherRepository @Inject constructor(
         exclude: String,
         apiKey: String
     ): Flow<WeatherDto> {
-        TODO("Not yet implemented")
+        val data = remoteDatasource.getForecastByCity(lat, lon, exclude, apiKey)
+        return flow {
+            when (data) {
+                is NetworkResult.Success -> {
+                    emit(data.data)
+                }
+                is NetworkResult.Error -> {
+                    
+                }
+                is NetworkResult.Exception -> {
+
+                }
+            }
+        }
     }
 }
