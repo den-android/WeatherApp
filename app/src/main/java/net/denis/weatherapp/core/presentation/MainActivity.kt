@@ -15,6 +15,7 @@ import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import net.denis.weatherapp.core.presentation.ui.theme.WeatherAppTheme
 import net.denis.weatherapp.features.forecast.screen.CityDetailScreen
+import net.denis.weatherapp.features.forecast.screen.components.CellWithIndicator
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -29,7 +30,6 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
 
                     CityDetailScreen(vm = viewModel())
-
                 }
             }
         }

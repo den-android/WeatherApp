@@ -13,6 +13,10 @@ val Pink40 = Color(0xFF7D5260)
 val PrimaryText = Color(0xFFDFDFDF)
 val WeatherText = Color(0xFFC0C0C0)
 
+val StartGradientColor = Color(0xFF10EBFF)
+val MiddleGradientColor = Color(0xFFAF01FF)
+val EndGradientColor = Color(0xFFFF1010)
+
 val CityBackground = Color(0xFF4652B3)
 
 val CurrentHourlyItem = Color(0xFF3A47B6)
