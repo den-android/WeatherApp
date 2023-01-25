@@ -5,21 +5,16 @@ import android.icu.text.DecimalFormatSymbols
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
-import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
 import net.denis.weatherapp.core.presentation.ui.theme.WeatherText
 import net.denis.weatherapp.core.util.WeatherType
+import net.denis.weatherapp.features.forecast.screen.components.compose_items.CustomTextBox
 import java.util.*
 
 @Composable
@@ -50,13 +45,11 @@ fun CurrentWeatherInfoDisplay(
                 .background(color = CityBackground),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceAround,
-
-            ) {
+        ) {
             CustomTextBox(text = city)
             CustomTextBox(text = "${roundTemp(temp)}°", size = 100)
             CustomTextBox(text = weatherDesc, color = WeatherText)
             CustomTextBox(text = currentDateTime)
-
         }
         Spacer(modifier.height(8.dp))
         Image(
@@ -67,36 +60,7 @@ fun CurrentWeatherInfoDisplay(
     }
 }
 
-@Composable
-private fun CustomTextBox(
-    modifier: Modifier = Modifier,
-    text: String,
-    size: Int = 20,
-    color: Color = PrimaryText,
-) {
-    Text(
-        text = text,
-        textAlign = TextAlign.Center,
-        fontSize = size.sp,
-        color = color,
-        fontFamily = FontFamily.SansSerif,
-        modifier = modifier
-            .background(CityBackground)
-    )
-}
-
 private fun roundTemp(temp: Double): Double {
     val df = DecimalFormat("#", DecimalFormatSymbols(Locale.ENGLISH))
     return df.format(temp.toBigDecimal()).toDouble()
 }
-
-//@Preview(showBackground = true)
-//@Composable
-//fun ShowCurrentWeatherInfoDisplay() {
-//    CurrentWeatherInfoDisplay(
-//        city = "Moscow",
-//        temp = "20",
-//        weather = "Overcast cloud",
-//        weatherIcon = 801,
-//    )
-//}

@@ -11,18 +11,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.WeatherDto
 import net.denis.weatherapp.features.forecast.mvi.ForecastViewModel
 
 @Composable
 fun WeatherForecastDisplay(
     modifier: Modifier = Modifier,
-    vm: ForecastViewModel,
+    weatherDto: WeatherDto,
     onClick: (Int) -> Unit,
 ) {
-    val state = vm.viewState.collectAsState()
-    val weather = state.value.weather
 
-    weather?.list?.let { data ->
+    weatherDto?.list?.let { data ->
         Column(
             modifier = modifier
                 .fillMaxWidth()

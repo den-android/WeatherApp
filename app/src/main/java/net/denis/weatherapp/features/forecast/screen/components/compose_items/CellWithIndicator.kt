@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.sp
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
-import net.denis.weatherapp.features.forecast.screen.components.CustomLPB
 
 @Composable
 fun CellWithIndicator(

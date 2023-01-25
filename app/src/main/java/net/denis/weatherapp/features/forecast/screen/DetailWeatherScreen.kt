@@ -1,17 +1,18 @@
 package net.denis.weatherapp.features.forecast.screen
 
-import android.widget.Space
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.WeatherDto
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.features.forecast.mvi.ForecastViewModel
@@ -26,17 +27,23 @@ fun CityDetailWeatherScreen(
     vm: ForecastViewModel,
     currentCnt: Int,
 ) {
+    val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
+
     val state = vm.viewState.collectAsState()
     val weather = state.value.weather
 
-    weather?.let { items ->
+    weather?.let { itemWeather ->
+        Toolbar(
+            label = itemWeather.city.name,
+            onClicked = {
+                onBackPressedDispatcher?.onBackPressed()
+            }
+        )
         DetailItems(
-            weatherDto = items,
+            weatherDto = itemWeather,
             currentCnt = currentCnt,
         )
-
     }
-
 
 }
 
@@ -46,8 +53,41 @@ private fun DetailItems(
     weatherDto: WeatherDto,
     currentCnt: Int,
 ) {
-    val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(CityBackground),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top,
+    ) {
+        for (i in 0..weatherDto.cnt - 1) {
+            if (currentCnt == weatherDto.list[i].dt) {
+                LazyColumn {
+                    item {
+                        CellWithIndicator(
+                            title = "Ветер",
+                            indicatorValue = weatherDto.list[i].wind.speed.toFloat() / 10f
+                        )
+                    }
+                    items(weatherDto.list[i]) { weatherDtoItem ->
+                        LazyRow {
+                            items(weatherDtoItem)
 
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@Composable
+private fun DetailItems2(
+    modifier: Modifier = Modifier,
+    weatherDto: WeatherDto,
+    currentCnt: Int,
+) {
     for (i in 0..weatherDto.cnt - 1) {
         if (currentCnt == weatherDto.list[i].dt) {
             val formattedSunrise = remember(String) {
@@ -67,12 +107,7 @@ private fun DetailItems(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top,
             ) {
-                Toolbar(
-                    label = weatherDto.city.name,
-                    onClicked = {
-                        onBackPressedDispatcher?.onBackPressed()
-                    }
-                )
+
                 // Start Top item
                 CellWithIndicator(
                     modifier = modifier

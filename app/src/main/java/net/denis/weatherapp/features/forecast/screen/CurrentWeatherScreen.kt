@@ -1,7 +1,6 @@
 package net.denis.weatherapp.features.forecast.screen
 
 import android.icu.text.SimpleDateFormat
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +13,7 @@ import androidx.navigation.NavController
 import net.denis.weatherapp.core.presentation.navigation.Screen
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.features.forecast.mvi.ForecastViewModel
+import net.denis.weatherapp.features.forecast.screen.components.BottomNavigateMenu
 import net.denis.weatherapp.features.forecast.screen.components.CurrentWeatherInfoDisplay
 import net.denis.weatherapp.features.forecast.screen.components.WeatherForecastDisplay
 import java.util.*
@@ -27,7 +27,7 @@ fun CityCurrentWeatherScreen(
     val state = vm.viewState.collectAsState()
     val weather = state.value.weather
 
-    weather?.let {
+    weather?.let { itemWeather ->
         Column(
             modifier = modifier
                 .fillMaxSize()
@@ -36,27 +36,27 @@ fun CityCurrentWeatherScreen(
             Box(
                 modifier = modifier.weight(3f)
             ) {
-                val formattedTime = remember(it.list.get(0).dt) {
+                val formattedTime = remember(itemWeather.list.get(0).dt) {
                     val sdf = SimpleDateFormat("HH:mm")
-                    val netDate = Date(it.list.get(0).dt.toLong() * 1000)
+                    val netDate = Date(itemWeather.list.get(0).dt.toLong() * 1000)
                     sdf.format(netDate)
                 }
                 CurrentWeatherInfoDisplay(
-                    city = it.city.name,
-                    temp = it.list.get(0).main.temp,
-                    weatherDesc = it.list.get(0).weather.get(0).description,
+                    city = itemWeather.city.name,
+                    temp = itemWeather.list.get(0).main.temp,
+                    weatherDesc = itemWeather.list.get(0).weather.get(0).description,
                     currentDateTime = formattedTime,
-                    weatherIcon = it.list.get(0).weather.get(0).id
+                    weatherIcon = itemWeather.list.get(0).weather.get(0).id
                 )
             }
             Box(
                 modifier = modifier.weight(1f),
             ) {
                 WeatherForecastDisplay(
-                    vm = vm,
+                    weatherDto = itemWeather,
                     onClick = {
                         navController.navigate(
-                            route = Screen.DetailForecast.passDetailCnt(
+                            route = Screen.DetailForecastScreen.passDetailCnt(
                                 cnt = it
                             )
                         )
@@ -64,6 +64,15 @@ fun CityCurrentWeatherScreen(
                 )
             }
 
+            BottomNavigateMenu(
+                onFabClicked = {
+                    navController.navigate(
+                        route = Screen.SearchCityScreen.passQuerry(
+                            city = it
+                        )
+                    )
+                }
+            )
         }
     }
 

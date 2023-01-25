@@ -28,7 +28,7 @@ fun FindNewCityScreen(
         verticalArrangement = Arrangement.Top
     ) {
         TextField(
-            value = "123",
+            value = city,
             onValueChange = vm::searchCity
         )
     }
