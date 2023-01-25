@@ -45,22 +45,16 @@ fun CityDetailWeatherScreen(
                     verticalArrangement = Arrangement.SpaceBetween,
                 ) {
                     LazyColumn {
-                        item {
-                            WindDetail(list = weatherData)
-                        }
-                        item {
-                            LazyRow {
-                                item {
-                                    SunriseDetail(city = weather.city)
-                                    SunsetDetail(city = weather.city)
+                        items(dataFromMap) { item ->
+                            when (item) {
+                                is MultipleView.Cloudy -> {
+
                                 }
-                            }
-                        }
-                        item {
-                            LazyRow {
-                                item {
-                                    CloudyDetail(clouds = weatherData.clouds)
-                                    VisibilityDetail(visibility = weatherData.visibility)
+                                is Mul.Visibily -> {
+
+                                }
+                                else -> {
+
                                 }
                             }
                         }
