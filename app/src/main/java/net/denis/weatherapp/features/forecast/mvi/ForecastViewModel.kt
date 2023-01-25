@@ -24,4 +24,10 @@ class ForecastViewModel @Inject constructor(
         }
     }
 
+    fun searchCity(city: String) {
+        viewModelScope.launch {
+
+        }
+    }
+
 }
