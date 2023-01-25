@@ -49,7 +49,7 @@ fun CustomLinearProgressBar(
                 end = Offset(x = size.width, y = 0f),
                 strokeWidth = 15F,
                 color = Color.Magenta,
-                cap = StrokeCap.Round
+                cap = StrokeCap.Round,
             )
             var x: Float = size.width * percentage
             var y: Float = 0f
