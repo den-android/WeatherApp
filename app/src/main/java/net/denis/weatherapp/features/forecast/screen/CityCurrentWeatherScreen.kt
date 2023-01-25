@@ -1,6 +1,7 @@
 package net.denis.weatherapp.features.forecast.screen
 
 import android.icu.text.SimpleDateFormat
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
+import net.denis.weatherapp.core.presentation.navigation.Screen
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.features.forecast.mvi.ForecastViewModel
 import net.denis.weatherapp.features.forecast.screen.components.CurrentWeatherInfoDisplay
@@ -50,7 +52,16 @@ fun CityCurrentWeatherScreen(
             Box(
                 modifier = modifier.weight(1f),
             ) {
-                WeatherForecastDisplay(vm = vm)
+                WeatherForecastDisplay(
+                    vm = vm,
+                    onClick = {
+                        navController.navigate(
+                            route = Screen.DetailForecast.passDetailCnt(
+                                cnt = it
+                            )
+                        )
+                    }
+                )
             }
 
         }
