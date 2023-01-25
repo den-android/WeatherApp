@@ -9,8 +9,10 @@ import androidx.navigation.navArgument
 import net.denis.weatherapp.features.forecast.mvi.ForecastViewModel
 import net.denis.weatherapp.features.forecast.screen.CityCurrentWeatherScreen
 import net.denis.weatherapp.features.forecast.screen.CityDetailWeatherScreen
+import net.denis.weatherapp.features.forecast.screen.FindNewCityScreen
 
 private const val PARAM_CNT = "cnt"
+private const val PARAM_QUERRY = "city"
 
 @Composable
 fun NavGraph(
@@ -19,16 +21,16 @@ fun NavGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.CurrentForecast.route
+        startDestination = Screen.CurrentForecastScreen.route
     ) {
         composable(
-            route = Screen.CurrentForecast.route
+            route = Screen.CurrentForecastScreen.route
         ) {
             CityCurrentWeatherScreen(navController = navController, vm = vm)
         }
 
         composable(
-            route = Screen.DetailForecast.route,
+            route = Screen.DetailForecastScreen.route,
             arguments = listOf(
                 navArgument(PARAM_CNT) {
                     type = NavType.IntType
@@ -39,6 +41,21 @@ fun NavGraph(
             val cnt = navBackStackEntry.arguments?.getInt(PARAM_CNT)
             if (cnt != null) {
                 CityDetailWeatherScreen(currentCnt = cnt, vm = vm)
+            }
+        }
+
+        composable(
+            route = Screen.SearchCityScreen.route,
+            arguments = listOf(
+                navArgument(PARAM_QUERRY) {
+                    type = NavType.StringType
+                    defaultValue = "Москва"
+                }
+            )
+        ) { navBackStackEntry ->
+            val city = navBackStackEntry.arguments?.getString(PARAM_QUERRY)
+            if (city != null) {
+                FindNewCityScreen(city = city, vm = vm)
             }
         }
     }
