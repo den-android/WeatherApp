@@ -1,5 +1,7 @@
 package net.denis.weatherapp.features.forecast.screen.components
 
+import android.icu.text.DecimalFormat
+import android.icu.text.DecimalFormatSymbols
 import android.icu.text.SimpleDateFormat
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -37,7 +39,7 @@ fun HourlyWeatherDisplay(
             .format(DateTimeFormatter.ofPattern("HH:mm"))
 
         val apiTime = sdf.format(Date(list.dt.toLong() * 1000))
-        val apiTimePlus3H = sdf.format(Date((list.dt.toLong() + 10800) * 1000))
+        val apiTimePlus3H = sdf.format(Date((list.dt.plus(10799).toLong()) * 1000))
 
         if (localDateTime > apiTime && localDateTime < apiTimePlus3H) {
             "Сейчас"
@@ -62,9 +64,14 @@ fun HourlyWeatherDisplay(
             modifier = Modifier.width(40.dp)
         )
         Text(
-            text = "${main.temp}°C",
+            text = "${roundTemp(main.temp)}°C",
             color = PrimaryText,
             fontWeight = FontWeight.Bold
         )
     }
+}
+
+private fun roundTemp(temp: Double): Double {
+    val df = DecimalFormat("#", DecimalFormatSymbols(Locale.ENGLISH))
+    return df.format(temp.toBigDecimal()).toDouble()
 }

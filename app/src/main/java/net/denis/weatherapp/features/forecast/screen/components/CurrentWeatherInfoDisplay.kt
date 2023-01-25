@@ -1,5 +1,7 @@
 package net.denis.weatherapp.features.forecast.screen.components
 
+import android.icu.text.DecimalFormat
+import android.icu.text.DecimalFormatSymbols
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -18,6 +20,7 @@ import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
 import net.denis.weatherapp.core.presentation.ui.theme.WeatherText
 import net.denis.weatherapp.core.util.WeatherType
+import java.util.*
 
 @Composable
 fun CurrentWeatherInfoDisplay(
@@ -50,7 +53,7 @@ fun CurrentWeatherInfoDisplay(
 
             ) {
             CustomTextBox(text = city)
-            CustomTextBox(text = "${temp}°", size = 100)
+            CustomTextBox(text = "${roundTemp(temp)}°", size = 100)
             CustomTextBox(text = weatherDesc, color = WeatherText)
             CustomTextBox(text = currentDateTime)
 
@@ -80,6 +83,11 @@ private fun CustomTextBox(
         modifier = modifier
             .background(CityBackground)
     )
+}
+
+private fun roundTemp(temp: Double): Double {
+    val df = DecimalFormat("#", DecimalFormatSymbols(Locale.ENGLISH))
+    return df.format(temp.toBigDecimal()).toDouble()
 }
 
 //@Preview(showBackground = true)
