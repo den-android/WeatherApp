@@ -1,6 +1,7 @@
 package net.denis.weatherapp.features.forecast.screen
 
 import android.widget.Space
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
@@ -10,9 +11,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.WeatherDto
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.features.forecast.mvi.ForecastViewModel
+import net.denis.weatherapp.features.forecast.screen.components.Toolbar
 import net.denis.weatherapp.features.forecast.screen.components.compose_items.CellWithIndicator
 import net.denis.weatherapp.features.forecast.screen.components.compose_items.CellWithText
 import java.text.SimpleDateFormat
@@ -43,6 +46,8 @@ private fun DetailItems(
     weatherDto: WeatherDto,
     currentCnt: Int,
 ) {
+    val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
+
     for (i in 0..weatherDto.cnt - 1) {
         if (currentCnt == weatherDto.list[i].dt) {
             val formattedSunrise = remember(String) {
@@ -62,6 +67,12 @@ private fun DetailItems(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Top,
             ) {
+                Toolbar(
+                    label = weatherDto.city.name,
+                    onClicked = {
+                        onBackPressedDispatcher?.onBackPressed()
+                    }
+                )
                 // Start Top item
                 CellWithIndicator(
                     modifier = modifier
