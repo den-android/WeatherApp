@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
@@ -41,12 +42,14 @@ fun CellWithIndicator(
                 text = title,
                 fontSize = 22.sp,
                 color = PrimaryText,
+                textAlign = TextAlign.Center,
             )
             Spacer(modifier = modifier.height(2.dp))
             Text(
                 text = text,
                 fontSize = 16.sp,
                 color = PrimaryText,
+                textAlign = TextAlign.Center,
             )
             Spacer(modifier = modifier.height(2.dp))
             CustomLPB(indicatorValue = indicatorValue)
@@ -55,6 +58,7 @@ fun CellWithIndicator(
                 text = description,
                 fontSize = 14.sp,
                 color = PrimaryText,
+                textAlign = TextAlign.Center,
             )
         }
     }

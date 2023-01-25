@@ -106,7 +106,7 @@ private fun DetailItems(
                     CellWithText(
                         title = "Облачность",
                         text = "${weatherDto.list[i].clouds.all}%\nза последние 3 часа",
-                        description = "${weatherDto.list[i].weather[i].description}",
+                        description = "${weatherDto.list[i].weather[0].description}",
                         modifier = modifier
                             .weight(0.5f)
                     )
