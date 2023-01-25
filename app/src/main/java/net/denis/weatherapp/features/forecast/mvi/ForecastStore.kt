@@ -11,7 +11,7 @@ class ForecastStore @Inject constructor(
     initialState = ForecastState(),
     reducer = ForecastReducer(),
     middlewares = listOf(
-        LoggingMiddleware(),
+        //LoggingMiddleware(),
         ForecastDataMiddleware(weatherRepository),
     )
 )
