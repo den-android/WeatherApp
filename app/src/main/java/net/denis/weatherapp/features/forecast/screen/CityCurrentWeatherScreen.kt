@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.features.forecast.mvi.ForecastViewModel
 import net.denis.weatherapp.features.forecast.screen.components.CurrentWeatherInfoDisplay
@@ -16,8 +17,9 @@ import net.denis.weatherapp.features.forecast.screen.components.WeatherForecastD
 import java.util.*
 
 @Composable
-fun CityDetailScreen(
+fun CityCurrentWeatherScreen(
     modifier: Modifier = Modifier,
+    navController: NavController,
     vm: ForecastViewModel,
 ) {
     val state = vm.viewState.collectAsState()
