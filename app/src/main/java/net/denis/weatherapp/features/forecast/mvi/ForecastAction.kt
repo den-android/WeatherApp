@@ -7,6 +7,6 @@ import net.denis.weatherapp.features.forecast.model.MultipleView
 sealed class ForecastAction : Action {
 
     object ForecastLoading : ForecastAction()
-    data class ForecastLoaded(val meteorologyItem: MultipleView<MeteorologyItem>) : ForecastAction()
+    data class ForecastLoaded(val meteorologyItem: MeteorologyItem) : ForecastAction()
 
 }

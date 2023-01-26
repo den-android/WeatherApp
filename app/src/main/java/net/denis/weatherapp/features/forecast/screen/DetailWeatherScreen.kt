@@ -15,7 +15,7 @@ import java.util.*
 @Composable
 fun CityDetailWeatherScreen(
     modifier: Modifier = Modifier,
-    weather: MultipleView<MeteorologyItem>,
+    weather: List<MeteorologyItem>,
     currentCnt: Int,
 ) {
 
@@ -24,16 +24,13 @@ fun CityDetailWeatherScreen(
             .fillMaxSize()
             .background(CityBackground)
     ) {
-        item {
-            when (weather) {
+        items(weather) { item ->
+            when (item) {
                 is MultipleView.ItemWind -> {
-                    WindDetail(wind = weather.wind)
+                    CellWithText()
                 }
                 is MultipleView.ItemCloud -> {
-                    CloudyDetail(clouds = weather.cloud)
-                }
-                is MultipleView.ItemForecast -> {
-                    VisibilityDetail(visibility = weather.forecast.visibility)
+                    CellWithIndicator()
                 }
                 else -> {}
             }

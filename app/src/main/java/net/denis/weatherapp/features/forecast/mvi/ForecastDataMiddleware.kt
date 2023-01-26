@@ -30,22 +30,11 @@ class ForecastDataMiddleware(
 
     private suspend fun forecastLoading(store: Store<ForecastState, ForecastAction>) {
         weatherRepository.getForecast(lat = 55.7504461, lon = 37.6174943, exclude = "alerts", apiKey = "b05865d24d90b1dbccfb3ced2627b4e9")
+            .map {it.toFirstScreen}
             .collect { data ->
-                
+                store.dispatch(ForecastAction.ForecastLoaded(meteorologyItem = data))
             }
 
     }
-//        weatherRepository.getForecast(lat = 55.7504461, lon = 37.6174943, exclude = "alerts", apiKey = "b05865d24d90b1dbccfb3ced2627b4e9",)
-//
-//            .collect { data ->
-//
-//
-//                val mappedData: MultipleView<MeteorologyItem> = data
-//                store.dispatch(ForecastAction.ForecastLoaded(meteorologyItem = mappedData))
-//            }
-//    }
 
 }
-
-
-//store.dispatch(ForecastAction.ForecastLoaded(meteorologyItem = mappedData))
