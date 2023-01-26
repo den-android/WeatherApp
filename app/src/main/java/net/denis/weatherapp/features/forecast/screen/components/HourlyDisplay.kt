@@ -15,11 +15,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.List
-import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Main
-import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Weather
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
 import net.denis.weatherapp.core.util.WeatherType
+import net.denis.weatherapp.features.forecast.model.Forecast
+import net.denis.weatherapp.features.forecast.model.Main
+import net.denis.weatherapp.features.forecast.model.Meteorology
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
@@ -28,8 +28,8 @@ import java.util.*
 @Composable
 fun HourlyWeatherDisplay(
     modifier: Modifier = Modifier,
-    list: List,
-    weather: Weather,
+    forecast: Forecast,
+    meteorology: Meteorology,
     main: Main,
 ) {
     val formattedTime = remember(String) {
@@ -38,8 +38,8 @@ fun HourlyWeatherDisplay(
             .now(ZoneId.of("Europe/Moscow"))
             .format(DateTimeFormatter.ofPattern("HH:mm"))
 
-        val apiTime = sdf.format(Date(list.dt.toLong() * 1000))
-        val apiTimePlus3H = sdf.format(Date((list.dt.plus(10799).toLong()) * 1000))
+        val apiTime = sdf.format(Date(forecast.dt.toLong() * 1000))
+        val apiTimePlus3H = sdf.format(Date((forecast.dt.plus(10799).toLong()) * 1000))
 
         if (localDateTime > apiTime && localDateTime < apiTimePlus3H) {
             "Сейчас"
@@ -59,7 +59,7 @@ fun HourlyWeatherDisplay(
             color = PrimaryText
         )
         Image(
-            painter = painterResource(id = WeatherType.fromWMO(code = weather.id).iconRes),
+            painter = painterResource(id = WeatherType.fromWMO(code = meteorology.id).iconRes),
             contentDescription = null,
             modifier = Modifier.width(40.dp)
         )

@@ -25,7 +25,7 @@ fun CityCurrentWeatherScreen(
     vm: ForecastViewModel,
 ) {
     val state = vm.viewState.collectAsState()
-    val weather = state.value.weather
+    val weather = state.value.meteorologyItem
 
     weather?.let { itemWeather ->
         Column(
@@ -36,24 +36,24 @@ fun CityCurrentWeatherScreen(
             Box(
                 modifier = modifier.weight(3f)
             ) {
-                val formattedTime = remember(itemWeather.list.get(0).dt) {
+                val formattedTime = remember(itemWeather.forecast.get(0).dt) {
                     val sdf = SimpleDateFormat("HH:mm")
-                    val netDate = Date(itemWeather.list.get(0).dt.toLong() * 1000)
+                    val netDate = Date(itemWeather.forecast.get(0).dt.toLong() * 1000)
                     sdf.format(netDate)
                 }
                 CurrentWeatherInfoDisplay(
                     city = itemWeather.city.name,
-                    temp = itemWeather.list.get(0).main.temp,
-                    weatherDesc = itemWeather.list.get(0).weather.get(0).description,
+                    temp = itemWeather.forecast.get(0).main.temp,
+                    weatherDesc = itemWeather.forecast.get(0).meteorology.get(0).description,
                     currentDateTime = formattedTime,
-                    weatherIcon = itemWeather.list.get(0).weather.get(0).id
+                    weatherIcon = itemWeather.forecast.get(0).meteorology.get(0).id
                 )
             }
             Box(
                 modifier = modifier.weight(1f),
             ) {
                 WeatherForecastDisplay(
-                    weatherDto = itemWeather,
+                    meteorologyItem = itemWeather,
                     onClick = {
                         navController.navigate(
                             route = Screen.DetailForecastScreen.passDetailCnt(

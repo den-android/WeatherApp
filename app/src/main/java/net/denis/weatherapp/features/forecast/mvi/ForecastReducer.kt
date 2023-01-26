@@ -16,7 +16,7 @@ class ForecastReducer : Reducer<ForecastState, ForecastAction> {
             is ForecastAction.ForecastLoaded -> {
                 currentState.copy(
                     isLoading = false,
-                    weather = action.items,
+                    meteorologyItem = action.meteorologyItem,
                 )
             }
 

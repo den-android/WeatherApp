@@ -1,25 +1,18 @@
 package net.denis.weatherapp.features.forecast.screen
 
 import android.util.Log
-import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.modifier.modifierLocalConsumer
-import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.*
-import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.List
+import androidx.compose.ui.unit.dp
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
-import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
+import net.denis.weatherapp.features.forecast.model.*
 import net.denis.weatherapp.features.forecast.mvi.ForecastViewModel
-import net.denis.weatherapp.features.forecast.screen.components.Toolbar
 import net.denis.weatherapp.features.forecast.screen.components.compose_items.CellWithIndicator
 import net.denis.weatherapp.features.forecast.screen.components.compose_items.CellWithText
 import java.text.SimpleDateFormat
@@ -32,32 +25,22 @@ fun CityDetailWeatherScreen(
     currentCnt: Int,
 ) {
     val state = vm.viewState.collectAsState()
-    val weather = state.value.weather
+    val meteorology = state.value.meteorologyItem
 
-    weather?.list?.let { itemList ->
-        itemList.forEach { weatherData ->
-            if (currentCnt == weatherData.dt) {
-                Column(
-                    modifier = modifier
-                        .fillMaxSize()
-                        .background(CityBackground),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.SpaceBetween,
-                ) {
-                    LazyColumn {
-                        items(dataFromMap) { item ->
-                            when (item) {
-                                is MultipleView.Cloudy -> {
-
-                                }
-                                is Mul.Visibily -> {
-
-                                }
-                                else -> {
-
-                                }
-                            }
-                        }
+    meteorology?.let { meteorologyItem ->
+        meteorology?.forecast?.let { forecastItems ->
+            LazyColumn(
+                modifier = modifier
+                    .fillMaxSize()
+                    .background(CityBackground),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceBetween,
+            ) {
+                items(forecastItems) { forecastItem ->
+                    if (forecastItem.dt == currentCnt) {
+                        multiView(code = "Wind", forecastItem)
+                        multiView(code = "Cloud", forecastItem)
+                        multiView(code = "Visibility", forecastItem)
                     }
                 }
             }
@@ -65,16 +48,25 @@ fun CityDetailWeatherScreen(
     }
 }
 
+@Composable
+fun multiView(code: String, forecast: Forecast) = when (code) {
+    "Wind" -> WindDetail(forecast = forecast)
+    "Cloud" -> CloudyDetail(clouds = forecast.clouds)
+    "Visibility" -> VisibilityDetail(visibility = forecast.visibility)
+    else -> {
+        MultipleView.EmptyItem
+    }
+}
 
 @Composable
 fun WindDetail(
     modifier: Modifier = Modifier,
-    list: List,
+    forecast: Forecast,
 ) {
     CellWithIndicator(
         title = "Ветер",
-        text = "${list.wind.speed}км/ч",
-        indicatorValue = list.wind.speed.toFloat() / 10f,
+        text = "${forecast.wind.speed}км/ч",
+        indicatorValue = forecast.wind.speed.toFloat() / 10f,
         description = "интенсивность ветра"
     )
 }

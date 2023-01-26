@@ -8,20 +8,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.WeatherDto
-import net.denis.weatherapp.features.forecast.mvi.ForecastViewModel
+import net.denis.weatherapp.features.forecast.model.MeteorologyItem
 
 @Composable
 fun WeatherForecastDisplay(
     modifier: Modifier = Modifier,
-    weatherDto: WeatherDto,
+    meteorologyItem: MeteorologyItem,
     onClick: (Int) -> Unit,
 ) {
 
-    weatherDto?.list?.let { data ->
+    meteorologyItem?.forecast?.let { data ->
         Column(
             modifier = modifier
                 .fillMaxWidth()
@@ -30,8 +28,8 @@ fun WeatherForecastDisplay(
             LazyRow {
                 items(data) { weatherData ->
                     HourlyWeatherDisplay(
-                        list = weatherData,
-                        weather = weatherData.weather[0],
+                        forecast = weatherData,
+                        meteorology = weatherData.meteorology[0],
                         main = weatherData.main,
                         modifier = Modifier
                             .height(100.dp)
