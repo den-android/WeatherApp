@@ -18,7 +18,6 @@ fun WeatherForecastDisplay(
     meteorologyItem: MeteorologyItem,
     onClick: (Int) -> Unit,
 ) {
-
     meteorologyItem?.forecast?.let { data ->
         Column(
             modifier = modifier
@@ -40,6 +39,5 @@ fun WeatherForecastDisplay(
             }
         }
     }
-
 
 }

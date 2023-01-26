@@ -1,40 +1,16 @@
 package net.denis.weatherapp.features.forecast.model
 
-import androidx.compose.runtime.Composable
-import net.denis.weatherapp.core.util.WeatherType
-import net.denis.weatherapp.features.forecast.screen.CloudyDetail
-import net.denis.weatherapp.features.forecast.screen.VisibilityDetail
-import net.denis.weatherapp.features.forecast.screen.WindDetail
+sealed interface CityForecastInfo
+sealed interface DetailForecastInfo
 
-sealed class MultipleView {
-    object WindItem : MultipleView()
-    object CloudItem : MultipleView()
-    object VisibilityItem : MultipleView()
-    object EmptyItem: MultipleView()
+sealed class MultipleView<T: Any> {
+
+    data class ItemCity<T : Any>(val city: City) : MultipleView<T>()
+    data class ItemCloud<T : Any>(val cloud: Clouds) : MultipleView<T>()
+    data class ItemMain<T : Any>(val main: Main) : MultipleView<T>()
+    data class ItemMeteorology<T : Any>(val meteorology: Meteorology) : MultipleView<T>()
+    data class ItemListMeteorology<T : Any>(val meteorologyItem: MeteorologyItem) : MultipleView<T>()
+    data class ItemWind<T : Any>(val wind: Wind) : MultipleView<T>()
+    data class ItemForecast<T : Any>(val forecast: Forecast) : MultipleView<T>()
+
 }
-
-//    object CurrentItem: MultipleView()
-//    data class CityItem(val city: City) : MultipleView()
-//    data class CloudItem(val cloud: Clouds) : MultipleView()
-//    data class MainItem(val main: Main) : MultipleView()
-//    data class MeteorologyItem(val meteorology: Meteorology) : MultipleView()
-//    data class ListMeteorologyItem(val meteorologyItem: MeteorologyItem) : MultipleView()
-//    data class WindItem(val wind: Wind) : MultipleView()
-//    data class ForecastItem(val forecast: Forecast) : MultipleView()
-
-//    data class CityItem(val city: City) : MultipleView()
-//    data class CloudItem(val cloud: Clouds) : MultipleView()
-//    data class MainItem(val main: Main) : MultipleView()
-//    data class WeatherItem(val weather: Weather) : MultipleView()
-//    data class WeatherItemItem(val weatherItemItem: WeatherItem) : MultipleView()
-//    data class WindItem(val wind: Wind) : MultipleView()
-//    data class ForecastItem(val forecast: Forecast) : MultipleView()
-
-//    object CityItem : MultipleView()
-//    object CloudItem : MultipleView()
-//    object MainItem : MultipleView()
-//    object WeatherItemItem : MultipleView()
-//    object WindItem : MultipleView()
-//    object ForecastItem : MultipleView()
-
-

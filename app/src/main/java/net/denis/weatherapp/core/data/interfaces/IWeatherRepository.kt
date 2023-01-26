@@ -10,4 +10,5 @@ interface IWeatherRepository {
         exclude: String,
         apiKey: String,
     ): Flow<MeteorologyItem>
+
 }

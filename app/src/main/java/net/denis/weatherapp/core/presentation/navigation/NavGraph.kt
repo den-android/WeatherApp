@@ -1,6 +1,7 @@
 package net.denis.weatherapp.core.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -12,21 +13,26 @@ import net.denis.weatherapp.features.forecast.screen.CityDetailWeatherScreen
 import net.denis.weatherapp.features.forecast.screen.FindNewCityScreen
 
 private const val PARAM_CNT = "cnt"
-private const val PARAM_QUERRY = "city"
+private const val PARAM_QUERY = "city"
 
 @Composable
 fun NavGraph(
     navController: NavHostController,
     vm: ForecastViewModel,
 ) {
+    val state = vm.viewState.collectAsState()
+    val weather = state.value.meteorologyItem
+
     NavHost(
         navController = navController,
-        startDestination = Screen.CurrentForecastScreen.route
+        startDestination = Screen.DetailForecastScreen.route
     ) {
         composable(
             route = Screen.CurrentForecastScreen.route
         ) {
-            CityCurrentWeatherScreen(navController = navController, vm = vm)
+            if (weather != null) {
+                CityCurrentWeatherScreen(navController = navController, weather = weather)
+            }
         }
 
         composable(
@@ -39,23 +45,23 @@ fun NavGraph(
             )
         ) { navBackStackEntry ->
             val cnt = navBackStackEntry.arguments?.getInt(PARAM_CNT)
-            if (cnt != null) {
-                CityDetailWeatherScreen(currentCnt = cnt, vm = vm)
+            if (cnt != null && weather != null) {
+                CityDetailWeatherScreen(currentCnt = cnt, weather = weather)
             }
         }
 
         composable(
             route = Screen.SearchCityScreen.route,
             arguments = listOf(
-                navArgument(PARAM_QUERRY) {
+                navArgument(PARAM_QUERY) {
                     type = NavType.StringType
                     defaultValue = "Москва"
                 }
             )
         ) { navBackStackEntry ->
-            val city = navBackStackEntry.arguments?.getString(PARAM_QUERRY)
+            val city = navBackStackEntry.arguments?.getString(PARAM_QUERY)
             if (city != null) {
-                FindNewCityScreen(city = city, vm = vm)
+                FindNewCityScreen(city = city)
             }
         }
     }

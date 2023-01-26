@@ -23,11 +23,4 @@ class ForecastViewModel @Inject constructor(
             forecastStore.dispatch(ForecastAction.ForecastLoading)
         }
     }
-
-    fun searchCity(city: String) {
-        viewModelScope.launch {
-
-        }
-    }
-
 }

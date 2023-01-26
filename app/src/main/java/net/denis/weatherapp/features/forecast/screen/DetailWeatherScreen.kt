@@ -1,18 +1,12 @@
 package net.denis.weatherapp.features.forecast.screen
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Text
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.features.forecast.model.*
-import net.denis.weatherapp.features.forecast.mvi.ForecastViewModel
 import net.denis.weatherapp.features.forecast.screen.components.compose_items.CellWithIndicator
 import net.denis.weatherapp.features.forecast.screen.components.compose_items.CellWithText
 import java.text.SimpleDateFormat
@@ -21,52 +15,60 @@ import java.util.*
 @Composable
 fun CityDetailWeatherScreen(
     modifier: Modifier = Modifier,
-    vm: ForecastViewModel,
+    weather: MultipleView<MeteorologyItem>,
     currentCnt: Int,
 ) {
-    val state = vm.viewState.collectAsState()
-    val meteorology = state.value.meteorologyItem
 
-    meteorology?.let { meteorologyItem ->
-        meteorology?.forecast?.let { forecastItems ->
-            LazyColumn(
-                modifier = modifier
-                    .fillMaxSize()
-                    .background(CityBackground),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.SpaceBetween,
-            ) {
-                items(forecastItems) { forecastItem ->
-                    if (forecastItem.dt == currentCnt) {
-                        multiView(code = "Wind", forecastItem)
-                        multiView(code = "Cloud", forecastItem)
-                        multiView(code = "Visibility", forecastItem)
-                    }
+    LazyColumn(
+        modifier = modifier
+            .fillMaxSize()
+            .background(CityBackground)
+    ) {
+        item {
+            when (weather) {
+                is MultipleView.ItemWind -> {
+                    WindDetail(wind = weather.wind)
                 }
+                is MultipleView.ItemCloud -> {
+                    CloudyDetail(clouds = weather.cloud)
+                }
+                is MultipleView.ItemForecast -> {
+                    VisibilityDetail(visibility = weather.forecast.visibility)
+                }
+                else -> {}
             }
         }
     }
-}
 
-@Composable
-fun multiView(code: String, forecast: Forecast) = when (code) {
-    "Wind" -> WindDetail(forecast = forecast)
-    "Cloud" -> CloudyDetail(clouds = forecast.clouds)
-    "Visibility" -> VisibilityDetail(visibility = forecast.visibility)
-    else -> {
-        MultipleView.EmptyItem
-    }
+
+//    weather?.let { weatherItem ->
+//        weatherItem?.forecast?.let { forecastList ->
+//            LazyColumn(
+//                modifier = modifier
+//                    .fillMaxSize()
+//                    .background(CityBackground),
+//                horizontalAlignment = Alignment.CenterHorizontally,
+//                verticalArrangement = Arrangement.SpaceBetween,
+//            ) {
+//                items(forecastList) { forecastItem ->
+//                    if (forecastItem.dt == currentCnt) {
+//
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
 
 @Composable
 fun WindDetail(
     modifier: Modifier = Modifier,
-    forecast: Forecast,
+    wind: Wind,
 ) {
     CellWithIndicator(
         title = "Ветер",
-        text = "${forecast.wind.speed}км/ч",
-        indicatorValue = forecast.wind.speed.toFloat() / 10f,
+        text = "${wind.speed}км/ч",
+        indicatorValue = wind.speed.toFloat() / 10f,
         description = "интенсивность ветра"
     )
 }
