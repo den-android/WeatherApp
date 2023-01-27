@@ -10,7 +10,7 @@ class DetailStore @Inject constructor(
     initialState = DetailState(),
     reducer = DetailReducer(),
     middlewares = listOf(
-        LoggingMiddleware(),
+        //LoggingMiddleware(),
         DetailDataMiddleware(weatherRepository),
     )
 )

@@ -22,7 +22,7 @@ fun DetailWeatherScreen(
     detail: Detail,
     currentCnt: Int,
 ) {
-    Log.d("Logging", "${detail}")
+    Log.d("Logging", "SCREEN ${detail}")
 
     LazyColumn(
         modifier = modifier
@@ -30,7 +30,7 @@ fun DetailWeatherScreen(
             .background(CityBackground)
     ) {
         item {
-            Cloud(all = detail.cloud.all)
+            CloudyDetail(cloud = detail.cloud)
 
         }
     }

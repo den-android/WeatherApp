@@ -4,8 +4,10 @@ import android.util.Log
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
+import net.denis.weatherapp.features.forecast_at_three_hour.model.Cloud
 import net.denis.weatherapp.features.forecast_at_three_hour.model.Detail
 import net.denis.weatherapp.features.forecast_at_three_hour.model.DetailData
+import net.denis.weatherapp.features.forecast_at_three_hour.model.Wind
 
 class DetailDataMiddleware(
     private val weatherRepository: IWeatherRepository,
@@ -17,7 +19,6 @@ class DetailDataMiddleware(
         store: Store<DetailState, DetailAction>
     ) {
         when (action) {
-
             is DetailAction.GetCurrentId -> {
                 detailLoading(currentId = action.currentId, store = store)
             }
@@ -27,20 +28,22 @@ class DetailDataMiddleware(
     }
 
     private suspend fun detailLoading(currentId: Int, store: Store<DetailState, DetailAction>) {
-        weatherRepository.getForecast(lat = 55.7504461, lon = 37.6174943, exclude = "alerts", apiKey = "b05865d24d90b1dbccfb3ced2627b4e9")
+        weatherRepository.getForecast(
+            lat = 55.7504461,
+            lon = 37.6174943,
+            exclude = "alerts",
+            apiKey = "b05865d24d90b1dbccfb3ced2627b4e9"
+        )
             .collect { data ->
-                Log.d("Logging", "MIDDLEWARE data_list: ${data.detailData.detailList}")
+                val lmappedData: List<Detail> = listOf(data.detailData.detailList[currentId])
 
-                val dataItem: DetailData = data.detailData
-                val _mappedData: MutableList<Detail>? = null
-                dataItem.detailList.forEach {
-                    _mappedData?.add(it)
+                Log.d("Logging", "----------- ${lmappedData}}")
+
+                val mappedData: Detail = lmappedData[currentId]
+
+                if (mappedData != null) {
+                    store.dispatch(DetailAction.DetailForecastLoaded(mappedData))
                 }
-
-                val mappedData: Detail = _mappedData
-
-                store.dispatch(DetailAction.DetailForecastLoaded(mappedData))
-
             }
 
     }
