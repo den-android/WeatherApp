@@ -25,7 +25,9 @@ class ForecastDataMiddleware(
     private suspend fun forecastLoading(store: Store<ForecastState, ForecastAction>) {
         weatherRepository.getForecast(lat = 55.7504461, lon = 37.6174943, exclude = "alerts", apiKey = "b05865d24d90b1dbccfb3ced2627b4e9")
             .collect { data ->
-               // store.dispatch(ForecastAction.CurrentForecastLoaded(meteorologyItem = data))
+
+                val newData = data.mainData
+               store.dispatch(ForecastAction.CurrentForecastLoaded(meteorologyItem = newData))
             }
 
     }

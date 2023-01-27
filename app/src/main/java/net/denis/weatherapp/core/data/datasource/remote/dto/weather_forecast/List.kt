@@ -17,12 +17,9 @@ data class List(
 ) {
     fun toForecast(): ForecastMain {
         return ForecastMain(
-            cloud = clouds.toClouds(),
             dt = dt,
             main = main.toMain(),
-            visibility = visibility,
             meteorology = weather.map { it.toWeather() },
-            wind = wind.toWind(),
         )
     }
 

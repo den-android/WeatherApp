@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import net.denis.weatherapp.features.forecast.mvi.CurrentViewModel
+import net.denis.weatherapp.features.forecast.screen.CurrentWeatherScreen
 import net.denis.weatherapp.features.forecast.screen.FindNewCityScreen
 import net.denis.weatherapp.features.forecast_at_three_hour.mvi.DetailViewModel
 import net.denis.weatherapp.features.forecast_at_three_hour.screen.DetailWeatherScreen
@@ -29,13 +30,13 @@ fun NavGraph(
 
     NavHost(
         navController = navController,
-        startDestination = Screen.DetailForecastScreen.route
+        startDestination = Screen.CurrentForecastScreen.route
     ) {
         composable(
             route = Screen.CurrentForecastScreen.route
         ) {
             if (weatherCurrent != null) {
-                //CityCurrentWeatherScreen(navController = navController, weather = weatherCurrent)
+                CurrentWeatherScreen(navController = navController, weather = weatherCurrent)
             }
         }
         composable(
