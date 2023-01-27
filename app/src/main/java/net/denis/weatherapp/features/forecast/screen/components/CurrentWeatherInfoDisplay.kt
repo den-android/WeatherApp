@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.WeatherText
 import net.denis.weatherapp.core.util.WeatherType
-import net.denis.weatherapp.features.forecast.screen.components.compose_items.CustomTextBox
+import net.denis.weatherapp.features.forecast_at_three_hour.screen.components.compose_items.CustomTextBox
 import java.util.*
 
 @Composable

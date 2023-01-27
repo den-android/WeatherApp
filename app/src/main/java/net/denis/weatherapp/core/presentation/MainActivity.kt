@@ -27,7 +27,8 @@ class MainActivity : ComponentActivity() {
 
                     NavGraph(
                         navController = navController,
-                        vm = viewModel(),
+                        currentVM = viewModel(),
+                        detailVM = viewModel(),
                     )
                 }
             }

@@ -1,30 +1,13 @@
 package net.denis.weatherapp.features.forecast.screen
 
-import android.icu.text.SimpleDateFormat
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import net.denis.weatherapp.core.presentation.navigation.Screen
-import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
-import net.denis.weatherapp.features.forecast.model.MeteorologyItem
-import net.denis.weatherapp.features.forecast.model.MultipleView
-import net.denis.weatherapp.features.forecast.mvi.ForecastViewModel
-import net.denis.weatherapp.features.forecast.screen.components.BottomNavigateMenu
-import net.denis.weatherapp.features.forecast.screen.components.CurrentWeatherInfoDisplay
-import net.denis.weatherapp.features.forecast.screen.components.WeatherForecastDisplay
-import java.util.*
 
 @Composable
 fun CityCurrentWeatherScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    weather: MultipleView<MeteorologyItem>,
 ) {
 //    weather?.let { itemWeather ->
 //        Column(

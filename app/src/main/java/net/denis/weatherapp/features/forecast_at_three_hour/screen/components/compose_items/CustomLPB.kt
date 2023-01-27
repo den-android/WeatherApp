@@ -1,4 +1,4 @@
-package net.denis.weatherapp.features.forecast.screen.components.compose_items
+package net.denis.weatherapp.features.forecast_at_three_hour.screen.components.compose_items
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background

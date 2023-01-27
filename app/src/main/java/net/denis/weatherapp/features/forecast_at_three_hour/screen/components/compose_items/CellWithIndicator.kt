@@ -1,4 +1,4 @@
-package net.denis.weatherapp.features.forecast.screen.components.compose_items
+package net.denis.weatherapp.features.forecast_at_three_hour.screen.components.compose_items
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -17,17 +17,18 @@ import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
 
 @Composable
-fun CellWithText(
+fun CellWithIndicator(
     modifier: Modifier = Modifier,
     title: String = "",
     text: String = "",
-    description: String = ""
+    description: String = "",
+    indicatorValue: Float = 0f,
 ) {
     Card(
         shape = RoundedCornerShape(10.dp),
         border = BorderStroke(1.dp, MiddleGradientColor),
         modifier = modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
     ) {
         Column(
             modifier = modifier
@@ -49,6 +50,8 @@ fun CellWithText(
                 color = PrimaryText,
                 textAlign = TextAlign.Center,
             )
+            Spacer(modifier = modifier.height(2.dp))
+            CustomLPB(indicatorValue = indicatorValue)
             Spacer(modifier = modifier.height(2.dp))
             Text(
                 text = description,

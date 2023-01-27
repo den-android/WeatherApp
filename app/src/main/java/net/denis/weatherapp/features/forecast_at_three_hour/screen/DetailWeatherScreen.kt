@@ -1,42 +1,42 @@
-package net.denis.weatherapp.features.forecast.screen
+package net.denis.weatherapp.features.forecast_at_three_hour.screen
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.features.forecast.model.*
-import net.denis.weatherapp.features.forecast.screen.components.compose_items.CellWithIndicator
-import net.denis.weatherapp.features.forecast.screen.components.compose_items.CellWithText
+import net.denis.weatherapp.features.forecast_at_three_hour.model.Clouds
+import net.denis.weatherapp.features.forecast_at_three_hour.model.Detail
+import net.denis.weatherapp.features.forecast_at_three_hour.model.Wind
+import net.denis.weatherapp.features.forecast_at_three_hour.screen.components.compose_items.CellWithIndicator
+import net.denis.weatherapp.features.forecast_at_three_hour.screen.components.compose_items.CellWithText
 import java.text.SimpleDateFormat
 import java.util.*
 
 @Composable
-fun CityDetailWeatherScreen(
+fun DetailWeatherScreen(
     modifier: Modifier = Modifier,
-    weather: List<MeteorologyItem>,
+    detail: Detail,
     currentCnt: Int,
 ) {
+    Log.d("Logging", "${detail}")
 
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
             .background(CityBackground)
     ) {
-        items(weather) { item ->
-            when (item) {
-                is MultipleView.ItemWind -> {
-                    CellWithText()
-                }
-                is MultipleView.ItemCloud -> {
-                    CellWithIndicator()
-                }
-                else -> {}
-            }
+        item {
+            Clouds(all = detail.cloud.all)
+
         }
     }
 
+}
 
 //    weather?.let { weatherItem ->
 //        weatherItem?.forecast?.let { forecastList ->
@@ -55,7 +55,6 @@ fun CityDetailWeatherScreen(
 //            }
 //        }
 //    }
-}
 
 @Composable
 fun WindDetail(

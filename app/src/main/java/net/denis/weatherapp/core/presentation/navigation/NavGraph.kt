@@ -7,10 +7,10 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import net.denis.weatherapp.features.forecast.mvi.ForecastViewModel
-import net.denis.weatherapp.features.forecast.screen.CityCurrentWeatherScreen
-import net.denis.weatherapp.features.forecast.screen.CityDetailWeatherScreen
+import net.denis.weatherapp.features.forecast.mvi.CurrentViewModel
 import net.denis.weatherapp.features.forecast.screen.FindNewCityScreen
+import net.denis.weatherapp.features.forecast_at_three_hour.mvi.DetailViewModel
+import net.denis.weatherapp.features.forecast_at_three_hour.screen.DetailWeatherScreen
 
 private const val PARAM_CNT = "cnt"
 private const val PARAM_QUERY = "city"
@@ -18,10 +18,14 @@ private const val PARAM_QUERY = "city"
 @Composable
 fun NavGraph(
     navController: NavHostController,
-    vm: ForecastViewModel,
+    currentVM: CurrentViewModel,
+    detailVM: DetailViewModel,
 ) {
-    val state = vm.viewState.collectAsState()
-    val weather = state.value.meteorologyItem
+    val currentState = currentVM.viewState.collectAsState()
+    val weatherCurrent = currentState.value.meteorologyItem
+
+    val detailState = detailVM.viewState.collectAsState()
+    val weatherDetail = detailState.value.detail
 
     NavHost(
         navController = navController,
@@ -30,26 +34,33 @@ fun NavGraph(
         composable(
             route = Screen.CurrentForecastScreen.route
         ) {
-            if (weather != null) {
-                CityCurrentWeatherScreen(navController = navController, weather = weather)
+            if (weatherCurrent != null) {
+                //CityCurrentWeatherScreen(navController = navController, weather = weatherCurrent)
             }
         }
-
         composable(
-            route = Screen.DetailForecastScreen.route,
-            arguments = listOf(
-                navArgument(PARAM_CNT) {
-                    type = NavType.IntType
-                    defaultValue = 0
-                }
-            )
-        ) { navBackStackEntry ->
-            val cnt = navBackStackEntry.arguments?.getInt(PARAM_CNT)
-            if (cnt != null && weather != null) {
-                CityDetailWeatherScreen(currentCnt = cnt, weather = weather)
+            route = Screen.DetailForecastScreen.route
+        ) {
+            if (weatherDetail != null) {
+                DetailWeatherScreen(detail = weatherDetail, currentCnt = 0)
             }
         }
 
+//        composable(
+//            route = Screen.DetailForecastScreen.route,
+//            arguments = listOf(
+//                navArgument(PARAM_CNT) {
+//                    type = NavType.IntType
+//                    defaultValue = 0
+//                }
+//            )
+//        ) { navBackStackEntry ->
+//            val cnt = navBackStackEntry.arguments?.getInt(PARAM_CNT)
+//            if (cnt != null && weatherDetail != null) {
+//                DetailWeatherScreen(currentCnt = cnt, detailData = weatherDetail)
+//            }
+//        }
+// forecast?cnt=7&exclude=alerts&lang=ru&lat=55.75&lon=37.62&units=metric
         composable(
             route = Screen.SearchCityScreen.route,
             arguments = listOf(

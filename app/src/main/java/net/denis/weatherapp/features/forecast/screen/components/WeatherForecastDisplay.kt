@@ -18,7 +18,7 @@ fun WeatherForecastDisplay(
     meteorologyItem: MeteorologyItem,
     onClick: (Int) -> Unit,
 ) {
-    meteorologyItem?.forecast?.let { data ->
+    meteorologyItem?.forecastMain?.let { data ->
         Column(
             modifier = modifier
                 .fillMaxWidth()
@@ -27,7 +27,7 @@ fun WeatherForecastDisplay(
             LazyRow {
                 items(data) { weatherData ->
                     HourlyWeatherDisplay(
-                        forecast = weatherData,
+                        forecastMain = weatherData,
                         meteorology = weatherData.meteorology[0],
                         main = weatherData.main,
                         modifier = Modifier
