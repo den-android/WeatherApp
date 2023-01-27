@@ -17,7 +17,7 @@ data class List(
 ) {
     fun toForecast(): ForecastMain {
         return ForecastMain(
-            clouds = clouds.toClouds(),
+            cloud = clouds.toClouds(),
             dt = dt,
             main = main.toMain(),
             visibility = visibility,
