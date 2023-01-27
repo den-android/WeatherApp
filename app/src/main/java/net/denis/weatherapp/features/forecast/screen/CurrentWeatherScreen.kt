@@ -24,55 +24,51 @@ fun CurrentWeatherScreen(
     weather: MeteorologyItem
 ) {
     weather?.let { itemWeather ->
-        itemWeather.forecastMain.forEach { forecastMainItem ->
-            Column(
-                modifier = modifier
-                    .fillMaxSize()
-                    .background(color = CityBackground)
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .background(color = CityBackground)
+        ) {
+            Box(
+                modifier = modifier.weight(3f)
             ) {
-                Box(
-                    modifier = modifier.weight(3f)
-                ) {
-                    val formattedTime = remember(forecastMainItem.dt) {
-                        val sdf = SimpleDateFormat("HH:mm")
-                        val netDate = Date(forecastMainItem.dt.toLong() * 1000)
-                        sdf.format(netDate)
-                    }
-                    CurrentWeatherInfoDisplay(
-                        city = itemWeather.city.name,
-                        temp = forecastMainItem.main.temp,
-                        weatherDesc = forecastMainItem.meteorology.get(0).description,
-                        currentDateTime = formattedTime,
-                        weatherIcon = forecastMainItem.meteorology.get(0).id
-                    )
+                val formattedTime = remember(itemWeather.forecastMain[0].dt) {
+                    val sdf = SimpleDateFormat("HH:mm")
+                    val netDate = Date(itemWeather.forecastMain[0].dt.toLong() * 1000)
+                    sdf.format(netDate)
                 }
-                Box(
-                    modifier = modifier.weight(1f),
-                ) {
-                    WeatherForecastDisplay(
-                        meteorologyItem = itemWeather,
-                        onClick = {
-                            navController.navigate(
-                                route = Screen.DetailForecastScreen.passDetailCnt(
-                                    cnt = it
-                                )
-                            )
-                        }
-                    )
-                }
-
-                BottomNavigateMenu(
-                    onFabClicked = {
+                CurrentWeatherInfoDisplay(
+                    city = itemWeather.city.name,
+                    temp = itemWeather.forecastMain[0].main.temp,
+                    weatherDesc = itemWeather.forecastMain[0].meteorology.get(0).description,
+                    currentDateTime = formattedTime,
+                    weatherIcon = itemWeather.forecastMain[0].meteorology.get(0).id
+                )
+            }
+            Box(
+                modifier = modifier.weight(1f),
+            ) {
+                WeatherForecastDisplay(
+                    meteorologyItem = itemWeather,
+                    onClick = {
                         navController.navigate(
-                            route = Screen.SearchCityScreen.passQuerry(
-                                city = it
+                            route = Screen.DetailForecastScreen.passDetailCnt(
+                                cnt = it
                             )
                         )
                     }
                 )
             }
+
+            BottomNavigateMenu(
+                onFabClicked = {
+                    navController.navigate(
+                        route = Screen.SearchCityScreen.passQuerry(
+                            city = it
+                        )
+                    )
+                }
+            )
         }
     }
-
-
 }
