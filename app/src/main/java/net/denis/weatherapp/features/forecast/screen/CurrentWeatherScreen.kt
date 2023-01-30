@@ -63,7 +63,7 @@ fun CurrentWeatherScreen(
             BottomNavigateMenu(
                 onFabClicked = {
                     navController.navigate(
-                        route = Screen.SearchCityScreen.passQuerry(
+                        route = Screen.SearchCityScreen.passQuery(
                             city = it
                         )
                     )

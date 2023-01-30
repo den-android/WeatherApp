@@ -1,9 +1,9 @@
 package net.denis.weatherapp.features.forecast_at_three_hour.mvi
 
-import android.util.Log
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
+import net.denis.weatherapp.core.util.MultipleView
 import net.denis.weatherapp.features.forecast_at_three_hour.model.*
 
 class DetailDataMiddleware(

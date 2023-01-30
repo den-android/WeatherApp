@@ -1,5 +1,6 @@
 package net.denis.weatherapp.features.forecast_at_three_hour.model
 
+import net.denis.weatherapp.core.util.MultipleView
 import java.math.RoundingMode
 import java.text.SimpleDateFormat
 import java.util.*
@@ -25,8 +26,8 @@ data class Detail(
         cards.add(
             MultipleView.CardWithIndicator(
                 title = "Видимость",
-                indicatorValue = visibility / 10000f,
                 text = "",
+                indicatorValue = visibility / 10000f,
                 description = "",
             )
         )
@@ -54,6 +55,7 @@ data class Detail(
                 description = "",
             )
         )
+
         return cards
     }
 }

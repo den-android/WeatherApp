@@ -2,8 +2,8 @@ package net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast
 
 import net.denis.weatherapp.features.core.Forecast
 import net.denis.weatherapp.features.forecast.model.MeteorologyItem
+import net.denis.weatherapp.features.forecast_at_three_hour.model.Detail
 import net.denis.weatherapp.features.forecast_at_three_hour.model.DetailData
-import net.denis.weatherapp.features.forecast_at_three_hour.model.TempCityDetail
 
 data class WeatherDto(
     val city: City,
@@ -21,7 +21,7 @@ data class WeatherDto(
 
     private fun toDetailDataItem(): DetailData {
         return DetailData(
-            detailList = list.map { it.toDetailItem() },
+            detailList = list.map { it.toDetail() }
         )
     }
 
@@ -32,11 +32,4 @@ data class WeatherDto(
         )
     }
 
-    fun toTempCityDetail(): TempCityDetail {
-        return TempCityDetail(
-            name = city.name,
-            sunrise = city.sunrise,
-            sunset = city.sunset,
-        )
-    }
 }

@@ -1,6 +1,7 @@
 package net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast
 
 import net.denis.weatherapp.features.forecast.model.ForecastMain
+import net.denis.weatherapp.features.forecast_at_three_hour.model.CityDetail
 import net.denis.weatherapp.features.forecast_at_three_hour.model.Detail
 import kotlin.collections.List
 
@@ -23,12 +24,12 @@ data class List(
         )
     }
 
-    fun toDetailItem(): Detail {
+    fun toDetail(): Detail {
         return Detail(
             cloud = clouds.toClouds(),
             wind = wind.toWind(),
             visibility = visibility,
-            cityDetail =
+            cityDetail = CityDetail(0,0),
         )
     }
 }

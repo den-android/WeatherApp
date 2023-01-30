@@ -1,7 +1,7 @@
 package net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast
 
 import net.denis.weatherapp.features.forecast.model.City
-import net.denis.weatherapp.features.forecast_at_three_hour.model.TempCityDetail
+import net.denis.weatherapp.features.forecast_at_three_hour.model.CityDetail
 
 data class City(
     val coord: Coord,
@@ -19,11 +19,10 @@ data class City(
         )
     }
 
-    fun toTempCityDetail(): TempCityDetail {
-        return TempCityDetail(
-            name = name,
+    fun toCityDetail(): CityDetail {
+        return CityDetail(
             sunrise = sunrise,
-            sunset = sunset
+            sunset = sunset,
         )
     }
 }

@@ -1,6 +1,5 @@
 package net.denis.weatherapp.features.forecast_at_three_hour.screen
 
-import android.util.Log
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -12,13 +11,10 @@ import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
 import net.denis.weatherapp.features.forecast.model.*
 import net.denis.weatherapp.features.forecast.screen.components.Toolbar
-import net.denis.weatherapp.features.forecast_at_three_hour.model.Cloud
 import net.denis.weatherapp.features.forecast_at_three_hour.model.Detail
-import net.denis.weatherapp.features.forecast_at_three_hour.model.MultipleView
-import net.denis.weatherapp.features.forecast_at_three_hour.model.Wind
+import net.denis.weatherapp.core.util.MultipleView
 import net.denis.weatherapp.features.forecast_at_three_hour.screen.components.compose_items.CellWithIndicator
 import net.denis.weatherapp.features.forecast_at_three_hour.screen.components.compose_items.CellWithText
-import java.text.SimpleDateFormat
 import java.util.*
 
 @Composable
@@ -33,15 +29,6 @@ fun DetailWeatherScreen(
             .fillMaxSize()
             .background(CityBackground)
     ) {
-        item {
-            Toolbar(
-                modifier = modifier.background(MiddleGradientColor),
-                label = ,
-                onClicked = {
-                    onBackPressedDispatcher?.onBackPressed()
-                }
-            )
-        }
         items(detail) { item ->
             when (item) {
                 is MultipleView.WideCardWithText -> {

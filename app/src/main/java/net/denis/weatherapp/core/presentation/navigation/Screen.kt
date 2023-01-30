@@ -11,7 +11,7 @@ sealed class Screen(val route: String) {
     }
 
     object SearchCityScreen : Screen(route = "SearchCityScreen?city={city}") {
-        fun passQuerry(city: String = "Москва"): String {
+        fun passQuery(city: String = "Москва"): String {
             return "SearchCityScreen?city=$city"
         }
     }

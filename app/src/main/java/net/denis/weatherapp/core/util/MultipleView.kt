@@ -1,4 +1,4 @@
-package net.denis.weatherapp.features.forecast_at_three_hour.model
+package net.denis.weatherapp.core.util
 
 sealed class MultipleView<T: Any> {
 
@@ -9,4 +9,5 @@ sealed class MultipleView<T: Any> {
     data class CardWithIndicator<T: Any>(val title: String, val text: String, val description: String, val indicatorValue: Float) : MultipleView<T>()
 
     data class DefaultCard<T: Any>(val title: String, val text: String) : MultipleView<T>()
+
 }
