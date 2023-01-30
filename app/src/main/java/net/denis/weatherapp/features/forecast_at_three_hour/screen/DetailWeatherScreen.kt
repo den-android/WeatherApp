@@ -20,7 +20,6 @@ import java.util.*
 fun DetailWeatherScreen(
     modifier: Modifier = Modifier,
     detail: Detail,
-    currentCnt: Int,
 ) {
     Log.d("Logging", "SCREEN ${detail}")
 

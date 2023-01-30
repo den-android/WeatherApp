@@ -1,5 +1,6 @@
 package net.denis.weatherapp.core.presentation.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavHostController
@@ -40,10 +41,21 @@ fun NavGraph(
             }
         }
         composable(
-            route = Screen.DetailForecastScreen.route
-        ) {
-            if (weatherDetail != null) {
-                DetailWeatherScreen(detail = weatherDetail, currentCnt = 0)
+            route = Screen.DetailForecastScreen.route,
+            arguments = listOf(
+                navArgument(PARAM_CNT) {
+                    type = NavType.IntType
+                    defaultValue = -1
+                }
+            )
+        ) { navBackStackEntry ->
+            val currentId = navBackStackEntry.arguments?.getInt(PARAM_CNT)
+            Log.d("Logging", "${currentId}")
+            if (currentId != null) {
+                detailVM.getCurrentId(currentId)
+                if (weatherDetail != null) {
+                    DetailWeatherScreen(detail = weatherDetail)
+                }
             }
         }
 

@@ -33,7 +33,7 @@ fun WeatherForecastDisplay(
                         modifier = Modifier
                             .height(100.dp)
                             .padding(horizontal = 16.dp)
-                            .clickable { onClick(weatherData.dt) },
+                            .clickable { onClick(data.indexOf(weatherData)) },
                     )
                 }
             }

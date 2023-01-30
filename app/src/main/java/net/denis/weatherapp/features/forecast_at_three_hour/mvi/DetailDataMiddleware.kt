@@ -35,11 +35,11 @@ class DetailDataMiddleware(
             apiKey = "b05865d24d90b1dbccfb3ced2627b4e9"
         )
             .collect { data ->
-                val _mappedData: List<Detail> = listOf(data.detailData.detailList[currentId])
+//                val _mappedData: List<Detail> = listOf(data.detailData.detailList[currentId])
+//
+//                Log.d("Logging", "----------- ${_mappedData}}")
 
-                Log.d("Logging", "----------- ${_mappedData}}")
-
-                val mappedData: Detail = _mappedData[currentId]
+                val mappedData: Detail = data.detailData.detailList[currentId]
 
                 store.dispatch(DetailAction.DetailForecastLoaded(mappedData))
 
