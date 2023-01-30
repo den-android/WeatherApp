@@ -2,16 +2,16 @@ package net.denis.weatherapp.core.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import net.denis.weatherapp.core.data.datasource.local.LocalDatasource
-import net.denis.weatherapp.core.data.datasource.remote.RemoteDatasource
+import net.denis.weatherapp.core.data.interfaces.ILocalDatasource
+import net.denis.weatherapp.core.data.interfaces.IRemoteDatasource
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.util.NetworkResult
 import net.denis.weatherapp.features.core.Forecast
 import javax.inject.Inject
 
 class WeatherRepository @Inject constructor(
-    private val localDatasource: LocalDatasource,
-    private val remoteDatasource: RemoteDatasource,
+    private val localDatasource: ILocalDatasource,
+    private val remoteDatasource: IRemoteDatasource,
 ) : IWeatherRepository {
 
     override suspend fun getForecast(

@@ -36,9 +36,10 @@ fun NavGraph(
         composable(
             route = Screen.CurrentForecastScreen.route
         ) {
-            if (weatherCurrent != null) {
+            weatherCurrent?.let {
                 CurrentWeatherScreen(navController = navController, weather = weatherCurrent)
             }
+
         }
         composable(
             route = Screen.DetailForecastScreen.route,
@@ -50,30 +51,14 @@ fun NavGraph(
             )
         ) { navBackStackEntry ->
             val currentId = navBackStackEntry.arguments?.getInt(PARAM_CNT)
-            Log.d("Logging", "${currentId}")
-            if (currentId != null) {
+            currentId?.let {
                 detailVM.getCurrentId(currentId)
-                if (weatherDetail != null) {
+                weatherDetail?.let {
                     DetailWeatherScreen(detail = weatherDetail)
                 }
             }
         }
 
-//        composable(
-//            route = Screen.DetailForecastScreen.route,
-//            arguments = listOf(
-//                navArgument(PARAM_CNT) {
-//                    type = NavType.IntType
-//                    defaultValue = 0
-//                }
-//            )
-//        ) { navBackStackEntry ->
-//            val cnt = navBackStackEntry.arguments?.getInt(PARAM_CNT)
-//            if (cnt != null && weatherDetail != null) {
-//                DetailWeatherScreen(currentCnt = cnt, detailData = weatherDetail)
-//            }
-//        }
-// forecast?cnt=7&exclude=alerts&lang=ru&lat=55.75&lon=37.62&units=metric
         composable(
             route = Screen.SearchCityScreen.route,
             arguments = listOf(
@@ -84,7 +69,7 @@ fun NavGraph(
             )
         ) { navBackStackEntry ->
             val city = navBackStackEntry.arguments?.getString(PARAM_QUERY)
-            if (city != null) {
+            city?.let {
                 FindNewCityScreen(city = city)
             }
         }

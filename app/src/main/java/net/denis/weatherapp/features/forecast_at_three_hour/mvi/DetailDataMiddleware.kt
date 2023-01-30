@@ -4,10 +4,7 @@ import android.util.Log
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
-import net.denis.weatherapp.features.forecast_at_three_hour.model.Cloud
-import net.denis.weatherapp.features.forecast_at_three_hour.model.Detail
-import net.denis.weatherapp.features.forecast_at_three_hour.model.DetailData
-import net.denis.weatherapp.features.forecast_at_three_hour.model.Wind
+import net.denis.weatherapp.features.forecast_at_three_hour.model.*
 
 class DetailDataMiddleware(
     private val weatherRepository: IWeatherRepository,
@@ -35,11 +32,8 @@ class DetailDataMiddleware(
             apiKey = "b05865d24d90b1dbccfb3ced2627b4e9"
         )
             .collect { data ->
-//                val _mappedData: List<Detail> = listOf(data.detailData.detailList[currentId])
-//
-//                Log.d("Logging", "----------- ${_mappedData}}")
 
-                val mappedData: Detail = data.detailData.detailList[currentId]
+                val mappedData: List<MultipleView<Detail>> = data.detailData.detailList[currentId].toMultipleView()
 
                 store.dispatch(DetailAction.DetailForecastLoaded(mappedData))
 

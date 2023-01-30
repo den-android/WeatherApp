@@ -1,15 +1,20 @@
 package net.denis.weatherapp.features.forecast_at_three_hour.screen
 
 import android.util.Log
+import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
+import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
 import net.denis.weatherapp.features.forecast.model.*
+import net.denis.weatherapp.features.forecast.screen.components.Toolbar
 import net.denis.weatherapp.features.forecast_at_three_hour.model.Cloud
 import net.denis.weatherapp.features.forecast_at_three_hour.model.Detail
+import net.denis.weatherapp.features.forecast_at_three_hour.model.MultipleView
 import net.denis.weatherapp.features.forecast_at_three_hour.model.Wind
 import net.denis.weatherapp.features.forecast_at_three_hour.screen.components.compose_items.CellWithIndicator
 import net.denis.weatherapp.features.forecast_at_three_hour.screen.components.compose_items.CellWithText
@@ -19,9 +24,9 @@ import java.util.*
 @Composable
 fun DetailWeatherScreen(
     modifier: Modifier = Modifier,
-    detail: Detail,
+    detail: List<MultipleView<Detail>>,
 ) {
-    Log.d("Logging", "SCREEN ${detail}")
+    val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
 
     LazyColumn(
         modifier = modifier
@@ -29,8 +34,53 @@ fun DetailWeatherScreen(
             .background(CityBackground)
     ) {
         item {
-            CloudyDetail(cloud = detail.cloud)
+            Toolbar(
+                modifier = modifier.background(MiddleGradientColor),
+                label = ,
+                onClicked = {
+                    onBackPressedDispatcher?.onBackPressed()
+                }
+            )
+        }
+        items(detail) { item ->
+            when (item) {
+                is MultipleView.WideCardWithText -> {
+                    WindDetail(
+                        title = item.title,
+                        text = item.text,
+                        indicatorValue = item.indicatorValue,
+                        description = item.description
+                    )
+                }
 
+                is MultipleView.CardWithText -> {
+                    CloudyDetail(
+                        title = item.title,
+                        text = item.text,
+                        description = item.description,
+                    )
+                }
+                is MultipleView.CardWithIndicator -> {
+                    VisibilityDetail(
+                        title = item.title,
+                        text = item.text,
+                        visibility = item.indicatorValue,
+                        description = item.description
+                    )
+                }
+
+                is MultipleView.CardWithText -> {
+                    SunriseDetail(
+                        text = item.text
+                    )
+                }
+                is MultipleView.CardWithText -> {
+                    SunriseDetail(
+                        text = item.text
+                    )
+                }
+                else -> {}
+            }
         }
     }
 
@@ -53,72 +103,74 @@ fun DetailWeatherScreen(
 //            }
 //        }
 //    }
+//
+
 
 @Composable
 fun WindDetail(
     modifier: Modifier = Modifier,
-    wind: Wind,
+    title: String,
+    text: String,
+    indicatorValue: Float,
+    description: String,
 ) {
     CellWithIndicator(
-        title = "Ветер",
-        text = "${wind.speed}км/ч",
-        indicatorValue = wind.speed.toFloat() / 10f,
-        description = "интенсивность ветра"
+        title = title,
+        text = text,
+        indicatorValue = indicatorValue,
+        description = description
     )
 }
 
 @Composable
 fun CloudyDetail(
     modifier: Modifier = Modifier,
-    cloud: Cloud,
+    title: String,
+    text: String,
+    description: String
 ) {
     CellWithText(
-        title = "Облачность",
-        text = "${cloud.all}%"
+        title = title,
+        text = text,
+        description = description,
     )
 }
 
 @Composable
 fun VisibilityDetail(
     modifier: Modifier = Modifier,
-    visibility: Int,
+    title: String,
+    text: String,
+    description: String,
+    visibility: Float,
 ) {
     CellWithIndicator(
-        title = "Видимость",
-        indicatorValue = visibility / 10000f
+        title = title,
+        text = text,
+        description = description,
+        indicatorValue = visibility,
     )
 }
 
 @Composable
 fun SunriseDetail(
     modifier: Modifier = Modifier,
-    city: City,
+    text: String,
 ) {
-    val formattedSunrise = remember(String) {
-        val sdf = SimpleDateFormat("HH:mm")
-        val netDate = Date(city.sunrise.plus(10800).toLong() * 1000)
-        sdf.format(netDate)
-    }
+
     CellWithText(
         title = "Рассвет",
-        text = "$formattedSunrise AM"
+        text = "$text AM"
     )
 }
 
 @Composable
 fun SunsetDetail(
     modifier: Modifier = Modifier,
-    city: City,
+    text: String,
 ) {
-
-    val formattedSunset = remember(String) {
-        val sdf = SimpleDateFormat("HH:mm")
-        val netDate = Date(city.sunset.plus(10800).toLong() * 1000)
-        sdf.format(netDate)
-    }
     CellWithText(
-        title = "Закат",
-        text = "$formattedSunset PM"
+        text = "$text PM"
     )
 }
 

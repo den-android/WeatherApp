@@ -27,6 +27,8 @@ data class List(
         return Detail(
             cloud = clouds.toClouds(),
             wind = wind.toWind(),
+            visibility = visibility,
+            cityDetail =
         )
     }
 }
