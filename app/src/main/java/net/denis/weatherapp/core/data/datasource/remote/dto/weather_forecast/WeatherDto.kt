@@ -28,7 +28,7 @@ data class WeatherDto(
     fun toForecast(): Forecast {
         return Forecast(
             mainData = toWeatherItem(),
-            detailData = toDetailDataItem()
+            detailData = toDetailDataItem(),
         )
     }
 

@@ -29,7 +29,7 @@ data class List(
             cloud = clouds.toClouds(),
             wind = wind.toWind(),
             visibility = visibility,
-            cityDetail = CityDetail(0,0),
+            cityDetail = CityDetail("msk",0,0),
         )
     }
 }

@@ -4,7 +4,7 @@ import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
 import net.denis.weatherapp.core.util.MultipleView
-import net.denis.weatherapp.features.forecast_at_three_hour.model.*
+import net.denis.weatherapp.features.forecast_at_three_hour.model.Detail
 
 class DetailDataMiddleware(
     private val weatherRepository: IWeatherRepository,
@@ -28,11 +28,9 @@ class DetailDataMiddleware(
         weatherRepository.getForecast(
             lat = 55.7504461,
             lon = 37.6174943,
-            exclude = "alerts",
             apiKey = "b05865d24d90b1dbccfb3ced2627b4e9"
         )
             .collect { data ->
-
                 val mappedData: List<MultipleView<Detail>> = data.detailData.detailList[currentId].toMultipleView()
 
                 store.dispatch(DetailAction.DetailForecastLoaded(mappedData))
@@ -42,24 +40,3 @@ class DetailDataMiddleware(
     }
 
 }
-
-
-//    private suspend fun forecastLoadi2ng(currentId: Int, store: Store<DetailState, DetailAction>) {
-//        weatherRepository.getForecast(lat = 55.7504461, lon = 37.6174943, exclude = "alerts", apiKey = "b05865d24d90b1dbccfb3ced2627b4e9")
-//            .collect { data ->
-//                val _mappedData: DetailItem? = null
-//                _mappedData?.copy(
-//                    wind = Wind(
-//                        speed = data.forecast[currentId].wind.speed
-//                    ),
-//                    cloud = Clouds(
-//                        all = 10
-//                    ),
-//                )
-//
-//                val mappedData: List<DetailItem?> = listOf(_mappedData)
-//
-//                store.dispatch(DetailAction.DetailForecastLoaded(detailItem = mappedData))
-//            }
-//
-//    }

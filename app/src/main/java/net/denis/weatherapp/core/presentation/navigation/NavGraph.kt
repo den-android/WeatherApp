@@ -1,6 +1,5 @@
 package net.denis.weatherapp.core.presentation.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavHostController
@@ -24,10 +23,7 @@ fun NavGraph(
     detailVM: DetailViewModel,
 ) {
     val currentState = currentVM.viewState.collectAsState()
-    val weatherCurrent = currentState.value.meteorologyItem
-
     val detailState = detailVM.viewState.collectAsState()
-    val weatherDetail = detailState.value.detail
 
     NavHost(
         navController = navController,
@@ -36,10 +32,7 @@ fun NavGraph(
         composable(
             route = Screen.CurrentForecastScreen.route
         ) {
-            weatherCurrent?.let {
-                CurrentWeatherScreen(navController = navController, weather = weatherCurrent)
-            }
-
+            CurrentWeatherScreen(navController = navController, weatherState = currentState)
         }
         composable(
             route = Screen.DetailForecastScreen.route,
@@ -53,8 +46,8 @@ fun NavGraph(
             val currentId = navBackStackEntry.arguments?.getInt(PARAM_CNT)
             currentId?.let {
                 detailVM.getCurrentId(currentId)
-                weatherDetail?.let {
-                    DetailWeatherScreen(detail = weatherDetail)
+                detailState?.let {
+                    DetailWeatherScreen(detailState = detailState)
                 }
             }
         }

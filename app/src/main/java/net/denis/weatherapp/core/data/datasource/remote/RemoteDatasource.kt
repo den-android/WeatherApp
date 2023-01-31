@@ -15,10 +15,10 @@ class RemoteDatasource @Inject constructor(
     override suspend fun getForecastByCity(
         lat: Double,
         lon: Double,
-        exclude: String,
         apiKey: String,
     ): NetworkResult<WeatherDto> {
-        return handleApi { openWeatherApi.getForecastMoscow(lat,lon,exclude,apiKey) }
+        delay(2000L)
+        return handleApi { openWeatherApi.getForecastMoscow(lat,lon,apiKey) }
     }
 
 }

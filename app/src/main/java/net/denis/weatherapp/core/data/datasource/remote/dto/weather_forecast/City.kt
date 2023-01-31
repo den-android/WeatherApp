@@ -21,6 +21,7 @@ data class City(
 
     fun toCityDetail(): CityDetail {
         return CityDetail(
+            name = name,
             sunrise = sunrise,
             sunset = sunset,
         )

@@ -13,24 +13,22 @@ class WeatherRepository @Inject constructor(
     private val localDatasource: ILocalDatasource,
     private val remoteDatasource: IRemoteDatasource,
 ) : IWeatherRepository {
-
     override suspend fun getForecast(
         lat: Double,
         lon: Double,
-        exclude: String,
         apiKey: String
     ): Flow<Forecast> {
-        val response = remoteDatasource.getForecastByCity(lat, lon, exclude, apiKey)
+        val response = remoteDatasource.getForecastByCity(lat, lon, apiKey)
         return flow {
             when (response) {
                 is NetworkResult.Success -> {
                     emit(response.data.toForecast())
                 }
                 is NetworkResult.Error -> {
-
+                    //emit(error(message = response.code))
                 }
                 is NetworkResult.Exception -> {
-
+                    //emit(error(message = response.e))
                 }
             }
         }

@@ -7,8 +7,6 @@ interface IWeatherRepository {
     suspend fun getForecast(
         lat: Double,
         lon: Double,
-        exclude: String,
         apiKey: String,
     ): Flow<Forecast>
-
 }
