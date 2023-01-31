@@ -45,7 +45,7 @@ fun NavGraph(
         ) { navBackStackEntry ->
             val currentId = navBackStackEntry.arguments?.getInt(PARAM_CNT)
             currentId?.let {
-                detailVM.getCurrentId(currentId)
+                detailVM.getCurrentId(it)
                 detailState?.let {
                     DetailWeatherScreen(detailState = detailState)
                 }

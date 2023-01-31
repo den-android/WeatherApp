@@ -1,5 +1,6 @@
 package net.denis.weatherapp.features.forecast_at_three_hour.screen
 
+import android.util.Log
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -7,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import net.denis.weatherapp.core.presentation.ui.ShimmerListItem
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
 import net.denis.weatherapp.core.util.MultipleView
@@ -25,8 +27,10 @@ fun DetailWeatherScreen(
     detailState: State<DetailState>,
 ) {
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
+    val isLoading: Boolean = detailState.value.isLoading
+    val detail = detailState.value.detail
 
-    detail?.let { detail ->
+    ShimmerListItem(isLoading = isLoading, contentAfterLoading = {
         LazyColumn(
             modifier = modifier
                 .fillMaxSize()
@@ -40,48 +44,49 @@ fun DetailWeatherScreen(
                         onBackPressedDispatcher?.onBackPressed()
                     })
             }
+            detail?.let {
+                items(it) { item ->
+                    when (item) {
+                        is MultipleView.WideCardWithText -> {
+                            WindDetail(
+                                title = item.title,
+                                text = item.text,
+                                indicatorValue = item.indicatorValue,
+                                description = item.description
+                            )
+                        }
+                        is MultipleView.CardWithText -> {
+                            CloudyDetail(
+                                title = item.title,
+                                text = item.text,
+                                description = item.description,
+                            )
+                        }
+                        is MultipleView.CardWithIndicator -> {
+                            VisibilityDetail(
+                                title = item.title,
+                                text = item.text,
+                                visibility = item.indicatorValue,
+                                description = item.description
+                            )
 
-            items(detail) { item ->
-                when (item) {
-                    is MultipleView.WideCardWithText -> {
-                        WindDetail(
-                            title = item.title,
-                            text = item.text,
-                            indicatorValue = item.indicatorValue,
-                            description = item.description
-                        )
+                        }
+                        is MultipleView.CardWithText -> {
+                            SunriseDetail(
+                                text = item.text
+                            )
+                        }
+                        is MultipleView.CardWithText -> {
+                            SunriseDetail(
+                                text = item.text
+                            )
+                        }
+                        else -> {}
                     }
-                    is MultipleView.CardWithText -> {
-                        CloudyDetail(
-                            title = item.title,
-                            text = item.text,
-                            description = item.description,
-                        )
-                    }
-                    is MultipleView.CardWithIndicator -> {
-                        VisibilityDetail(
-                            title = item.title,
-                            text = item.text,
-                            visibility = item.indicatorValue,
-                            description = item.description
-                        )
-
-                    }
-                    is MultipleView.CardWithText -> {
-                        SunriseDetail(
-                            text = item.text
-                        )
-                    }
-                    is MultipleView.CardWithText -> {
-                        SunriseDetail(
-                            text = item.text
-                        )
-                    }
-                    else -> {}
                 }
             }
         }
-    }
+    })
 }
 
 @Composable
