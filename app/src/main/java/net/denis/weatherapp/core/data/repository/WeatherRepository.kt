@@ -1,11 +1,13 @@
 package net.denis.weatherapp.core.data.repository
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import net.denis.weatherapp.core.data.interfaces.ILocalDatasource
 import net.denis.weatherapp.core.data.interfaces.IRemoteDatasource
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.util.NetworkResult
+import net.denis.weatherapp.core.util.Resource
 import net.denis.weatherapp.features.core.Forecast
 import javax.inject.Inject
 
@@ -19,19 +21,25 @@ class WeatherRepository @Inject constructor(
         apiKey: String
     ): Flow<Forecast> {
         val response = remoteDatasource.getForecastByCity(lat, lon, apiKey)
+
         return flow {
             when (response) {
                 is NetworkResult.Success -> {
                     emit(response.data.toForecast())
                 }
                 is NetworkResult.Error -> {
-                    //emit(error(message = response.code))
+                    Log.d("Logging", "err${response.code}\n")
+                    emit(Forecast(error = "${response.code}", mainData = null, detailData = null))
                 }
                 is NetworkResult.Exception -> {
-                    //emit(error(message = response.e))
+                    Log.d("Logging", "exc${response.e}")
                 }
             }
         }
-    }
 
+    }
 }
+
+/*
+
+ */
