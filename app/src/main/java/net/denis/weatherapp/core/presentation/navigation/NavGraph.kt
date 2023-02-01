@@ -19,11 +19,10 @@ private const val PARAM_QUERY = "city"
 @Composable
 fun NavGraph(
     navController: NavHostController,
-    currentVM: CurrentViewModel,
     detailVM: DetailViewModel,
+    currentVM: CurrentViewModel,
 ) {
     val currentState = currentVM.viewState.collectAsState()
-    val detailState = detailVM.viewState.collectAsState()
 
     NavHost(
         navController = navController,
@@ -46,9 +45,7 @@ fun NavGraph(
             val currentId = navBackStackEntry.arguments?.getInt(PARAM_CNT)
             currentId?.let {
                 detailVM.getCurrentId(it)
-                detailState?.let {
-                    DetailWeatherScreen(detailState = detailState)
-                }
+                DetailWeatherScreen(vm = detailVM)
             }
         }
 
