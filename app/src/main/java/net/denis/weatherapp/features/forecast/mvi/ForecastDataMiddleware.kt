@@ -17,7 +17,6 @@ class ForecastDataMiddleware(
             is ForecastAction.ForecastLoading -> {
                 forecastLoading(store)
             }
-
             else -> currentState
         }
     }
@@ -27,14 +26,9 @@ class ForecastDataMiddleware(
             lat = 55.7504461,
             lon = 37.6174943,
             apiKey = "b05865d24d90b1dbccfb3ced2627b4e9"
-        )
-            .collect { data ->
-                val newData = data.mainData
-                newData?.let {
-                    store.dispatch(ForecastAction.CurrentForecastLoaded(forecastData = newData))
-                }
-            }
-
+        ).collect { data ->
+            val newData = data.mainData
+            store.dispatch(ForecastAction.CurrentForecastLoaded(forecastData = newData))
+        }
     }
-
 }

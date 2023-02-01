@@ -3,8 +3,6 @@ package net.denis.weatherapp.features.forecast_at_three_hour.mvi
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
-import net.denis.weatherapp.core.util.MultipleView
-import net.denis.weatherapp.features.forecast_at_three_hour.model.Detail
 
 class DetailDataMiddleware(
     private val weatherRepository: IWeatherRepository,
@@ -19,7 +17,6 @@ class DetailDataMiddleware(
             is DetailAction.GetCurrentId -> {
                 detailLoading(currentId = action.currentId, store = store)
             }
-
             else -> currentState
         }
     }
@@ -30,11 +27,8 @@ class DetailDataMiddleware(
             lon = 37.6174943,
             apiKey = "b05865d24d90b1dbccfb3ced2627b4e9"
         ).collect { data ->
-
-                val mappedData = data.detailData.detailList.get(currentId).toMultipleView()
-                store.dispatch(DetailAction.DetailForecastLoaded(mappedData))
-
+            val mappedData = data.detailData.detailList.get(currentId).toMultipleView()
+            store.dispatch(DetailAction.DetailForecastLoaded(mappedData))
         }
     }
-
 }
