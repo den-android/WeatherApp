@@ -27,7 +27,7 @@ class WeatherRepository @Inject constructor(
                     emit(response.data.toForecast())
                 }
                 is NetworkResult.Error -> {
-                    Log.d("Logging", "ERROR: ${response}\n")
+                    Log.d("Logging", "ERROR: ${response.message}\n")
                 }
 
             }

@@ -1,9 +1,7 @@
 package net.denis.weatherapp.features.forecast.screen
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
@@ -37,12 +35,11 @@ fun CurrentWeatherScreen(
                         .fillMaxSize()
                         .background(color = CityBackground)
                 ) {
+
                     Box(modifier = modifier.weight(3f)) {
-                        val formattedTime =
-                            remember(itemWeather.forecastItem[0].dt) {
+                        val formattedTime = remember(itemWeather.forecastItem[0].dt) {
                                 val sdf = SimpleDateFormat("HH:mm")
-                                val netDate =
-                                    Date(itemWeather.forecastItem[0].dt.toLong() * 1000)
+                                val netDate = Date(itemWeather.forecastItem[0].dt.toLong() * 1000)
                                 sdf.format(netDate)
                             }
                         CurrentWeatherInfoDisplay(
@@ -54,7 +51,7 @@ fun CurrentWeatherScreen(
                         )
                     }
 
-                    Box(modifier = modifier.weight(1f)) {
+                    Box(modifier = modifier.weight(1f),) {
                         WeatherForecastDisplay(
                             forecastData = itemWeather,
                             onClick = {
@@ -66,6 +63,7 @@ fun CurrentWeatherScreen(
                             }
                         )
                     }
+
                     BottomNavigateMenu(
                         onFabClicked = {
                             navController.navigate(
