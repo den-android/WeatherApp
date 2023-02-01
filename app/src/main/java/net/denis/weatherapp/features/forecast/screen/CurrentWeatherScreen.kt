@@ -37,16 +37,12 @@ fun CurrentWeatherScreen(
                 ) {
 
                     Box(modifier = modifier.weight(3f)) {
-                        val formattedTime = remember(itemWeather.forecastItem[0].dt) {
-                                val sdf = SimpleDateFormat("HH:mm")
-                                val netDate = Date(itemWeather.forecastItem[0].dt.toLong() * 1000)
-                                sdf.format(netDate)
-                            }
+
                         CurrentWeatherInfoDisplay(
                             city = itemWeather.city.name,
                             temp = itemWeather.forecastItem[0].main.temp,
                             weatherDesc = itemWeather.forecastItem[0].meteorology[0].description,
-                            currentDateTime = formattedTime,
+                            currentDateTime = "213",
                             weatherIcon = itemWeather.forecastItem[0].meteorology[0].id
                         )
                     }

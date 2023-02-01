@@ -5,5 +5,5 @@ import net.denis.weatherapp.features.forecast_at_three_hour.model.items.CityDeta
 
 data class TestDetailData(
     val cityDetail: CityDetail,
-    val detailList: List<MultipleView<Detail>>,
+    val detailList: List<Detail>,
 )

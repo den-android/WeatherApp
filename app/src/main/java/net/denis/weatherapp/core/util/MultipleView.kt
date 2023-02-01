@@ -1,13 +1,11 @@
 package net.denis.weatherapp.core.util
 
-sealed class MultipleView<T: Any> {
+sealed class MultipleView {
 
-    data class WideCardWithText<T: Any>(val title: String, val text: String, val description: String, val indicatorValue: Float) : MultipleView<T>()
+    data class WideCardWithText(val title: String, val text: String, val description: String, val indicatorValue: Float) : MultipleView()
 
-    data class CardWithText<T: Any>(val title: String, val text: String, val description: String) : MultipleView<T>()
+    data class CardWithText(val title: String, val text: String, val description: String) : MultipleView()
 
-    data class CardWithIndicator<T: Any>(val title: String, val text: String, val description: String, val indicatorValue: Float) : MultipleView<T>()
-
-    data class DefaultCard<T: Any>(val title: String, val text: String) : MultipleView<T>()
+    data class CardWithIndicator(val title: String, val text: String, val description: String, val indicatorValue: Float) : MultipleView()
 
 }
