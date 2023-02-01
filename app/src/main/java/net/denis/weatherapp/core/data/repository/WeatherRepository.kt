@@ -7,7 +7,6 @@ import net.denis.weatherapp.core.data.interfaces.ILocalDatasource
 import net.denis.weatherapp.core.data.interfaces.IRemoteDatasource
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.util.NetworkResult
-import net.denis.weatherapp.core.util.Resource
 import net.denis.weatherapp.features.core.Forecast
 import javax.inject.Inject
 
@@ -28,12 +27,9 @@ class WeatherRepository @Inject constructor(
                     emit(response.data.toForecast())
                 }
                 is NetworkResult.Error -> {
-                    Log.d("Logging", "err${response.code}\n")
-                    emit(Forecast(error = "${response.code}", mainData = null, detailData = null))
+                    Log.d("Logging", "ERROR: ${response}\n")
                 }
-                is NetworkResult.Exception -> {
-                    Log.d("Logging", "exc${response.e}")
-                }
+
             }
         }
 
