@@ -31,7 +31,7 @@ class ForecastDataMiddleware(
             .collect { data ->
                 val newData = data.mainData
                 newData?.let {
-                    store.dispatch(ForecastAction.CurrentForecastLoaded(meteorologyItem = newData))
+                    store.dispatch(ForecastAction.CurrentForecastLoaded(forecastData = newData))
                 }
             }
 

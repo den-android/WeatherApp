@@ -30,10 +30,10 @@ class DetailDataMiddleware(
             lon = 37.6174943,
             apiKey = "b05865d24d90b1dbccfb3ced2627b4e9"
         ).collect { data ->
-            if (data!=null){
+
                 val mappedData = data.detailData.detailList.get(currentId).toMultipleView()
                 store.dispatch(DetailAction.DetailForecastLoaded(mappedData))
-            }
+
         }
     }
 

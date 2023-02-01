@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
 import net.denis.weatherapp.core.util.WeatherType
-import net.denis.weatherapp.features.forecast.model.ForecastMain
+import net.denis.weatherapp.features.forecast.model.ForecastItem
 import net.denis.weatherapp.features.forecast.model.Main
 import net.denis.weatherapp.features.forecast.model.Meteorology
 import java.time.ZoneId
@@ -28,7 +28,7 @@ import java.util.*
 @Composable
 fun HourlyWeatherDisplay(
     modifier: Modifier = Modifier,
-    forecastMain: ForecastMain,
+    forecastItem: ForecastItem,
     meteorology: Meteorology,
     main: Main,
 ) {
@@ -38,8 +38,8 @@ fun HourlyWeatherDisplay(
             .now(ZoneId.of("Europe/Moscow"))
             .format(DateTimeFormatter.ofPattern("HH:mm"))
 
-        val apiTime = sdf.format(Date(forecastMain.dt.toLong() * 1000))
-        val apiTimePlus3H = sdf.format(Date((forecastMain.dt.plus(10799).toLong()) * 1000))
+        val apiTime = sdf.format(Date(forecastItem.dt.toLong() * 1000))
+        val apiTimePlus3H = sdf.format(Date((forecastItem.dt.plus(10799).toLong()) * 1000))
 
         if (localDateTime > apiTime && localDateTime < apiTimePlus3H) {
             "Сейчас"

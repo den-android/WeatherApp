@@ -1,8 +1,7 @@
 package net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast
 
 import net.denis.weatherapp.features.core.Forecast
-import net.denis.weatherapp.features.forecast.model.MeteorologyItem
-import net.denis.weatherapp.features.forecast_at_three_hour.model.Detail
+import net.denis.weatherapp.features.forecast.model.ForecastData
 import net.denis.weatherapp.features.forecast_at_three_hour.model.DetailData
 
 data class WeatherDto(
@@ -12,10 +11,10 @@ data class WeatherDto(
     val list: kotlin.collections.List<List>,
     val message: Int
 ) {
-    private fun toWeatherItem(): MeteorologyItem {
-        return MeteorologyItem(
+    private fun toWeatherItem(): ForecastData {
+        return ForecastData(
             city = city.toCity(),
-            forecastMain = list.map { it.toForecast() }
+            forecastItem = list.map { it.toForecast() }
         )
     }
 

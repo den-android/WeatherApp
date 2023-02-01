@@ -1,6 +1,6 @@
 package net.denis.weatherapp.features.forecast.model
 
-data class MeteorologyItem(
+data class ForecastData(
     val city: City,
-    val forecastMain: List<ForecastMain>,
+    val forecastItem: List<ForecastItem>,
 )

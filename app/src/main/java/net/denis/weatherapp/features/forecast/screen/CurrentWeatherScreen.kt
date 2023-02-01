@@ -2,20 +2,14 @@ package net.denis.weatherapp.features.forecast.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import net.denis.weatherapp.core.presentation.navigation.Screen
 import net.denis.weatherapp.core.presentation.ui.ShimmerListItem
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
-import net.denis.weatherapp.features.forecast.model.MeteorologyItem
 import net.denis.weatherapp.features.forecast.mvi.ForecastState
 import net.denis.weatherapp.features.forecast.screen.components.BottomNavigateMenu
 import net.denis.weatherapp.features.forecast.screen.components.CurrentWeatherInfoDisplay
@@ -29,7 +23,7 @@ fun CurrentWeatherScreen(
     navController: NavController,
     weatherState: State<ForecastState>,
 ) {
-    val itemWeather = weatherState.value.meteorologyItem
+    val itemWeather = weatherState.value.forecastData
     val isLoading = weatherState.value.isLoading
 
     ShimmerListItem(
@@ -43,24 +37,24 @@ fun CurrentWeatherScreen(
                 ) {
                     Box(modifier = modifier.weight(3f)) {
                         val formattedTime =
-                            remember(itemWeather.forecastMain[0].dt) {
+                            remember(itemWeather.forecastItem[0].dt) {
                                 val sdf = SimpleDateFormat("HH:mm")
                                 val netDate =
-                                    Date(itemWeather.forecastMain[0].dt.toLong() * 1000)
+                                    Date(itemWeather.forecastItem[0].dt.toLong() * 1000)
                                 sdf.format(netDate)
                             }
                         CurrentWeatherInfoDisplay(
                             city = itemWeather.city.name,
-                            temp = itemWeather.forecastMain[0].main.temp,
-                            weatherDesc = itemWeather.forecastMain[0].meteorology[0].description,
+                            temp = itemWeather.forecastItem[0].main.temp,
+                            weatherDesc = itemWeather.forecastItem[0].meteorology[0].description,
                             currentDateTime = formattedTime,
-                            weatherIcon = itemWeather.forecastMain[0].meteorology[0].id
+                            weatherIcon = itemWeather.forecastItem[0].meteorology[0].id
                         )
                     }
 
                     Box(modifier = modifier.weight(1f),) {
                         WeatherForecastDisplay(
-                            meteorologyItem = itemWeather,
+                            forecastData = itemWeather,
                             onClick = {
                                 navController.navigate(
                                     route = Screen.DetailForecastScreen.passDetailCnt(

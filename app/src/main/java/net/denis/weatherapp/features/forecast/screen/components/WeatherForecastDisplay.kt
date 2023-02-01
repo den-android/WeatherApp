@@ -10,15 +10,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import net.denis.weatherapp.features.forecast.model.MeteorologyItem
+import net.denis.weatherapp.features.forecast.model.ForecastData
 
 @Composable
 fun WeatherForecastDisplay(
     modifier: Modifier = Modifier,
-    meteorologyItem: MeteorologyItem,
+    forecastData: ForecastData,
     onClick: (Int) -> Unit,
 ) {
-    meteorologyItem?.forecastMain?.let { data ->
+    forecastData?.forecastItem?.let { data ->
         Column(
             modifier = modifier
                 .fillMaxWidth()
@@ -27,7 +27,7 @@ fun WeatherForecastDisplay(
             LazyRow {
                 items(data) { weatherData ->
                     HourlyWeatherDisplay(
-                        forecastMain = weatherData,
+                        forecastItem = weatherData,
                         meteorology = weatherData.meteorology[0],
                         main = weatherData.main,
                         modifier = Modifier
