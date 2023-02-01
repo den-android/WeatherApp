@@ -1,7 +1,9 @@
 package net.denis.weatherapp.features.forecast.screen
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
@@ -52,7 +54,7 @@ fun CurrentWeatherScreen(
                         )
                     }
 
-                    Box(modifier = modifier.weight(1f),) {
+                    Box(modifier = modifier.weight(1f)) {
                         WeatherForecastDisplay(
                             forecastData = itemWeather,
                             onClick = {

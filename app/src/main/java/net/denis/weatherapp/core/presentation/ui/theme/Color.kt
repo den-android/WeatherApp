@@ -18,5 +18,6 @@ val MiddleGradientColor = Color(0xFFAF01FF)
 val EndGradientColor = Color(0xFFFF1010)
 
 val CityBackground = Color(0xFF4652B3)
+val ActivedCard = Color(0xFF343D83)
 
 val CurrentHourlyItem = Color(0xFF3A47B6)
