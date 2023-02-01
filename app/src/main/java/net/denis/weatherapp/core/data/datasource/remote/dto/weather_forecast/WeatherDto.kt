@@ -3,6 +3,7 @@ package net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast
 import net.denis.weatherapp.features.core.Forecast
 import net.denis.weatherapp.features.forecast.model.ForecastData
 import net.denis.weatherapp.features.forecast_at_three_hour.model.DetailData
+import net.denis.weatherapp.features.forecast_at_three_hour.model.TestDetailData
 
 data class WeatherDto(
     val city: City,
@@ -11,14 +12,14 @@ data class WeatherDto(
     val list: kotlin.collections.List<List>,
     val message: Int
 ) {
-    private fun toWeatherItem(): ForecastData {
+    private fun toForecastData(): ForecastData {
         return ForecastData(
-            city = city.toCity(),
+            city = city.toCityDetail(),
             forecastItem = list.map { it.toForecast() }
         )
     }
 
-    private fun toDetailDataItem(): DetailData {
+    private fun toDetailData(): DetailData {
         return DetailData(
             detailList = list.map { it.toDetail() }
         )
@@ -26,9 +27,16 @@ data class WeatherDto(
 
     fun toForecast(): Forecast {
         return Forecast(
-            mainData = toWeatherItem(),
-            detailData = toDetailDataItem(),
+            mainData = toForecastData(),
+            detailData = toDetailData(),
         )
     }
 
+
+    private fun toTestDetailData(): TestDetailData {
+        return TestDetailData(
+            cityDetail = city.toCityDetail(),
+            detailList = list.map { it.toDetail() }
+        )
+    }
 }

@@ -16,7 +16,7 @@ class DetailReducer : Reducer<DetailState, DetailAction> {
             is DetailAction.DetailForecastLoaded -> {
                 currentState.copy(
                     isLoading = false,
-                    detail = action.detail,
+                    testDetailData = action.detail,
                 )
             }
 

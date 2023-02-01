@@ -1,6 +1,5 @@
 package net.denis.weatherapp.features.forecast_at_three_hour.screen
 
-import android.util.Log
 import androidx.activity.compose.LocalOnBackPressedDispatcherOwner
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -8,29 +7,25 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import net.denis.weatherapp.core.presentation.ui.ShimmerListItem
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
 import net.denis.weatherapp.core.util.MultipleView
-import net.denis.weatherapp.features.forecast.model.*
 import net.denis.weatherapp.features.forecast.screen.components.Toolbar
-import net.denis.weatherapp.features.forecast_at_three_hour.model.Detail
-import net.denis.weatherapp.features.forecast_at_three_hour.mvi.DetailState
+import net.denis.weatherapp.features.forecast_at_three_hour.mvi.DetailViewModel
 import net.denis.weatherapp.features.forecast_at_three_hour.screen.components.compose_items.CellWithIndicator
 import net.denis.weatherapp.features.forecast_at_three_hour.screen.components.compose_items.CellWithText
-import java.util.*
 
 @Composable
 fun DetailWeatherScreen(
     modifier: Modifier = Modifier,
-    //detail: List<MultipleView<Detail>>,
-    detailState: State<DetailState>,
+    vm: DetailViewModel,
 ) {
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
-    val isLoading: Boolean = detailState.value.isLoading
-    val detail = detailState.value.detail
+    val state = vm.viewState.collectAsState()
+    val detailList = state.value.testDetailData
 
-    ShimmerListItem(isLoading = isLoading, contentAfterLoading = {
+
+    detailList?.let { listWeather ->
         LazyColumn(
             modifier = modifier
                 .fillMaxSize()
@@ -39,58 +34,38 @@ fun DetailWeatherScreen(
             item {
                 Toolbar(
                     modifier = modifier.background(MiddleGradientColor),
-                    //label = detail.city.name,
+                    //label = it.cityDetail.name,
                     onClicked = {
                         onBackPressedDispatcher?.onBackPressed()
                     })
             }
-            detail?.let {
-                items(it) { item ->
-                    when (item) {
-                        is MultipleView.WideCardWithText -> {
-                            WindDetail(
-                                title = item.title,
-                                text = item.text,
-                                indicatorValue = item.indicatorValue,
-                                description = item.description
-                            )
-                        }
-                        is MultipleView.CardWithText -> {
-                            CloudyDetail(
-                                title = item.title,
-                                text = item.text,
-                                description = item.description,
-                            )
-                        }
-                        is MultipleView.CardWithIndicator -> {
-                            VisibilityDetail(
-                                title = item.title,
-                                text = item.text,
-                                visibility = item.indicatorValue,
-                                description = item.description
-                            )
+            items(listWeather) { item ->
+                when (item) {
+                    is MultipleView.CardWithIndicator -> {
+                        CellWithIndicator(
+                            title = item.title,
+                            text = item.text,
+                            indicatorValue = item.indicatorValue
+                        )
+                    }
+                    is MultipleView.CardWithText -> {
+                        CellWithText(
+                            title = item.title,
+                            text = item.text
+                        )
+                    }
+                    is MultipleView.WideCardWithText -> {
 
-                        }
-                        is MultipleView.CardWithText -> {
-                            SunriseDetail(
-                                text = item.text
-                            )
-                        }
-                        is MultipleView.CardWithText -> {
-                            SunriseDetail(
-                                text = item.text
-                            )
-                        }
-                        else -> {}
                     }
                 }
             }
         }
-    })
+
+    }
 }
 
 @Composable
-fun WindDetail(
+private fun WindDetail(
     modifier: Modifier = Modifier,
     title: String,
     text: String,
@@ -106,7 +81,7 @@ fun WindDetail(
 }
 
 @Composable
-fun CloudyDetail(
+private fun CloudyDetail(
     modifier: Modifier = Modifier,
     title: String,
     text: String,
@@ -120,7 +95,7 @@ fun CloudyDetail(
 }
 
 @Composable
-fun VisibilityDetail(
+private fun VisibilityDetail(
     modifier: Modifier = Modifier,
     title: String,
     text: String,
@@ -136,23 +111,21 @@ fun VisibilityDetail(
 }
 
 @Composable
-fun SunriseDetail(
+private fun SunriseDetail(
     modifier: Modifier = Modifier,
     text: String,
 ) {
-
     CellWithText(
-        title = "Рассвет",
-        text = "$text AM"
+        text = text
     )
 }
 
 @Composable
-fun SunsetDetail(
+private fun SunsetDetail(
     modifier: Modifier = Modifier,
     text: String,
 ) {
     CellWithText(
-        text = "$text PM"
+        text = text
     )
 }

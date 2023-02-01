@@ -1,18 +1,21 @@
 package net.denis.weatherapp.features.forecast_at_three_hour.model
 
 import net.denis.weatherapp.core.util.MultipleView
+import net.denis.weatherapp.features.forecast_at_three_hour.model.items.CityDetail
+import net.denis.weatherapp.features.forecast_at_three_hour.model.items.Cloud
+import net.denis.weatherapp.features.forecast_at_three_hour.model.items.Wind
 import java.math.RoundingMode
 import java.text.SimpleDateFormat
 import java.util.*
 
 data class Detail(
-    val cityDetail: CityDetail,
+    //val cityDetail: CityDetail,
     val cloud: Cloud,
     val wind: Wind,
     val visibility: Int,
 ) {
-    fun toMultipleView(): List<MultipleView<Detail>> {
-        val cards = mutableListOf<MultipleView<Detail>>()
+    fun toMultipleView(): List<MultipleView> {
+        val cards = mutableListOf<MultipleView>()
 
         cards.add(
             MultipleView.WideCardWithText(
@@ -43,7 +46,7 @@ data class Detail(
         cards.add(
             MultipleView.CardWithText(
                 title = "Рассвет",
-                text = sunriseMap(cityDetail.sunrise),
+                text = sunriseMap(5666666),
                 description = ""
             )
         )
@@ -51,7 +54,7 @@ data class Detail(
         cards.add(
             MultipleView.CardWithText(
                 title = "Закат",
-                text = sunsetMap(cityDetail.sunset),
+                text = sunsetMap(66666666),
                 description = "",
             )
         )
