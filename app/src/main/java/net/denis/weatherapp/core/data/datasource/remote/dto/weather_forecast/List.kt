@@ -1,9 +1,10 @@
 package net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast
 
-import net.denis.weatherapp.core.util.MultipleView
 import net.denis.weatherapp.features.forecast.model.ForecastItem
-import net.denis.weatherapp.features.forecast_at_three_hour.model.items.CityDetail
-import net.denis.weatherapp.features.forecast_at_three_hour.model.Detail
+import net.denis.weatherapp.features.forecast_at_three_hour.model.DetailData
+import net.denis.weatherapp.features.forecast_at_three_hour.model.DetailItem
+import java.text.SimpleDateFormat
+import java.util.*
 import kotlin.collections.List
 
 data class List(
@@ -17,19 +18,36 @@ data class List(
     val weather: List<Weather>,
     val wind: Wind
 ) {
-    fun toForecast(): ForecastItem {
+    private fun toFormattedDt(): String {
+        return dtMap(dt)
+    }
+
+    fun toForecastItem(): ForecastItem {
         return ForecastItem(
-            dt = dt,
-            main = main.toMain(),
-            meteorology = weather.map { it.toWeather() },
+            dateTime = toFormattedDt(),
+            temp = main.toRoundTemp(),
+            meteorology = weather.map { it.toMeteorology() },
+            detailData = toDetailData()
+        )
+    }
+    private fun toDetailData(): DetailData {
+        return DetailData(
+            detailItem = toDetailItem()
         )
     }
 
-    fun toDetail(): Detail {
-        return Detail(
-            cloud = clouds.toClouds(),
-            wind = wind.toWind(),
-            visibility = visibility,
+    private fun toDetailItem(): DetailItem {
+        return DetailItem(
+            city = ,
+            wind = wind,
+            clouds = clouds,
+            visibility = visibility
         )
     }
+}
+
+private fun dtMap(dt: Int): String {
+    val sdf = SimpleDateFormat("HH:mm")
+    val netDate = Date(dt.toLong() * 1000)
+    return sdf.format(netDate)
 }

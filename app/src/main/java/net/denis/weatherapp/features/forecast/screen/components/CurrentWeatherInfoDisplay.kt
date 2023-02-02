@@ -21,7 +21,7 @@ import java.util.*
 fun CurrentWeatherInfoDisplay(
     modifier: Modifier = Modifier,
     city: String,
-    temp: Double,
+    temp: String,
     weatherDesc: String,
     currentDateTime: String,
     weatherIcon: Int,
@@ -47,7 +47,7 @@ fun CurrentWeatherInfoDisplay(
             verticalArrangement = Arrangement.SpaceAround,
         ) {
             CustomTextBox(text = city)
-            CustomTextBox(text = "${roundTemp(temp)}°", size = 100)
+            CustomTextBox(text = temp, size = 100)
             CustomTextBox(text = weatherDesc, color = WeatherText)
             CustomTextBox(text = currentDateTime)
         }
@@ -58,9 +58,4 @@ fun CurrentWeatherInfoDisplay(
             modifier = modifier.width(200.dp)
         )
     }
-}
-
-private fun roundTemp(temp: Double): Double {
-    val df = DecimalFormat("#", DecimalFormatSymbols(Locale.ENGLISH))
-    return df.format(temp.toBigDecimal()).toDouble()
 }

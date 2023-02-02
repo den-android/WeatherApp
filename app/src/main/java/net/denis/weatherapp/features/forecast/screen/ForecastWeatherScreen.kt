@@ -1,59 +1,56 @@
 package net.denis.weatherapp.features.forecast.screen
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import net.denis.weatherapp.core.presentation.navigation.Screen
 import net.denis.weatherapp.core.presentation.ui.ShimmerListItem
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
-import net.denis.weatherapp.features.forecast.mvi.ForecastState
+import net.denis.weatherapp.features.forecast.mvi.ForecastViewModel
 import net.denis.weatherapp.features.forecast.screen.components.BottomNavigateMenu
 import net.denis.weatherapp.features.forecast.screen.components.CurrentWeatherInfoDisplay
 import net.denis.weatherapp.features.forecast.screen.components.WeatherForecastDisplay
-import java.text.SimpleDateFormat
-import java.util.*
 
 @Composable
-fun CurrentWeatherScreen(
+fun ForecastWeatherScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    weatherState: State<ForecastState>,
+    vm: ForecastViewModel,
 ) {
-    val itemWeather = weatherState.value.forecastData
-    val isLoading = weatherState.value.isLoading
+    val state = vm.viewState.collectAsState()
+    val forecastData = state.value.forecastData
 
-    ShimmerListItem(
-        isLoading = isLoading,
-        contentAfterLoading = {
-            itemWeather?.let { itemWeather ->
+    forecastData?.let { itemForecastData ->
+        ShimmerListItem(
+            isLoading = state.value.isLoading,
+            contentAfterLoading = {
                 Column(
                     modifier = modifier
                         .fillMaxSize()
                         .background(color = CityBackground)
                 ) {
-
                     Box(modifier = modifier.weight(3f)) {
-
                         CurrentWeatherInfoDisplay(
-                            city = itemWeather.city.name,
-                            temp = itemWeather.forecastItem[0].main.temp,
-                            weatherDesc = itemWeather.forecastItem[0].meteorology[0].description,
-                            currentDateTime = "213",
-                            weatherIcon = itemWeather.forecastItem[0].meteorology[0].id
+                            city = itemForecastData.city.name,
+                            temp = itemForecastData.forecastItem[0].main.temp,
+                            weatherDesc = itemForecastData.forecastItem[0].meteorology.description,
+                            currentDateTime = "${itemForecastData.forecastItem[0].dt}",
+                            weatherIcon = itemForecastData.forecastItem[0].meteorology.id
                         )
                     }
 
-                    Box(modifier = modifier.weight(1f),) {
+                    Box(modifier = modifier.weight(1f)) {
                         WeatherForecastDisplay(
-                            forecastData = itemWeather,
+                            forecastData = itemForecastData,
                             onClick = {
                                 navController.navigate(
-                                    route = Screen.DetailForecastScreen.passDetailCnt(
-                                        cnt = it
+                                    route = Screen.DetailForecastScreen.passDetailId(
+                                        id = it
                                     )
                                 )
                             }
@@ -70,8 +67,6 @@ fun CurrentWeatherScreen(
                         }
                     )
                 }
-            }
-
-        })
-
+            })
+    }
 }

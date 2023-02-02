@@ -7,11 +7,11 @@ data class Weather(
     val icon: String,
     val id: Int,
     val main: String
-){
-    fun toWeather(): Meteorology {
+) {
+    fun toMeteorology(): Meteorology{
         return Meteorology(
             id = id,
-            description = description
+            description = description,
         )
     }
 }

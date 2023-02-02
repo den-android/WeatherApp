@@ -1,6 +1,9 @@
 package net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast
 
-import net.denis.weatherapp.features.forecast.model.Main
+import android.icu.text.DecimalFormat
+import android.icu.text.DecimalFormatSymbols
+import net.denis.weatherapp.features.forecast.model.Temp
+import java.util.*
 
 data class Main(
     val feels_like: Double,
@@ -13,9 +16,12 @@ data class Main(
     val temp_max: Double,
     val temp_min: Double
 ) {
-    fun toMain(): Main {
-        return Main(
-            temp = temp
-        )
+    fun toRoundTemp(): String {
+        return "${roundTemp(temp)}°"
     }
+}
+
+private fun roundTemp(temp: Double): Double {
+    val df = DecimalFormat("##", DecimalFormatSymbols(Locale.ENGLISH))
+    return df.format(temp.toBigDecimal()).toDouble()
 }

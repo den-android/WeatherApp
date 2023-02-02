@@ -27,7 +27,7 @@ fun CellWithText(
         shape = RoundedCornerShape(10.dp),
         border = BorderStroke(1.dp, MiddleGradientColor),
         modifier = modifier
-            .fillMaxWidth(),
+            .fillMaxWidth(0.5f),
     ) {
         Column(
             modifier = modifier

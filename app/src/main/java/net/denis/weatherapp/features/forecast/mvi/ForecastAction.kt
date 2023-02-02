@@ -5,5 +5,5 @@ import net.denis.weatherapp.features.forecast.model.ForecastData
 
 sealed class ForecastAction : Action {
     object ForecastLoading : ForecastAction()
-    data class CurrentForecastLoaded(val forecastData: ForecastData) : ForecastAction()
+   data class CurrentForecastLoaded(val forecastData: ForecastData) : ForecastAction()
 }

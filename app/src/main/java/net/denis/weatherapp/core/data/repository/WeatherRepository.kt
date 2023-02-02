@@ -3,11 +3,11 @@ package net.denis.weatherapp.core.data.repository
 import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.WeatherDto
 import net.denis.weatherapp.core.data.interfaces.ILocalDatasource
 import net.denis.weatherapp.core.data.interfaces.IRemoteDatasource
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.util.NetworkResult
-import net.denis.weatherapp.features.core.Forecast
 import javax.inject.Inject
 
 class WeatherRepository @Inject constructor(
@@ -18,13 +18,13 @@ class WeatherRepository @Inject constructor(
         lat: Double,
         lon: Double,
         apiKey: String
-    ): Flow<Forecast> {
+    ): Flow<WeatherDto> {
         val response = remoteDatasource.getForecastByCity(lat, lon, apiKey)
 
         return flow {
             when (response) {
                 is NetworkResult.Success -> {
-                    emit(response.data.toForecast())
+                    emit(response.data)
                 }
                 is NetworkResult.Error -> {
                     Log.d("Logging", "ERROR: ${response.message}\n")

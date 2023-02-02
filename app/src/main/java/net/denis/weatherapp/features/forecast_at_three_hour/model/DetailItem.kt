@@ -1,17 +1,17 @@
 package net.denis.weatherapp.features.forecast_at_three_hour.model
 
+import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.City
+import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Clouds
+import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Wind
 import net.denis.weatherapp.core.util.MultipleView
-import net.denis.weatherapp.features.forecast_at_three_hour.model.items.CityDetail
-import net.denis.weatherapp.features.forecast_at_three_hour.model.items.Cloud
-import net.denis.weatherapp.features.forecast_at_three_hour.model.items.Wind
 import java.math.RoundingMode
 import java.text.SimpleDateFormat
 import java.util.*
 
-data class Detail(
-    //val cityDetail: CityDetail,
-    val cloud: Cloud,
+data class DetailItem(
+    val city: City,
     val wind: Wind,
+    val clouds: Clouds,
     val visibility: Int,
 ) {
     fun toMultipleView(): List<MultipleView> {
@@ -21,6 +21,22 @@ data class Detail(
             MultipleView.WideCardWithText(
                 title = "Ветренность",
                 text = "${roundSpeed(wind.speed)}м/с",
+                indicatorValue = wind.speed.toFloat() / 10f,
+                description = "",
+            )
+        )
+        cards.add(
+            MultipleView.WideCardWithText(
+                title = "Ветренность",
+                text = "${roundSpeed(wind.speed)}KM/CHAS",
+                indicatorValue = wind.speed.toFloat() / 10f,
+                description = "",
+            )
+        )
+        cards.add(
+            MultipleView.WideCardWithText(
+                title = "Ветренность",
+                text = "+++${roundSpeed(wind.speed)}+++",
                 indicatorValue = wind.speed.toFloat() / 10f,
                 description = "",
             )
@@ -38,7 +54,7 @@ data class Detail(
         cards.add(
             MultipleView.CardWithText(
                 title = "Облачность",
-                text = "${cloud.all}%",
+                text = "${clouds.all}%",
                 description = ""
             )
         )
@@ -46,7 +62,7 @@ data class Detail(
         cards.add(
             MultipleView.CardWithText(
                 title = "Рассвет",
-                text = sunriseMap(5666666),
+                text = "${dtMap(city.sunrise)} AM",
                 description = ""
             )
         )
@@ -54,11 +70,10 @@ data class Detail(
         cards.add(
             MultipleView.CardWithText(
                 title = "Закат",
-                text = sunsetMap(66666666),
-                description = "",
+                text = "${dtMap(city.sunset)} PM",
+                description = ""
             )
         )
-
         return cards
     }
 }
@@ -67,14 +82,8 @@ private fun roundSpeed(windSpeed: Double): Double {
     return (windSpeed / 3.6f).toBigDecimal().setScale(1, RoundingMode.UP).toDouble()
 }
 
-private fun sunriseMap(sunrise: Int): String {
+private fun dtMap(value: Int): String {
     val sdf = SimpleDateFormat("HH:mm")
-    val netDate = Date(sunrise.plus(10800).toLong() * 1000)
-    return sdf.format(netDate)
-}
-
-private fun sunsetMap(sunset: Int): String {
-    val sdf = SimpleDateFormat("HH:mm")
-    val netDate = Date(sunset.plus(10800).toLong() * 1000)
+    val netDate = Date(value.plus(10800).toLong() * 1000)
     return sdf.format(netDate)
 }

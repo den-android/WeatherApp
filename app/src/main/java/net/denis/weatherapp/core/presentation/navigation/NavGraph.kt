@@ -1,29 +1,26 @@
 package net.denis.weatherapp.core.presentation.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import net.denis.weatherapp.features.forecast.mvi.CurrentViewModel
-import net.denis.weatherapp.features.forecast.screen.CurrentWeatherScreen
+import net.denis.weatherapp.features.forecast.mvi.ForecastViewModel
 import net.denis.weatherapp.features.forecast.screen.FindNewCityScreen
+import net.denis.weatherapp.features.forecast.screen.ForecastWeatherScreen
 import net.denis.weatherapp.features.forecast_at_three_hour.mvi.DetailViewModel
 import net.denis.weatherapp.features.forecast_at_three_hour.screen.DetailWeatherScreen
 
-private const val PARAM_CNT = "cnt"
+private const val PARAM_CNT = "id"
 private const val PARAM_QUERY = "city"
 
 @Composable
 fun NavGraph(
     navController: NavHostController,
     detailVM: DetailViewModel,
-    currentVM: CurrentViewModel,
+    forecastVM: ForecastViewModel,
 ) {
-    val currentState = currentVM.viewState.collectAsState()
-
     NavHost(
         navController = navController,
         startDestination = Screen.CurrentForecastScreen.route
@@ -31,7 +28,7 @@ fun NavGraph(
         composable(
             route = Screen.CurrentForecastScreen.route
         ) {
-            CurrentWeatherScreen(navController = navController, weatherState = currentState)
+            ForecastWeatherScreen(navController = navController, vm = forecastVM)
         }
         composable(
             route = Screen.DetailForecastScreen.route,

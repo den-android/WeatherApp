@@ -3,6 +3,7 @@ package net.denis.weatherapp.features.forecast.mvi
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
+import net.denis.weatherapp.features.forecast.model.ForecastData
 
 class ForecastDataMiddleware(
     private val weatherRepository: IWeatherRepository,
@@ -27,8 +28,9 @@ class ForecastDataMiddleware(
             lon = 37.6174943,
             apiKey = "b05865d24d90b1dbccfb3ced2627b4e9"
         ).collect { data ->
-            val newData = data.mainData
-            store.dispatch(ForecastAction.CurrentForecastLoaded(forecastData = newData))
+            val forecastData = data.toForecastData()
+
+            store.dispatch(ForecastAction.CurrentForecastLoaded(forecastData = forecastData))
         }
     }
 }

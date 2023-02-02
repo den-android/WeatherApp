@@ -1,9 +1,14 @@
 package net.denis.weatherapp.features.forecast_at_three_hour.mvi
 
+import android.util.Log
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
-import net.denis.weatherapp.features.forecast_at_three_hour.model.TestDetailData
+import net.denis.weatherapp.core.util.MultipleView
+import net.denis.weatherapp.features.forecast.mvi.ForecastState
+import net.denis.weatherapp.features.forecast_at_three_hour.model.DetailData
+import net.denis.weatherapp.features.forecast_at_three_hour.model.temp.FinallyDetailData
+import net.denis.weatherapp.features.forecast_at_three_hour.model.temp.FinallyDetailItem
 
 class DetailDataMiddleware(
     private val weatherRepository: IWeatherRepository,
@@ -18,6 +23,7 @@ class DetailDataMiddleware(
             is DetailAction.GetCurrentId -> {
                 detailLoading(currentId = action.currentId, store = store)
             }
+
             else -> currentState
         }
     }
@@ -28,9 +34,11 @@ class DetailDataMiddleware(
             lon = 37.6174943,
             apiKey = "b05865d24d90b1dbccfb3ced2627b4e9"
         ).collect { data ->
-            val mappedData = data.detailData.detailList.get(currentId).toMultipleView()
 
-
+            val mappedData: FinallyDetailItem = FinallyDetailItem(
+                cityName = data.city.name,
+                detailItem = data.list[currentId].toTempDetail().toMultipleView()
+            )
 
             store.dispatch(DetailAction.DetailForecastLoaded(mappedData))
         }

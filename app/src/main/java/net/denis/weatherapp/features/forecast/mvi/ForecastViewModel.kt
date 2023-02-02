@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CurrentViewModel @Inject constructor(
+class ForecastViewModel @Inject constructor(
     private val forecastStore: ForecastStore,
 ) : ViewModel() {
 

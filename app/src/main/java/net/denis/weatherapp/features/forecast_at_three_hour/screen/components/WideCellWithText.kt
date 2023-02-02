@@ -17,7 +17,7 @@ import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
 
 @Composable
-fun CellWithIndicator(
+fun WideCellWithIndicator(
     modifier: Modifier = Modifier,
     title: String = "",
     text: String = "",
@@ -28,7 +28,7 @@ fun CellWithIndicator(
         shape = RoundedCornerShape(10.dp),
         border = BorderStroke(1.dp, MiddleGradientColor),
         modifier = modifier
-            .fillMaxWidth(0.5f)
+            .fillMaxWidth()
     ) {
         Column(
             modifier = modifier
