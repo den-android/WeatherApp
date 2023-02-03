@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import net.denis.weatherapp.features.detail_forecast.mvi.DetailViewModel
 import net.denis.weatherapp.features.detail_forecast.screen.DetailWeatherScreen
-import net.denis.weatherapp.features.main_forecast.mvi.ForecastViewModel
+import net.denis.weatherapp.features.main_forecast.mvi.MainViewModel
 import net.denis.weatherapp.features.main_forecast.screen.ForecastWeatherScreen
 
 private const val PARAM_POSITION = "position"
@@ -17,7 +17,7 @@ private const val PARAM_QUERY = "city"
 @Composable
 fun NavGraph(
     navController: NavHostController,
-    forecastVM: ForecastViewModel,
+    forecastVM: MainViewModel,
     detailVM: DetailViewModel,
 ) {
     NavHost(

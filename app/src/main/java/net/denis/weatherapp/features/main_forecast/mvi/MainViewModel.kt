@@ -8,11 +8,11 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ForecastViewModel @Inject constructor(
-    private val forecastStore: ForecastStore,
+class MainViewModel @Inject constructor(
+    private val mainStore: MainStore,
 ) : ViewModel() {
 
-    val viewState: StateFlow<ForecastState> = forecastStore.state
+    val viewState: StateFlow<MainState> = mainStore.state
 
     init {
         loadCurrentForecast()
@@ -20,7 +20,7 @@ class ForecastViewModel @Inject constructor(
 
     private fun loadCurrentForecast() {
         viewModelScope.launch {
-            forecastStore.dispatch(ForecastAction.ForecastLoading)
+            mainStore.dispatch(MainAction.MainLoading)
         }
     }
 }

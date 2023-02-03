@@ -5,14 +5,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import net.denis.weatherapp.core.presentation.navigation.Screen
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
-import net.denis.weatherapp.features.main_forecast.mvi.ForecastState
-import net.denis.weatherapp.features.main_forecast.mvi.ForecastViewModel
+import net.denis.weatherapp.features.main_forecast.mvi.MainViewModel
 import net.denis.weatherapp.features.main_forecast.screen.components.BottomNavigateMenu
 import net.denis.weatherapp.features.main_forecast.screen.components.CurrentWeatherInfoDisplay
 import net.denis.weatherapp.features.main_forecast.screen.components.WeatherForecastDisplay
@@ -21,7 +19,7 @@ import net.denis.weatherapp.features.main_forecast.screen.components.WeatherFore
 fun ForecastWeatherScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    vm: ForecastViewModel,
+    vm: MainViewModel,
 ) {
     val state = vm.viewState.collectAsState()
     val forecastState = state.value.forecastData
@@ -47,8 +45,8 @@ fun ForecastWeatherScreen(
                     forecastData = forecastState,
                     onClick = {
                         navController.navigate(
-                            route = Screen.DetailForecastScreen.passDetailId(
-                                id = it
+                            route = Screen.DetailForecastScreen.passDetailPosition(
+                                position = it
                             )
                         )
                     }

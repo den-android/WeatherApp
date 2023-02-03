@@ -4,13 +4,13 @@ import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.presentation.redux.BaseStore
 import javax.inject.Inject
 
-class ForecastStore @Inject constructor(
+class MainStore @Inject constructor(
     weatherRepository: IWeatherRepository,
-) : BaseStore<ForecastState, ForecastAction>(
-    initialState = ForecastState(),
-    reducer = ForecastReducer(),
+) : BaseStore<MainState, MainAction>(
+    initialState = MainState(),
+    reducer = MainReducer(),
     middlewares = listOf(
         LoggingMiddleware(),
-        ForecastDataMiddleware(weatherRepository),
+        MainDataMiddleware(weatherRepository),
     )
 )

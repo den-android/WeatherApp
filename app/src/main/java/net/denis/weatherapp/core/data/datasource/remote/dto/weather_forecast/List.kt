@@ -27,13 +27,13 @@ data class List(
         )
     }
 
-    fun toDetailData(): DetailData {
+    private fun toDetailData(): DetailData {
         return DetailData(
             detailList = toDetailItem().toMultipleView()
         )
     }
 
-    fun toDetailItem(): DetailItem {
+    private fun toDetailItem(): DetailItem {
         return DetailItem(
             wind = wind,
             clouds = clouds,
@@ -43,7 +43,7 @@ data class List(
 
 }
 
-fun dtMap(dt: Int): String {
+private fun dtMap(dt: Int): String {
     val sdf = SimpleDateFormat("HH:mm")
     val netDate = Date(dt.toLong() * 1000)
     return sdf.format(netDate)

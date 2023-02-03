@@ -4,24 +4,24 @@ import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
 
-class ForecastDataMiddleware(
+class MainDataMiddleware(
     private val weatherRepository: IWeatherRepository,
-) : Middleware<ForecastState, ForecastAction> {
+) : Middleware<MainState, MainAction> {
 
     override suspend fun process(
-        action: ForecastAction,
-        currentState: ForecastState,
-        store: Store<ForecastState, ForecastAction>
+        action: MainAction,
+        currentState: MainState,
+        store: Store<MainState, MainAction>
     ) {
         when (action) {
-            is ForecastAction.ForecastLoading -> {
+            is MainAction.MainLoading -> {
                 forecastLoading(store)
             }
             else -> currentState
         }
     }
 
-    private suspend fun forecastLoading(store: Store<ForecastState, ForecastAction>) {
+    private suspend fun forecastLoading(store: Store<MainState, MainAction>) {
         weatherRepository.getForecast(
             lat = 55.7504461,
             lon = 37.6174943,
@@ -29,7 +29,7 @@ class ForecastDataMiddleware(
         ).collect { data ->
             val forecastData = data.toForecastData()
 
-            store.dispatch(ForecastAction.CurrentForecastLoaded(forecastData = forecastData))
+            store.dispatch(MainAction.CurrentMainLoaded(forecastData = forecastData))
         }
     }
 }

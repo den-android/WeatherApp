@@ -2,18 +2,18 @@ package net.denis.weatherapp.features.main_forecast.mvi
 
 import net.denis.weatherapp.core.presentation.redux.Reducer
 
-class ForecastReducer : Reducer<ForecastState, ForecastAction> {
+class MainReducer : Reducer<MainState, MainAction> {
 
-    override fun reduce(currentState: ForecastState, action: ForecastAction): ForecastState {
+    override fun reduce(currentState: MainState, action: MainAction): MainState {
         return when (action) {
 
-            is ForecastAction.ForecastLoading -> {
+            is MainAction.MainLoading -> {
                 currentState.copy(
                     isLoading = true,
                 )
             }
 
-            is ForecastAction.CurrentForecastLoaded -> {
+            is MainAction.CurrentMainLoaded -> {
                 currentState.copy(
                     isLoading = false,
                     forecastData = action.forecastData,
