@@ -15,4 +15,5 @@ data class WeatherDto(
             forecastItem = list.map { it.toForecastItem() }
         )
     }
+
 }

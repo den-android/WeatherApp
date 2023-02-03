@@ -18,35 +18,32 @@ data class List(
     val weather: List<Weather>,
     val wind: Wind
 ) {
-    private fun toFormattedDt(): String {
-        return dtMap(dt)
-    }
-
     fun toForecastItem(): ForecastItem {
         return ForecastItem(
-            dateTime = toFormattedDt(),
-            temp = main.toRoundTemp(),
+            dateTime = dtMap(dt),
+            temp = main.toTemp(),
             meteorology = weather.map { it.toMeteorology() },
-            detailData = toDetailData()
-        )
-    }
-    private fun toDetailData(): DetailData {
-        return DetailData(
-            detailItem = toDetailItem()
+            detailData = toDetailData(),
         )
     }
 
-    private fun toDetailItem(): DetailItem {
+    fun toDetailData(): DetailData {
+        return DetailData(
+            detailItem = toDetailItem().toMultipleView()
+        )
+    }
+
+    fun toDetailItem(): DetailItem {
         return DetailItem(
-            city = ,
             wind = wind,
             clouds = clouds,
             visibility = visibility
         )
     }
+
 }
 
-private fun dtMap(dt: Int): String {
+fun dtMap(dt: Int): String {
     val sdf = SimpleDateFormat("HH:mm")
     val netDate = Date(dt.toLong() * 1000)
     return sdf.format(netDate)

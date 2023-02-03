@@ -24,9 +24,9 @@ fun DetailWeatherScreen(
 ) {
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
     val state = vm.viewState.collectAsState()
-    val finallyDetailItem = state.value.detailData
+    val detailState = state.value.detailData
 
-    finallyDetailItem?.let { listWeather ->
+    detailState?.detailItem?.let { listWeather ->
         LazyColumn(
             modifier = modifier
                 .fillMaxSize()
@@ -35,12 +35,12 @@ fun DetailWeatherScreen(
             item {
                 Toolbar(
                     modifier = modifier.background(MiddleGradientColor),
-                    label = listWeather.cityName,
+//                    label = listWeather,
                     onClicked = {
                         onBackPressedDispatcher?.onBackPressed()
                     })
             }
-            items(listWeather.tempDetail.toMultipleView()) { item ->
+            items(listWeather) { item ->
                 when (item) {
                     is MultipleView.WideCardWithText -> {
                         WideCellWithIndicator(

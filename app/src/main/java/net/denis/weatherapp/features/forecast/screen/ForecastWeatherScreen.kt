@@ -25,7 +25,7 @@ fun ForecastWeatherScreen(
     val state = vm.viewState.collectAsState()
     val forecastData = state.value.forecastData
 
-    forecastData?.let { itemForecastData ->
+    forecastData?.forecastItem?.let { itemForecast ->
         ShimmerListItem(
             isLoading = state.value.isLoading,
             contentAfterLoading = {
@@ -36,17 +36,17 @@ fun ForecastWeatherScreen(
                 ) {
                     Box(modifier = modifier.weight(3f)) {
                         CurrentWeatherInfoDisplay(
-                            city = itemForecastData.city.name,
-                            temp = itemForecastData.forecastItem[0].main.temp,
-                            weatherDesc = itemForecastData.forecastItem[0].meteorology.description,
-                            currentDateTime = "${itemForecastData.forecastItem[0].dt}",
-                            weatherIcon = itemForecastData.forecastItem[0].meteorology.id
+                            city = forecastData.city.name,
+                            weatherIcon = itemForecast[0].meteorology[0].id,
+                            temp = itemForecast[0].temp,
+                            weatherDesc = itemForecast[0].meteorology[0].description,
+                            currentDateTime = itemForecast[0].dateTime
                         )
                     }
 
                     Box(modifier = modifier.weight(1f)) {
                         WeatherForecastDisplay(
-                            forecastData = itemForecastData,
+                            forecastData = forecastData,
                             onClick = {
                                 navController.navigate(
                                     route = Screen.DetailForecastScreen.passDetailId(

@@ -2,7 +2,6 @@ package net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast
 
 import android.icu.text.DecimalFormat
 import android.icu.text.DecimalFormatSymbols
-import net.denis.weatherapp.features.forecast.model.Temp
 import java.util.*
 
 data class Main(
@@ -16,12 +15,12 @@ data class Main(
     val temp_max: Double,
     val temp_min: Double
 ) {
-    fun toRoundTemp(): String {
+    fun toTemp(): String {
         return "${roundTemp(temp)}°"
     }
 }
 
-private fun roundTemp(temp: Double): Double {
-    val df = DecimalFormat("##", DecimalFormatSymbols(Locale.ENGLISH))
-    return df.format(temp.toBigDecimal()).toDouble()
+private fun roundTemp(temp: Double): String {
+    val df = DecimalFormat("#.#", DecimalFormatSymbols(Locale.ENGLISH))
+    return df.format(temp.toBigDecimal())
 }

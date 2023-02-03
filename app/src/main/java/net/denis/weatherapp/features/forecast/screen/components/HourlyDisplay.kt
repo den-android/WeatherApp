@@ -19,15 +19,14 @@ import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
 import net.denis.weatherapp.core.util.WeatherType
 import net.denis.weatherapp.features.forecast.model.ForecastItem
-import net.denis.weatherapp.features.forecast.model.Main
 import net.denis.weatherapp.features.forecast.model.Meteorology
 
 @Composable
 fun HourlyWeatherDisplay(
     modifier: Modifier = Modifier,
     forecastItem: ForecastItem,
-    meteorology: Meteorology,
-    main: Main,
+//    meteorology: Meteorology,
+//    temp: String,
 ) {
     Box(
         modifier = modifier
@@ -40,16 +39,16 @@ fun HourlyWeatherDisplay(
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = forecastItem.dt,
+                text = forecastItem.dateTime,
                 color = PrimaryText
             )
             Image(
-                painter = painterResource(id = WeatherType.fromWMO(code = meteorology.id).iconRes),
+                painter = painterResource(id = WeatherType.fromWMO(code = forecastItem.meteorology[0].id).iconRes),
                 contentDescription = null,
                 modifier = Modifier.width(40.dp)
             )
             Text(
-                text = main.temp,
+                text = forecastItem.temp,
                 color = PrimaryText,
                 fontWeight = FontWeight.Bold
             )

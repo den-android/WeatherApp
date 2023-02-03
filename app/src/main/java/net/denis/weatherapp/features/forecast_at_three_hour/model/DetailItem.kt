@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 data class DetailItem(
-    val city: City,
     val wind: Wind,
     val clouds: Clouds,
     val visibility: Int,
@@ -59,21 +58,6 @@ data class DetailItem(
             )
         )
 
-        cards.add(
-            MultipleView.CardWithText(
-                title = "Рассвет",
-                text = "${dtMap(city.sunrise)} AM",
-                description = ""
-            )
-        )
-
-        cards.add(
-            MultipleView.CardWithText(
-                title = "Закат",
-                text = "${dtMap(city.sunset)} PM",
-                description = ""
-            )
-        )
         return cards
     }
 }
