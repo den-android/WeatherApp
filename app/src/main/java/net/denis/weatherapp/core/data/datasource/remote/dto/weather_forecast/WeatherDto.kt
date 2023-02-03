@@ -1,6 +1,6 @@
 package net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast
 
-import net.denis.weatherapp.features.forecast.model.ForecastData
+import net.denis.weatherapp.features.main_forecast.model.ForecastData
 
 data class WeatherDto(
     val city: City,
@@ -12,7 +12,7 @@ data class WeatherDto(
     fun toForecastData(): ForecastData {
         return ForecastData(
             city = city,
-            forecastItem = list.map { it.toForecastItem() }
+            forecastList = list.map { it.toForecastItem() }
         )
     }
 

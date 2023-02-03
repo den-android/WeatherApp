@@ -1,8 +1,8 @@
 package net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast
 
-import net.denis.weatherapp.features.forecast.model.ForecastItem
-import net.denis.weatherapp.features.forecast_at_three_hour.model.DetailData
-import net.denis.weatherapp.features.forecast_at_three_hour.model.DetailItem
+import net.denis.weatherapp.features.main_forecast.model.ForecastItem
+import net.denis.weatherapp.features.detail_forecast.model.DetailData
+import net.denis.weatherapp.features.detail_forecast.model.DetailItem
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.List
@@ -29,7 +29,7 @@ data class List(
 
     fun toDetailData(): DetailData {
         return DetailData(
-            detailItem = toDetailItem().toMultipleView()
+            detailList = toDetailItem().toMultipleView()
         )
     }
 

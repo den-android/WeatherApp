@@ -1,6 +1,6 @@
 package net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast
 
-import net.denis.weatherapp.features.forecast.model.Meteorology
+import net.denis.weatherapp.features.main_forecast.model.Meteorology
 
 data class Weather(
     val description: String,
