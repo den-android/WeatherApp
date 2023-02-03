@@ -15,17 +15,17 @@ class DetailDataMiddleware(
         store: Store<DetailState, DetailAction>
     ) {
         when (action) {
-            is DetailAction.GetCurrentId -> {
-                detailLoading(currentId = action.currentId, store = store)
+            is DetailAction.GetPosition -> {
+                detailLoading(position = action.position, store = store)
             }
 
             else -> currentState
         }
     }
 
-    private suspend fun detailLoading(currentId: Int, store: Store<DetailState, DetailAction>) {
+    private suspend fun detailLoading(position: Int, store: Store<DetailState, DetailAction>) {
 
-        val mappedData: DetailData = data.list[currentId].toDetailData()
+        val mappedData: DetailData = data.list[position].toDetailData()
         store.dispatch(DetailAction.DetailForecastLoaded(mappedData))
 
     }

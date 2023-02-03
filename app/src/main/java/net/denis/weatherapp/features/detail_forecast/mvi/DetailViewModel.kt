@@ -13,9 +13,9 @@ class DetailViewModel @Inject constructor(
 ) : ViewModel() {
     val viewState: StateFlow<DetailState> = detailStore.state
 
-    fun getCurrentId(currentId: Int) {
+    fun getPosition(position: Int) {
         viewModelScope.launch {
-            detailStore.dispatch(DetailAction.GetCurrentId(currentId = currentId))
+            detailStore.dispatch(DetailAction.GetPosition(position = position))
         }
     }
 }

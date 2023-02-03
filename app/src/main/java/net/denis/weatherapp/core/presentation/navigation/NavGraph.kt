@@ -11,7 +11,7 @@ import net.denis.weatherapp.features.detail_forecast.screen.DetailWeatherScreen
 import net.denis.weatherapp.features.main_forecast.mvi.ForecastViewModel
 import net.denis.weatherapp.features.main_forecast.screen.ForecastWeatherScreen
 
-private const val PARAM_CNT = "id"
+private const val PARAM_POSITION = "position"
 private const val PARAM_QUERY = "city"
 
 @Composable
@@ -33,15 +33,15 @@ fun NavGraph(
         composable(
             route = Screen.DetailForecastScreen.route,
             arguments = listOf(
-                navArgument(PARAM_CNT) {
+                navArgument(PARAM_POSITION) {
                     type = NavType.IntType
                     defaultValue = -1
                 }
             )
         ) { navBackStackEntry ->
-            val currentId = navBackStackEntry.arguments?.getInt(PARAM_CNT)
-            currentId?.let { id ->
-                detailVM.getCurrentId(id)
+            val position = navBackStackEntry.arguments?.getInt(PARAM_POSITION)
+            position?.let { position ->
+                detailVM.getPosition(position)
                 DetailWeatherScreen(
                     vm = detailVM
                     //detailData = forecastState.forecastList[id].detailData
