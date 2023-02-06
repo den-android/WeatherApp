@@ -20,7 +20,7 @@ class MainViewModel @Inject constructor(
 
     private fun loadCurrentForecast() {
         viewModelScope.launch {
-            mainStore.dispatch(MainAction.MainLoading)
+            mainStore.dispatch(MainAction.ForecastLoading)
         }
     }
 }

@@ -1,6 +1,5 @@
 package net.denis.weatherapp.features.detail_forecast.mvi
 
-import android.util.Log
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
@@ -25,6 +24,6 @@ class DetailDataMiddleware(
     }
 
     private suspend fun detailLoading(detailData: DetailData, store: Store<DetailState, DetailAction>) {
-        store.dispatch(DetailAction.DetailForecastLoaded(detailData))
+        store.dispatch(DetailAction.DetailDataLoaded(detailData))
     }
 }

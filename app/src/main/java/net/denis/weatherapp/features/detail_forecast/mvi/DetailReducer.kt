@@ -7,13 +7,13 @@ class DetailReducer : Reducer<DetailState, DetailAction> {
     override fun reduce(currentState: DetailState, action: DetailAction): DetailState {
         return when (action) {
 
-            is DetailAction.GetPosition -> {
+            is DetailAction.GetDetailData -> {
                 currentState.copy(
                     isLoading = true
                 )
             }
 
-            is DetailAction.DetailForecastLoaded -> {
+            is DetailAction.DetailDataLoaded -> {
                 currentState.copy(
                     isLoading = false,
                     detailData = action.detailData,

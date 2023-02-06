@@ -14,7 +14,7 @@ class MainDataMiddleware(
         store: Store<MainState, MainAction>
     ) {
         when (action) {
-            is MainAction.MainLoading -> {
+            is MainAction.ForecastLoading -> {
                 forecastLoading(store)
             }
             else -> currentState
@@ -29,7 +29,7 @@ class MainDataMiddleware(
         ).collect { data ->
             val forecastData = data.toForecastData()
 
-            store.dispatch(MainAction.CurrentMainLoaded(forecastData = forecastData))
+            store.dispatch(MainAction.ForecastLoaded(forecastData = forecastData))
         }
     }
 }

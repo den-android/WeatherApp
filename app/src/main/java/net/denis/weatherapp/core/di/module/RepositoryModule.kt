@@ -18,7 +18,7 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    abstract fun bindIStageRepository(weatherRepository: WeatherRepository): IWeatherRepository
+    abstract fun bindIWeatherRepository(weatherRepository: WeatherRepository): IWeatherRepository
 
     @Binds
     @Singleton

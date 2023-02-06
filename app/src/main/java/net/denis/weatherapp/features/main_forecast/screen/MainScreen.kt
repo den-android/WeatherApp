@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import net.denis.weatherapp.core.presentation.navigation.Screen
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
+import net.denis.weatherapp.core.util.Constants.PARAM_DETAIL_SCREEN
 import net.denis.weatherapp.features.main_forecast.mvi.MainViewModel
 import net.denis.weatherapp.features.main_forecast.screen.components.BottomNavigateMenu
 import net.denis.weatherapp.features.main_forecast.screen.components.CurrentWeatherDisplay
@@ -45,7 +46,7 @@ fun MainScreen(
                     forecastData = forecastState,
                     onClick = {
                         navController.currentBackStackEntry?.savedStateHandle?.set(
-                            key = "PARAM_DETAIL_SCREEN",
+                            key = PARAM_DETAIL_SCREEN,
                             value = itemForecast[it].detailData
                         )
                         navController.navigate(
