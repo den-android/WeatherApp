@@ -1,4 +1,4 @@
-package net.denis.weatherapp.features.main_forecast.screen.components
+package net.denis.weatherapp.features.detail_forecast.screen.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column

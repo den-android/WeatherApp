@@ -2,7 +2,7 @@ package net.denis.weatherapp.features.detail_forecast.model
 
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Clouds
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Wind
-import net.denis.weatherapp.core.util.MultipleView
+import net.denis.weatherapp.core.util.ViewType
 import java.math.RoundingMode
 import java.text.SimpleDateFormat
 import java.util.*
@@ -12,48 +12,69 @@ data class DetailItem(
     val clouds: Clouds,
     val visibility: Int,
 ) {
-    fun toMultipleView(): List<MultipleView> {
-        val cards = mutableListOf<MultipleView>()
+    fun toMultipleView(): List<ViewType> {
+        val cards = mutableListOf<ViewType>()
 
         cards.add(
-            MultipleView.WideCardWithText(
-                title = "Ветренность",
-                text = "${roundSpeed(wind.speed)}м/с",
-                indicatorValue = wind.speed.toFloat() / 10f,
-                description = "",
-            )
-        )
-        cards.add(
-            MultipleView.WideCardWithText(
-                title = "Ветренность",
-                text = "${roundSpeed(wind.speed)}KM/CHAS",
-                indicatorValue = wind.speed.toFloat() / 10f,
-                description = "",
-            )
-        )
-        cards.add(
-            MultipleView.WideCardWithText(
-                title = "Ветренность",
-                text = "+++${roundSpeed(wind.speed)}+++",
-                indicatorValue = wind.speed.toFloat() / 10f,
-                description = "",
+            ViewType.WideCardWithText(
+                indicatorCellFields = IndicatorCellFields(
+                    title = "Ветренность",
+                    text = "${roundSpeed(wind.speed)}м/с",
+                    indicatorValue = wind.speed.toFloat() / 10f,
+                    description = ""
+                ),
             )
         )
 
         cards.add(
-            MultipleView.CardWithIndicator(
-                title = "Видимость",
-                text = "",
-                indicatorValue = visibility / 10000f,
-                description = "",
+            ViewType.RowCardItem(
+                cardWithText = ViewType.CardWithText(
+                    cellFields = CellFields(
+                        title = "Облачность",
+                        text = "${clouds.all}%",
+                        description = ""
+                    )
+                ),
+                cardWithIndicator = ViewType.CardWithIndicator(
+                    indicatorCellFields = IndicatorCellFields(
+                        title = "Видимость",
+                        text = "",
+                        indicatorValue = visibility / 10000f,
+                        description = ""
+                    ),
+                )
             )
         )
 
         cards.add(
-            MultipleView.CardWithText(
-                title = "Облачность",
-                text = "${clouds.all}%",
-                description = ""
+            ViewType.WideCardWithText(
+                indicatorCellFields = IndicatorCellFields(
+                    title = "Ветренность",
+                    text = "+++${roundSpeed(wind.speed)}+++",
+                    indicatorValue = wind.speed.toFloat() / 10f,
+                    description = ""
+                ),
+            )
+        )
+
+        cards.add(
+            ViewType.CardWithIndicator(
+                indicatorCellFields = IndicatorCellFields(
+                    title = "Видимость",
+                    text = "",
+                    indicatorValue = visibility / 10000f,
+                    description = "",
+                ),
+            )
+        )
+        cards.add(
+            ViewType.CardWithIndicator(
+                indicatorCellFields = IndicatorCellFields(
+                    title = "Видимость",
+                    text = "",
+                    indicatorValue = visibility / 10000f,
+                    description = "",
+                ),
             )
         )
 

@@ -1,8 +1,8 @@
 package net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast
 
-import net.denis.weatherapp.features.main_forecast.model.ForecastItem
 import net.denis.weatherapp.features.detail_forecast.model.DetailData
 import net.denis.weatherapp.features.detail_forecast.model.DetailItem
+import net.denis.weatherapp.features.main_forecast.model.ForecastItem
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.List

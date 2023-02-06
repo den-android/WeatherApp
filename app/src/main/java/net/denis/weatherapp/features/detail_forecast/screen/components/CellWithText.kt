@@ -1,4 +1,4 @@
-package net.denis.weatherapp.features.detail_forecast.screen.components.compose_items
+package net.denis.weatherapp.features.detail_forecast.screen.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -15,43 +15,43 @@ import androidx.compose.ui.unit.sp
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
+import net.denis.weatherapp.features.detail_forecast.model.CellFields
 
 @Composable
 fun CellWithText(
     modifier: Modifier = Modifier,
-    title: String = "",
-    text: String = "",
-    description: String = ""
+    cellFields: CellFields,
 ) {
     Card(
         shape = RoundedCornerShape(10.dp),
         border = BorderStroke(1.dp, MiddleGradientColor),
         modifier = modifier
-            .fillMaxWidth(0.5f),
+            .fillMaxWidth(0.5f)
+            .height(100.dp)
     ) {
         Column(
             modifier = modifier
-                .fillMaxWidth()
+                .fillMaxSize()
                 .padding(4.dp)
                 .background(CityBackground),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = title,
+                text = cellFields.title,
                 fontSize = 22.sp,
                 color = PrimaryText,
                 textAlign = TextAlign.Center,
             )
             Spacer(modifier = modifier.height(2.dp))
             Text(
-                text = text,
+                text = cellFields.text,
                 fontSize = 16.sp,
                 color = PrimaryText,
                 textAlign = TextAlign.Center,
             )
             Spacer(modifier = modifier.height(2.dp))
             Text(
-                text = description,
+                text = cellFields.description,
                 fontSize = 14.sp,
                 color = PrimaryText,
                 textAlign = TextAlign.Center,
