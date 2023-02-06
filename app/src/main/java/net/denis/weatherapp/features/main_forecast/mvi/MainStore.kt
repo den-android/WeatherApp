@@ -10,7 +10,7 @@ class MainStore @Inject constructor(
     initialState = MainState(),
     reducer = MainReducer(),
     middlewares = listOf(
-        LoggingMiddleware(),
+        //LoggingMiddleware(),
         MainDataMiddleware(weatherRepository),
     )
 )

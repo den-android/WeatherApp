@@ -1,6 +1,5 @@
 package net.denis.weatherapp.features.detail_forecast.mvi
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,8 +14,7 @@ class DetailViewModel @Inject constructor(
 ) : ViewModel() {
     val viewState: StateFlow<DetailState> = detailStore.state
 
-    fun getDetail(detailData: DetailData) {
-        Log.d("Logging","VIEWMODEL ${detailData}")
+    fun getDetailDataItem(detailData: DetailData) {
         viewModelScope.launch {
             detailStore.dispatch(DetailAction.GetDetailData(detailData = detailData))
         }

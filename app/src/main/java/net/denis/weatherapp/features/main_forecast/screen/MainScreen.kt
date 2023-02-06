@@ -45,7 +45,7 @@ fun MainScreen(
                     forecastData = forecastState,
                     onClick = {
                         navController.currentBackStackEntry?.savedStateHandle?.set(
-                            key = "detailData",
+                            key = "PARAM_DETAIL_SCREEN",
                             value = itemForecast[it].detailData
                         )
                         navController.navigate(

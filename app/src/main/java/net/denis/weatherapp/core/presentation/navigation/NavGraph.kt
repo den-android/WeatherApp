@@ -1,21 +1,15 @@
 package net.denis.weatherapp.core.presentation.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
-import androidx.navigation.navArgument
+import net.denis.weatherapp.core.util.Constants.PARAM_DETAIL_SCREEN
 import net.denis.weatherapp.features.detail_forecast.model.DetailData
 import net.denis.weatherapp.features.detail_forecast.mvi.DetailViewModel
 import net.denis.weatherapp.features.detail_forecast.screen.DetailWeatherScreen
 import net.denis.weatherapp.features.main_forecast.mvi.MainViewModel
 import net.denis.weatherapp.features.main_forecast.screen.MainScreen
-
-private const val PARAM_POSITION = "position"
-private const val PARAM_QUERY = "city"
 
 @Composable
 fun NavGraph(
@@ -27,6 +21,7 @@ fun NavGraph(
         navController = navController,
         startDestination = Screen.CurrentForecastScreen.route
     ) {
+
         composable(
             route = Screen.CurrentForecastScreen.route
         ) {
@@ -35,15 +30,12 @@ fun NavGraph(
 
         composable(route = Screen.DetailForecastScreen.route) {
             val detailDataItem =
-                navController.previousBackStackEntry?.savedStateHandle?.get<DetailData>("detailData")
+                navController.previousBackStackEntry?.savedStateHandle?.get<DetailData>(PARAM_DETAIL_SCREEN)
             detailDataItem?.let {
-                detailVM.getDetail(it)
-                Log.d("Logging","NAV GRAPH ${it}")
+                detailVM.getDetailDataItem(it)
                 DetailWeatherScreen(vm = detailVM)
             }
-
         }
 
     }
-
 }
