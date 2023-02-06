@@ -12,11 +12,11 @@ import net.denis.weatherapp.core.presentation.navigation.Screen
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.features.main_forecast.mvi.MainViewModel
 import net.denis.weatherapp.features.main_forecast.screen.components.BottomNavigateMenu
-import net.denis.weatherapp.features.main_forecast.screen.components.CurrentWeatherInfoDisplay
+import net.denis.weatherapp.features.main_forecast.screen.components.CurrentWeatherDisplay
 import net.denis.weatherapp.features.main_forecast.screen.components.WeatherForecastDisplay
 
 @Composable
-fun ForecastWeatherScreen(
+fun MainScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
     vm: MainViewModel,
@@ -31,7 +31,7 @@ fun ForecastWeatherScreen(
                 .background(color = CityBackground)
         ) {
             Box(modifier = modifier.weight(3f)) {
-                CurrentWeatherInfoDisplay(
+                CurrentWeatherDisplay(
                     city = forecastState.city.name,
                     weatherIcon = itemForecast[0].meteorology[0].id,
                     temp = itemForecast[0].temp,
@@ -44,10 +44,12 @@ fun ForecastWeatherScreen(
                 WeatherForecastDisplay(
                     forecastData = forecastState,
                     onClick = {
+                        navController.currentBackStackEntry?.savedStateHandle?.set(
+                            key = "detailData",
+                            value = itemForecast[it].detailData
+                        )
                         navController.navigate(
-                            route = Screen.DetailForecastScreen.passDetailPosition(
-                                position = it
-                            )
+                            route = Screen.DetailForecastScreen.route
                         )
                     }
                 )

@@ -15,7 +15,7 @@ import net.denis.weatherapp.core.util.WeatherType
 import net.denis.weatherapp.features.detail_forecast.screen.components.compose_items.CustomTextBox
 
 @Composable
-fun CurrentWeatherInfoDisplay(
+fun CurrentWeatherDisplay(
     modifier: Modifier = Modifier,
     city: String,
     temp: String,

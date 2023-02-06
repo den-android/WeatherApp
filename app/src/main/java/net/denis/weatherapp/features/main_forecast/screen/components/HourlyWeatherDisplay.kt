@@ -24,8 +24,6 @@ import net.denis.weatherapp.features.main_forecast.model.ForecastItem
 fun HourlyWeatherDisplay(
     modifier: Modifier = Modifier,
     forecastItem: ForecastItem,
-//    meteorology: Meteorology,
-//    temp: String,
 ) {
     Box(
         modifier = modifier

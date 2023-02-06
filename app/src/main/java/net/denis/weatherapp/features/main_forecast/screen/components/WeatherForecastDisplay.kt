@@ -28,8 +28,6 @@ fun WeatherForecastDisplay(
                 items(data) { weatherData ->
                     HourlyWeatherDisplay(
                         forecastItem = weatherData,
-//                        meteorology = weatherData.meteorology[0],
-//                        temp = weatherData.temp,
                         modifier = Modifier
                             .height(100.dp)
                             .padding(horizontal = 16.dp)

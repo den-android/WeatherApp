@@ -25,8 +25,9 @@ class DetailDataMiddleware(
 
     private suspend fun detailLoading(position: Int, store: Store<DetailState, DetailAction>) {
 
-        val mappedData: DetailData = data.list[position].toDetailData()
-        store.dispatch(DetailAction.DetailForecastLoaded(mappedData))
+            //val mappedData: DetailData = data.list[position].toForecastItem().detailData
+            // val mappedData: DetailData = data.list[position].toDetailData()
+            //store.dispatch(DetailAction.DetailForecastLoaded(mappedData))
 
     }
 }

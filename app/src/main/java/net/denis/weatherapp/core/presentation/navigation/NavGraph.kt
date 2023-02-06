@@ -1,15 +1,18 @@
 package net.denis.weatherapp.core.presentation.navigation
 
+import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
+import net.denis.weatherapp.features.detail_forecast.model.DetailData
 import net.denis.weatherapp.features.detail_forecast.mvi.DetailViewModel
 import net.denis.weatherapp.features.detail_forecast.screen.DetailWeatherScreen
 import net.denis.weatherapp.features.main_forecast.mvi.MainViewModel
-import net.denis.weatherapp.features.main_forecast.screen.ForecastWeatherScreen
+import net.denis.weatherapp.features.main_forecast.screen.MainScreen
 
 private const val PARAM_POSITION = "position"
 private const val PARAM_QUERY = "city"
@@ -27,26 +30,18 @@ fun NavGraph(
         composable(
             route = Screen.CurrentForecastScreen.route
         ) {
-            ForecastWeatherScreen(navController = navController, vm = forecastVM)
+            MainScreen(navController = navController, vm = forecastVM)
         }
 
-        composable(
-            route = Screen.DetailForecastScreen.route,
-            arguments = listOf(
-                navArgument(PARAM_POSITION) {
-                    type = NavType.IntType
-                    defaultValue = -1
-                }
-            )
-        ) { navBackStackEntry ->
-            val position = navBackStackEntry.arguments?.getInt(PARAM_POSITION)
-            position?.let { position ->
-                detailVM.getPosition(position)
-                DetailWeatherScreen(
-                    vm = detailVM
-                    //detailData = forecastState.forecastList[id].detailData
-                )
+        composable(route = Screen.DetailForecastScreen.route) {
+            val detailDataItem =
+                navController.previousBackStackEntry?.savedStateHandle?.get<DetailData>("detailData")
+            detailDataItem?.let {
+                detailVM.getDetail(it)
+                Log.d("Logging","NAV GRAPH ${it}")
+                DetailWeatherScreen(vm = detailVM)
             }
+
         }
 
     }
