@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 data class DetailItem(
+    val sunDetail: SunDetail,
     val wind: Wind,
     val clouds: Clouds,
     val visibility: Int,
@@ -27,7 +28,26 @@ data class DetailItem(
         )
 
         cards.add(
-            ViewType.RowCardItem(
+            ViewType.CardWithTextAndText(
+                leftCardWithText = ViewType.CardWithText(
+                    cellFields = CellFields(
+                        title = "Рассвет",
+                        text = "${dtMap(sunDetail.sunrise)} AM",
+                        description = "",
+                    )
+                ),
+                rightCardWithText = ViewType.CardWithText(
+                    cellFields = CellFields(
+                        title = "Закат",
+                        text = "${dtMap(sunDetail.sunset)} PM",
+                        description = ""
+                    )
+                )
+            )
+        )
+
+        cards.add(
+            ViewType.CardWithTextAndIndicator(
                 cardWithText = ViewType.CardWithText(
                     cellFields = CellFields(
                         title = "Облачность",
@@ -43,38 +63,6 @@ data class DetailItem(
                         description = ""
                     ),
                 )
-            )
-        )
-
-        cards.add(
-            ViewType.WideCardWithText(
-                indicatorCellFields = IndicatorCellFields(
-                    title = "Ветренность",
-                    text = "+++${roundSpeed(wind.speed)}+++",
-                    indicatorValue = wind.speed.toFloat() / 10f,
-                    description = ""
-                ),
-            )
-        )
-
-        cards.add(
-            ViewType.CardWithIndicator(
-                indicatorCellFields = IndicatorCellFields(
-                    title = "Видимость",
-                    text = "",
-                    indicatorValue = visibility / 10000f,
-                    description = "",
-                ),
-            )
-        )
-        cards.add(
-            ViewType.CardWithIndicator(
-                indicatorCellFields = IndicatorCellFields(
-                    title = "Видимость",
-                    text = "",
-                    indicatorValue = visibility / 10000f,
-                    description = "",
-                ),
             )
         )
 
