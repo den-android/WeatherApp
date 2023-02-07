@@ -17,9 +17,8 @@ class WeatherRepository @Inject constructor(
     override suspend fun getForecast(
         lat: Double,
         lon: Double,
-        apiKey: String
     ): Flow<WeatherDto> {
-        val response = remoteDatasource.getForecastByCity(lat, lon, apiKey)
+        val response = remoteDatasource.getForecastByCity(lat, lon)
 
         return flow {
             when (response) {

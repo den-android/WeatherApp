@@ -8,6 +8,5 @@ interface IRemoteDatasource {
     suspend fun getForecastByCity(
         lat: Double,
         lon: Double,
-        apiKey: String,
     ): NetworkResult<WeatherDto>
 }
