@@ -6,9 +6,11 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import net.denis.weatherapp.core.data.datasource.local.LocalDatasource
 import net.denis.weatherapp.core.data.datasource.remote.RemoteDatasource
+import net.denis.weatherapp.core.data.interfaces.IGeocodingRepository
 import net.denis.weatherapp.core.data.interfaces.ILocalDatasource
 import net.denis.weatherapp.core.data.interfaces.IRemoteDatasource
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
+import net.denis.weatherapp.core.data.repository.GeocodingRepository
 import net.denis.weatherapp.core.data.repository.WeatherRepository
 import javax.inject.Singleton
 
@@ -19,6 +21,10 @@ abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindIWeatherRepository(weatherRepository: WeatherRepository): IWeatherRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindIGeocodingRepository(geocodingRepository: GeocodingRepository): IGeocodingRepository
 
     @Binds
     @Singleton

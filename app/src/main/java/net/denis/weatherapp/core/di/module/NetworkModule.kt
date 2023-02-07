@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import net.denis.weatherapp.core.data.interfaces.GeocodingApi
 import net.denis.weatherapp.core.data.interfaces.OpenWeatherApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -51,4 +52,14 @@ class NetworkModule {
             .create(OpenWeatherApi::class.java)
     }
 
+    @Provides
+    @Singleton
+    fun provideGeocodingApi(gson: Gson, httpClient: OkHttpClient): GeocodingApi {
+        return Retrofit.Builder()
+            .baseUrl("http://api.openweathermap.org/geo/1.0/")
+            .client(httpClient)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+            .create(GeocodingApi::class.java)
+    }
 }
