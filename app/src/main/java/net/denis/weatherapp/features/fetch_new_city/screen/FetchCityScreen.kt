@@ -1,5 +1,6 @@
 package net.denis.weatherapp.features.fetch_new_city.screen
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -51,13 +52,15 @@ fun FetchCityScreen(
                             text = it
                             if (it.length >= 3) {
                                 vm.fetchCity(it)
+                                Thread.setDefaultUncaughtExceptionHandler { thread, e ->
+                                    text = e.localizedMessage
+                                }
                             }
                         },
                     )
                 }
             )
         }
-
         cityState?.let {
             item {
                 Card(
@@ -67,6 +70,15 @@ fun FetchCityScreen(
                         .fillMaxWidth()
                         .height(100.dp)
                         .padding(12.dp)
+                        .clickable {
+                            navController.currentBackStackEntry?.savedStateHandle?.set(
+                                key = Constants.PARAM_TO_MAIN_SCREEN,
+                                value = it
+                            )
+                            navController.navigate(
+                                route = Screen.MainForecastScreen.route
+                            )
+                        }
                 ) {
                     Column(
                         modifier = modifier
@@ -80,16 +92,6 @@ fun FetchCityScreen(
                             color = PrimaryText,
                             fontSize = 32.sp,
                             textAlign = TextAlign.Center,
-                            modifier = modifier
-                                .clickable {
-                                    navController.currentBackStackEntry?.savedStateHandle?.set(
-                                        key = Constants.PARAM_TO_MAIN_SCREEN,
-                                        value = it
-                                    )
-                                    navController.navigate(
-                                        route = Screen.MainForecastScreen.route
-                                    )
-                                }
                         )
                     }
 
@@ -97,6 +99,8 @@ fun FetchCityScreen(
 
             }
         }
+
+
     }
 
 }
