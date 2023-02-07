@@ -1,7 +1,7 @@
 package net.denis.weatherapp.features.fetch_new_city.mvi
 
-import android.util.Log
-import kotlinx.coroutines.flow.collect
+import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.toEnCity
+import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.toRuCity
 import net.denis.weatherapp.core.data.interfaces.IGeocodingRepository
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
@@ -23,12 +23,18 @@ class FetchCityDataMiddleware(
         }
     }
 
-    private suspend fun fetchNewCity(cityName: String, store: Store<FetchCityState, FetchCityAction>) {
+    private suspend fun fetchNewCity(
+        cityName: String,
+        store: Store<FetchCityState, FetchCityAction>
+    ) {
         geocodingRepository.fetchNewCity(cityName)
             .collect() { cityList ->
-                cityList.forEach {
-                    Log.d("Logging", "${it.name}")
-                    Log.d("Logging", "${it.local_names.ru}")
+                cityList.forEach { cityItem ->
+                    try {
+                        store.dispatch(FetchCityAction.FetchedCity(cityData = cityItem.toRuCity()))
+                    } catch (e: Exception) {
+                        store.dispatch(FetchCityAction.FetchedCity(cityData = cityItem.toEnCity()))
+                    }
                 }
             }
     }

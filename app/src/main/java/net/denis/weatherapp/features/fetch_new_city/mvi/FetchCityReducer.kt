@@ -9,8 +9,14 @@ class FetchCityReducer: Reducer<FetchCityState, FetchCityAction> {
 
             is FetchCityAction.FetchingCity -> {
                 currentState.copy(
+                    isLoading = true,
+                )
+            }
+
+            is FetchCityAction.FetchedCity -> {
+                currentState.copy(
                     isLoading = false,
-                    cityName = action.name
+                    cityName = action.cityData
                 )
             }
 

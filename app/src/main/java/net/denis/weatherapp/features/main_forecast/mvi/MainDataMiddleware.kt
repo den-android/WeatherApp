@@ -15,17 +15,17 @@ class MainDataMiddleware(
         store: Store<MainState, MainAction>
     ) {
         when (action) {
-            is MainAction.ForecastLoading -> {
-                forecastLoading(store)
+            is MainAction.FetchForecastByCity -> {
+                forecastLoading(lat = action.lat, lon = action.lon, store)
             }
             else -> currentState
         }
     }
 
-    private suspend fun forecastLoading(store: Store<MainState, MainAction>) {
+    private suspend fun forecastLoading(lat: Double, lon: Double, store: Store<MainState, MainAction>) {
         weatherRepository.getForecast(
-            lat = 55.7504461,
-            lon = 37.6174943,
+            lat = lat,
+            lon = lon,
         ).collect { data ->
             val forecastData = data.toForecastData()
 

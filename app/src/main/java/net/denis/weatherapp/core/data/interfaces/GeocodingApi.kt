@@ -11,7 +11,7 @@ interface GeocodingApi {
     @Headers("Content-type: application/json")
     suspend fun fetchCity(
         @Query("q") name: String,
-        @Query ("limit") limit: Int = 1,
-        @Query ("appid") appid: String = API_KEY,
-    ) : Response<GeocodingDto>
+        @Query("limit") limit: Int = 1,
+        @Query("appid") appid: String = API_KEY,
+    ): Response<GeocodingDto>
 }
