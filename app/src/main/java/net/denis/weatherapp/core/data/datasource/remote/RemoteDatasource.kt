@@ -14,6 +14,6 @@ class RemoteDatasource @Inject constructor(
         lat: Double,
         lon: Double,
     ): NetworkResult<WeatherDto> {
-        return handleApi { openWeatherApi.getForecastMoscow(lat, lon) }
+        return handleApi { openWeatherApi.fetchForecastByCity(lat, lon) }
     }
 }

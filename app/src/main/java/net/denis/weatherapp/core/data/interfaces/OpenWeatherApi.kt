@@ -11,7 +11,7 @@ interface OpenWeatherApi {
 
     @GET("forecast?lang=ru&units=metric&cnt=7&exclude=alerts&appid=${API_KEY}")
     @Headers("Content-type: application/json")
-    suspend fun getForecastMoscow(
+    suspend fun fetchForecastByCity(
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
     ): Response<WeatherDto>
