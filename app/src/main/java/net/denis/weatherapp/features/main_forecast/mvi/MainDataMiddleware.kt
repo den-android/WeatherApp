@@ -1,5 +1,6 @@
 package net.denis.weatherapp.features.main_forecast.mvi
 
+import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.toForecastData
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store

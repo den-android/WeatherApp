@@ -7,11 +7,9 @@ data class Weather(
     val icon: String,
     val id: Int,
     val main: String
-) {
-    fun toMeteorology(): Meteorology{
-        return Meteorology(
-            id = id,
-            description = description,
-        )
-    }
-}
+)
+
+fun Weather.toMeteorology() = Meteorology(
+    id = id,
+    description = description,
+)

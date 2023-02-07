@@ -14,11 +14,8 @@ data class Main(
     val temp_kf: Double,
     val temp_max: Double,
     val temp_min: Double
-) {
-    fun toTemp(): String {
-        return "${roundTemp(temp)}°"
-    }
-}
+)
+fun Main.toTemp() = "${roundTemp(temp)}°"
 
 private fun roundTemp(temp: Double): String {
     val df = DecimalFormat("#.#", DecimalFormatSymbols(Locale.ENGLISH))
