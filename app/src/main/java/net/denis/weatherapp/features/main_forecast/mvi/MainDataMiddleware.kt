@@ -22,7 +22,11 @@ class MainDataMiddleware(
         }
     }
 
-    private suspend fun forecastLoading(lat: Double, lon: Double, store: Store<MainState, MainAction>) {
+    private suspend fun forecastLoading(
+        lat: Double,
+        lon: Double,
+        store: Store<MainState, MainAction>
+    ) {
         weatherRepository.getForecast(
             lat = lat,
             lon = lon,

@@ -1,7 +1,5 @@
 package net.denis.weatherapp.features.fetch_new_city.screen
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -84,7 +82,6 @@ fun FetchCityScreen(
                             textAlign = TextAlign.Center,
                             modifier = modifier
                                 .clickable {
-                                    Toast.makeText(con, "${it.lat}\n${it.lon}", Toast.LENGTH_SHORT).show()
                                     navController.currentBackStackEntry?.savedStateHandle?.set(
                                         key = Constants.PARAM_TO_MAIN_SCREEN,
                                         value = it

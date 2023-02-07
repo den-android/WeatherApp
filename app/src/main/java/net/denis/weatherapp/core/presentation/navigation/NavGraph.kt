@@ -1,11 +1,9 @@
 package net.denis.weatherapp.core.presentation.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import net.denis.weatherapp.core.util.Constants
 import net.denis.weatherapp.core.util.Constants.PARAM_TO_DETAIL_SCREEN
 import net.denis.weatherapp.core.util.Constants.PARAM_TO_MAIN_SCREEN
 import net.denis.weatherapp.features.detail_forecast.model.DetailData
@@ -32,11 +30,14 @@ fun NavGraph(
         composable(
             route = Screen.MainForecastScreen.route
         ) {
-            val cityDataItem = navController.previousBackStackEntry?.savedStateHandle?.get<CityData>(PARAM_TO_MAIN_SCREEN)
+            val cityDataItem =
+                navController.previousBackStackEntry?.savedStateHandle?.get<CityData>(
+                    PARAM_TO_MAIN_SCREEN
+                )
             cityDataItem?.let {
                 mainVM.fetchForecastByCityName(lat = it.lat, lon = it.lon)
                 MainScreen(navController = navController, vm = mainVM)
-            } ?: mainVM.fetchForecastByCityName(lat = 55.7504461, lon = 37.6174943).also {
+            } ?: mainVM.fetchForecastByCityName(lat = 47.2213858, lon = 39.7114196).also {
                 MainScreen(navController = navController, vm = mainVM)
             }
         }
