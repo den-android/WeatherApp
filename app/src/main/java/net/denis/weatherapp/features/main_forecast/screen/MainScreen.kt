@@ -33,7 +33,7 @@ fun MainScreen(
         ) {
             Box(modifier = modifier.weight(3f)) {
                 CurrentWeatherDisplay(
-                    city = forecastState.city.name,
+                    city = forecastState.sunDetail.cityName,
                     weatherIcon = itemForecast[0].meteorology[0].id,
                     temp = itemForecast[0].temp,
                     weatherDesc = itemForecast[0].meteorology[0].description,

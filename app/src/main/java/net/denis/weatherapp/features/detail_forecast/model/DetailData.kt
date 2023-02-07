@@ -7,5 +7,6 @@ import net.denis.weatherapp.core.util.ViewType
 
 @Parcelize
 data class DetailData(
+    val sunDetail: @RawValue SunDetail,
     val detailList: @RawValue List<ViewType>,
 ) : Parcelable

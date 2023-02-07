@@ -1,8 +1,8 @@
 package net.denis.weatherapp.features.main_forecast.model
 
-import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.City
+import net.denis.weatherapp.features.detail_forecast.model.SunDetail
 
 data class ForecastData(
-    val city: City,
+    val sunDetail: SunDetail,
     val forecastList: List<ForecastItem>,
 )

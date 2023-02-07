@@ -11,7 +11,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.dp
-import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
+import net.denis.weatherapp.core.presentation.ui.theme.ViewBackground
 
 @Composable
 fun CustomLPB(
@@ -35,7 +35,7 @@ fun CustomLinearProgressBar(
 ) {
     Box(
         modifier = modifier
-            .background(CityBackground)
+            .background(ViewBackground)
     ) {
         Canvas(
             modifier = modifier

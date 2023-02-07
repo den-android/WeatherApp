@@ -11,9 +11,14 @@ sealed class ViewType {
 
     data class CardWithIndicator(val indicatorCellFields: IndicatorCellFields) : ViewType()
 
-    data class RowCardItem(
+    data class CardWithTextAndIndicator(
         val cardWithText: CardWithText,
         val cardWithIndicator: CardWithIndicator,
+    ) : ViewType()
+    
+    data class CardWithTextAndText(
+        val leftCardWithText: CardWithText,
+        val rightCardWithText: CardWithText,
     ) : ViewType()
 
 }
