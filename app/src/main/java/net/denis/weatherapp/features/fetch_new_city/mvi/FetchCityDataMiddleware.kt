@@ -16,7 +16,7 @@ class FetchCityDataMiddleware(
     ) {
         when (action) {
             is FetchCityAction.FetchingCity -> {
-
+                fetchNewCity(cityName = action.name, store = store)
             }
 
             else -> currentState
@@ -26,7 +26,10 @@ class FetchCityDataMiddleware(
     private suspend fun fetchNewCity(cityName: String, store: Store<FetchCityState, FetchCityAction>) {
         geocodingRepository.fetchNewCity(cityName)
             .collect() { cityList ->
-                Log.d("Logging", "${cityList.forEach {it.name}}")
+                cityList.forEach {
+                    Log.d("Logging", "${it.name}")
+                    Log.d("Logging", "${it.local_names.ru}")
+                }
             }
     }
 }
