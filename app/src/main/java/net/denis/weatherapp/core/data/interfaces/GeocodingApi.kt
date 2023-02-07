@@ -9,7 +9,7 @@ import retrofit2.http.Query
 
 interface GeocodingApi {
 
-    @GET("direct?q=name,ru&limit=10&appid=${API_KEY}")
+    @GET("direct?q=name,ru&limit=1&appid=${API_KEY}")
     @Headers("Content-type: application/json")
     suspend fun fetchCity(
         @Query("city name") name: String,
