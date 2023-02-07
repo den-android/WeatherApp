@@ -2,6 +2,7 @@ package net.denis.weatherapp.features.detail_forecast.screen.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -12,28 +13,30 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
+import net.denis.weatherapp.core.presentation.ui.theme.ViewBackground
 import net.denis.weatherapp.features.detail_forecast.model.IndicatorCellFields
 
 @Composable
 fun CellWithIndicator(
     modifier: Modifier = Modifier,
-    indicatorCellFields: IndicatorCellFields
+    indicatorCellFields: IndicatorCellFields,
+    onCellClicked: (String) -> Unit,
 ) {
     Card(
         shape = RoundedCornerShape(10.dp),
-        border = BorderStroke(1.dp, MiddleGradientColor),
+        border = BorderStroke(2.dp, MiddleGradientColor),
         modifier = modifier
             .fillMaxWidth()
             .height(100.dp)
+            .padding(12.dp)
+            .clickable { onCellClicked(indicatorCellFields.title) }
     ) {
         Column(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(4.dp)
-                .background(CityBackground),
+                .background(ViewBackground),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
