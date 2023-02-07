@@ -42,7 +42,7 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideNewsApi(gson: Gson, httpClient: OkHttpClient): OpenWeatherApi {
+    fun provideOpenWeatherApi(gson: Gson, httpClient: OkHttpClient): OpenWeatherApi {
         return Retrofit.Builder()
             .baseUrl("https://api.openweathermap.org/data/2.5/")
             .client(httpClient)
