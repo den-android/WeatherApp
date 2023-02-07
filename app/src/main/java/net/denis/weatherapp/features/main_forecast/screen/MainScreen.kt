@@ -56,7 +56,11 @@ fun MainScreen(
                 )
             }
 
-            BottomNavigateMenu(onFabClicked = {})
+            BottomNavigateMenu(onFabClicked = {
+                navController.navigate(
+                    route = Screen.FetchCityScreen.route
+                )
+            })
         }
     }
 }

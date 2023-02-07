@@ -29,6 +29,7 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         forecastVM = viewModel(),
                         detailVM = viewModel(),
+                        fetchCityVM = viewModel(),
                     )
                 }
             }

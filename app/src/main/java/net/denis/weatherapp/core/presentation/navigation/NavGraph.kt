@@ -8,6 +8,8 @@ import net.denis.weatherapp.core.util.Constants.PARAM_DETAIL_SCREEN
 import net.denis.weatherapp.features.detail_forecast.model.DetailData
 import net.denis.weatherapp.features.detail_forecast.mvi.DetailViewModel
 import net.denis.weatherapp.features.detail_forecast.screen.DetailWeatherScreen
+import net.denis.weatherapp.features.fetch_new_city.mvi.FetchCityViewModel
+import net.denis.weatherapp.features.fetch_new_city.screen.FetchCityScreen
 import net.denis.weatherapp.features.main_forecast.mvi.MainViewModel
 import net.denis.weatherapp.features.main_forecast.screen.MainScreen
 
@@ -16,14 +18,15 @@ fun NavGraph(
     navController: NavHostController,
     forecastVM: MainViewModel,
     detailVM: DetailViewModel,
+    fetchCityVM: FetchCityViewModel,
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.CurrentForecastScreen.route
+        startDestination = Screen.MainForecastScreen.route
     ) {
 
         composable(
-            route = Screen.CurrentForecastScreen.route
+            route = Screen.MainForecastScreen.route
         ) {
             MainScreen(navController = navController, vm = forecastVM)
         }
@@ -35,6 +38,10 @@ fun NavGraph(
                 detailVM.getDetailDataItem(it)
                 DetailWeatherScreen(vm = detailVM)
             }
+        }
+
+        composable(route = Screen.FetchCityScreen.route) {
+            FetchCityScreen(vm = fetchCityVM)
         }
 
     }
