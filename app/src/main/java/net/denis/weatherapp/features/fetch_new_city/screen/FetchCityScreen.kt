@@ -36,7 +36,7 @@ fun FetchCityScreen(
     val cityState = state.value.cityName
 
     var text by rememberSaveable { mutableStateOf("") }
-    val con = LocalContext.current
+
     LazyColumn(
         modifier = modifier
             .fillMaxSize()

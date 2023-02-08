@@ -42,9 +42,7 @@ fun DetailWeatherScreen(
                 )
             }
         },
-        bottomBar = {
-            BottomNavigateMenu(onFabClicked = {})
-        },
+
 
         floatingActionButton = { },
     ) { contentPadding ->
