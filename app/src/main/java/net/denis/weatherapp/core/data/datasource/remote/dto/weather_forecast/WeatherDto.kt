@@ -30,7 +30,7 @@ data class WeatherDto(
         wind = wind,
         clouds = clouds,
         visibility = visibility
-    ).toMultipleView()
+    ).mapToUiCard()
 
     fun Forecast.toDetailData() = DetailData(
         sunDetail = toSunDetail(),

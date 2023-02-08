@@ -16,10 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
-import net.denis.weatherapp.core.util.ViewType
+import net.denis.weatherapp.core.util.DetailModelCard
 import net.denis.weatherapp.features.detail_forecast.mvi.DetailViewModel
 import net.denis.weatherapp.features.detail_forecast.screen.components.*
-import net.denis.weatherapp.features.main_forecast.screen.components.BottomNavigateMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -56,14 +55,14 @@ fun DetailWeatherScreen(
                     items(listWeather) { item ->
                         when (item) {
 
-                            is ViewType.WideCardWithText -> {
+                            is DetailModelCard.WideCardWithText -> {
                                 WideCellWithIndicator(
                                     indicatorCellFields = item.indicatorCellFields,
                                     onCellClicked = { Toast.makeText(context, it, Toast.LENGTH_SHORT).show() }
                                 )
                             }
 
-                            is ViewType.CardWithTextAndText -> {
+                            is DetailModelCard.CardWithTextAndText -> {
                                 RowCellTextAndText(
                                     leftCellFields = item.leftCardWithText.cellFields,
                                     rightCellFields = item.rightCardWithText.cellFields,
@@ -71,7 +70,7 @@ fun DetailWeatherScreen(
                                 )
                             }
 
-                            is ViewType.CardWithTextAndIndicator -> {
+                            is DetailModelCard.CardWithTextAndIndicator -> {
                                 RowCellTextAndIndicator(
                                     cellFields = item.cardWithText.cellFields,
                                     indicatorCellFields = item.cardWithIndicator.indicatorCellFields,
@@ -79,7 +78,7 @@ fun DetailWeatherScreen(
                                 )
                             }
 
-                            is ViewType.CardWithIndicator -> {
+                            is DetailModelCard.CardWithIndicator -> {
                                 CellWithIndicator(
                                     indicatorCellFields = item.indicatorCellFields,
                                     onCellClicked = { Toast.makeText(context, it, Toast.LENGTH_SHORT).show() }

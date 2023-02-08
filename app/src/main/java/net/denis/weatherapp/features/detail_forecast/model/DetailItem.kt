@@ -2,7 +2,7 @@ package net.denis.weatherapp.features.detail_forecast.model
 
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Clouds
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Wind
-import net.denis.weatherapp.core.util.ViewType
+import net.denis.weatherapp.core.util.DetailModelCard
 import java.math.RoundingMode
 import java.text.SimpleDateFormat
 import java.util.*
@@ -13,11 +13,11 @@ data class DetailItem(
     val clouds: Clouds,
     val visibility: Int,
 ) {
-    fun toMultipleView(): List<ViewType> {
-        val cards = mutableListOf<ViewType>()
+    fun mapToUiCard(): List<DetailModelCard> {
+        val cards = mutableListOf<DetailModelCard>()
 
         cards.add(
-            ViewType.WideCardWithText(
+            DetailModelCard.WideCardWithText(
                 indicatorCellFields = IndicatorCellFields(
                     title = "Ветренность",
                     text = "${roundSpeed(wind.speed)}м/с",
@@ -28,15 +28,15 @@ data class DetailItem(
         )
 
         cards.add(
-            ViewType.CardWithTextAndText(
-                leftCardWithText = ViewType.CardWithText(
+            DetailModelCard.CardWithTextAndText(
+                leftCardWithText = DetailModelCard.CardWithText(
                     cellFields = CellFields(
                         title = "Рассвет",
                         text = "${dtMap(sunDetail.sunrise)} AM",
                         description = "",
                     )
                 ),
-                rightCardWithText = ViewType.CardWithText(
+                rightCardWithText = DetailModelCard.CardWithText(
                     cellFields = CellFields(
                         title = "Закат",
                         text = "${dtMap(sunDetail.sunset)} PM",
@@ -47,15 +47,15 @@ data class DetailItem(
         )
 
         cards.add(
-            ViewType.CardWithTextAndIndicator(
-                cardWithText = ViewType.CardWithText(
+            DetailModelCard.CardWithTextAndIndicator(
+                cardWithText = DetailModelCard.CardWithText(
                     cellFields = CellFields(
                         title = "Облачность",
                         text = "${clouds.all}%",
                         description = ""
                     )
                 ),
-                cardWithIndicator = ViewType.CardWithIndicator(
+                cardWithIndicator = DetailModelCard.CardWithIndicator(
                     indicatorCellFields = IndicatorCellFields(
                         title = "Видимость",
                         text = "",
