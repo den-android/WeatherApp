@@ -2,8 +2,10 @@ package net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast
 
 import android.icu.text.DecimalFormat
 import android.icu.text.DecimalFormatSymbols
+import androidx.annotation.Keep
 import java.util.*
 
+@Keep
 data class Main(
     val feels_like: Double,
     val grnd_level: Int,

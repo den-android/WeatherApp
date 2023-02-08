@@ -1,5 +1,8 @@
 package net.denis.weatherapp.core.data.datasource.remote.dto.geocoding
 
+import androidx.annotation.Keep
+
+@Keep
 data class LocalNames(
     val ab: String,
     val af: String,

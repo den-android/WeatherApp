@@ -1,7 +1,9 @@
 package net.denis.weatherapp.core.data.datasource.remote.dto.geocoding
 
+import androidx.annotation.Keep
 import net.denis.weatherapp.features.fetch_new_city.model.CityData
 
+@Keep
 data class GeocodingDtoItem(
     val country: String,
     val lat: Double,
