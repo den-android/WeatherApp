@@ -1,4 +1,4 @@
-package net.denis.weatherapp.core.presentation.ui
+package net.denis.weatherapp.features.main_forecast.screen.components
 
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
@@ -18,12 +18,12 @@ import androidx.compose.ui.unit.dp
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 
 @Composable
-fun ShimmerListItem(
+fun ShimmerMainScreen(
     modifier: Modifier = Modifier,
     isLoading: Boolean,
     contentAfterLoading: @Composable () -> Unit,
 ) {
-    if (!isLoading) {
+    if (isLoading) {
         Column(
             modifier = modifier
                 .background(CityBackground)
