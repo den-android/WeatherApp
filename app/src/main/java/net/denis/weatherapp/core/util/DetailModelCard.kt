@@ -8,7 +8,7 @@ import net.denis.weatherapp.features.detail_forecast.model.IndicatorCellFields
 @Parcelize
 sealed class DetailModelCard : Parcelable {
 
-    data class WideCardWithText(val indicatorCellFields: IndicatorCellFields) : DetailModelCard() {
+    data class WideCardWithText(val indicatorCellFields: IndicatorCellFields) : DetailModelCard()
 
         data class CardWithText(val cellFields: CellFields) : DetailModelCard()
 
@@ -23,6 +23,5 @@ sealed class DetailModelCard : Parcelable {
             val leftCardWithText: CardWithText,
             val rightCardWithText: CardWithText,
         ) : DetailModelCard()
-    }
 
 }
