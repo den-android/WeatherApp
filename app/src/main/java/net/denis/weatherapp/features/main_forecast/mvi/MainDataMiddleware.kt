@@ -15,7 +15,7 @@ class MainDataMiddleware(
         store: Store<MainState, MainAction>
     ) {
         when (action) {
-            is MainAction.FetchForecastByCity -> {
+            is MainAction.FetchForecastByCoords -> {
                 forecastLoading(lat = action.lat, lon = action.lon, store)
             }
             else -> currentState

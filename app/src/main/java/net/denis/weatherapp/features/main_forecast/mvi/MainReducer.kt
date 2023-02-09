@@ -7,7 +7,7 @@ class MainReducer : Reducer<MainState, MainAction> {
     override fun reduce(currentState: MainState, action: MainAction): MainState {
         return when (action) {
 
-            is MainAction.ForecastLoading -> {
+            is MainAction.FetchForecast -> {
                 currentState.copy(
                     isLoading = true,
                 )
