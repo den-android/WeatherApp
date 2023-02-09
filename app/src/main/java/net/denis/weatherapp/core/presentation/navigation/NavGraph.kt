@@ -1,6 +1,5 @@
 package net.denis.weatherapp.core.presentation.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavHostController
@@ -10,9 +9,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import net.denis.weatherapp.core.util.Constants.PARAM_TO_DETAIL_SCREEN
 import net.denis.weatherapp.core.util.Constants.PARAM_TO_MAIN_SCREEN
-import net.denis.weatherapp.core.util.DetailModelCard
-import net.denis.weatherapp.features.detail_forecast.model.DetailData
-import net.denis.weatherapp.features.detail_forecast.model.DetailItem
 import net.denis.weatherapp.features.detail_forecast.mvi.DetailViewModel
 import net.denis.weatherapp.features.detail_forecast.screen.DetailWeatherScreen
 import net.denis.weatherapp.features.fetch_new_city.model.CityData
@@ -28,12 +24,17 @@ fun NavGraph(
     detailVM: DetailViewModel,
     fetchCityVM: FetchCityViewModel,
 ) {
+    val mainState = mainVM.viewState.collectAsState().value.forecastData
+
     NavHost(
         navController = navController,
         startDestination = Screen.MainForecastScreen.route
     ) {
 
-        composable(route = Screen.MainForecastScreen.route) {
+        composable(
+            route = Screen.MainForecastScreen.route,
+        ) { navBackStackEntry ->
+
             val cityDataItem =
                 navController.previousBackStackEntry?.savedStateHandle?.get<CityData>(
                     PARAM_TO_MAIN_SCREEN
@@ -50,17 +51,16 @@ fun NavGraph(
 
         composable(
             route = Screen.DetailForecastScreen.route,
-            arguments = listOf(navArgument(PARAM_TO_DETAIL_SCREEN){
+            arguments = listOf(navArgument(PARAM_TO_DETAIL_SCREEN) {
                 type = NavType.IntType
             })
-            ) {
+        ) { navBackStackEntry ->
 
-            val position = it.arguments?.getInt(PARAM_TO_DETAIL_SCREEN)
-            val state = mainVM.viewState.collectAsState().value.forecastData
+            val position = navBackStackEntry.arguments?.getInt(PARAM_TO_DETAIL_SCREEN)
 
-            position?.let { position->
-                state?.let { forecastData ->
-                    detailVM.getDetailDataItem(forecastData.forecastList[position].detailData)
+            position?.let { position ->
+                mainState?.let { forecastData ->
+                    detailVM.getDetailData(forecastData.forecastList[position].detailData)
                 }
                 DetailWeatherScreen(vm = detailVM)
             }

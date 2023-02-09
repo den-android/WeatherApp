@@ -14,7 +14,7 @@ class DetailViewModel @Inject constructor(
 ) : ViewModel() {
     val viewState: StateFlow<DetailState> = detailStore.state
 
-    fun getDetailDataItem(detailData: DetailData) {
+    fun getDetailData(detailData: DetailData) {
         viewModelScope.launch {
             detailStore.dispatch(DetailAction.GetDetailData(detailData = detailData))
         }
