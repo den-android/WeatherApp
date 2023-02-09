@@ -27,30 +27,26 @@ fun NavGraph(
         startDestination = Screen.MainForecastScreen.route
     ) {
 
-        composable(
-            route = Screen.MainForecastScreen.route
-        ) {
-            val cityDataItem =
-                navController.previousBackStackEntry?.savedStateHandle?.get<CityData>(
-                    PARAM_TO_MAIN_SCREEN
-                )
+        composable(route = Screen.MainForecastScreen.route) {
+            val cityDataItem = navController.previousBackStackEntry?.savedStateHandle?.get<CityData>(PARAM_TO_MAIN_SCREEN)
+
             cityDataItem?.let {
                 mainVM.fetchForecastByCityName(lat = it.lat, lon = it.lon)
                 MainScreen(navController = navController, vm = mainVM)
             } ?: mainVM.fetchForecastByCityName(lat = 47.2213858, lon = 39.7114196).also {
                 MainScreen(navController = navController, vm = mainVM)
             }
+            
         }
 
         composable(route = Screen.DetailForecastScreen.route) {
-            val detailDataItem =
-                navController.previousBackStackEntry?.savedStateHandle?.get<DetailData>(
-                    PARAM_TO_DETAIL_SCREEN
-                )
+            val detailDataItem = navController.previousBackStackEntry?.savedStateHandle?.get<DetailData>(PARAM_TO_DETAIL_SCREEN)
+
             detailDataItem?.let {
                 detailVM.getDetailDataItem(it)
                 DetailWeatherScreen(vm = detailVM)
             }
+
         }
 
         composable(route = Screen.FetchCityScreen.route) {
