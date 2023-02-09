@@ -2,9 +2,10 @@ package net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast
 
 import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
+import net.denis.weatherapp.features.detail_forecast.model.CityDetail
 import net.denis.weatherapp.features.detail_forecast.model.DetailData
 import net.denis.weatherapp.features.detail_forecast.model.DetailItem
-import net.denis.weatherapp.features.detail_forecast.model.SunDetail
+import net.denis.weatherapp.features.detail_forecast.model.mapToUiCard
 import net.denis.weatherapp.features.main_forecast.model.ForecastData
 import net.denis.weatherapp.features.main_forecast.model.ForecastItem
 import java.text.SimpleDateFormat
@@ -19,21 +20,21 @@ data class WeatherDto(
     val forecast: List<Forecast>,
     val message: Int
 ) {
-    fun WeatherDto.toSunDetail() = SunDetail(
+    fun WeatherDto.toCityDetail() = CityDetail(
         cityName = city.name,
         sunrise = city.sunrise,
         sunset = city.sunset,
     )
 
     fun Forecast.toDetailItem() = DetailItem(
-        sunDetail = toSunDetail(),
+        cityDetail = toCityDetail(),
         wind = wind,
         clouds = clouds,
         visibility = visibility
     ).mapToUiCard()
 
     fun Forecast.toDetailData() = DetailData(
-        sunDetail = toSunDetail(),
+        cityDetail = toCityDetail(),
         detailList = toDetailItem()
     )
 
@@ -46,7 +47,7 @@ data class WeatherDto(
 }
 
 fun WeatherDto.toForecastData() = ForecastData(
-    sunDetail = toSunDetail(),
+    cityDetail = toCityDetail(),
     forecastList = forecast.map { it.toForecastItem() }
 )
 

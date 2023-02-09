@@ -8,66 +8,65 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 data class DetailItem(
-    val sunDetail: SunDetail,
+    val cityDetail: CityDetail,
     val wind: Wind,
     val clouds: Clouds,
     val visibility: Int,
-) {
-    fun mapToUiCard(): List<DetailModelCard> {
-        val cards = mutableListOf<DetailModelCard>()
+)
+fun DetailItem.mapToUiCard(): List<DetailModelCard> {
+    val cards = mutableListOf<DetailModelCard>()
 
-        cards.add(
-            DetailModelCard.WideCardWithText(
+    cards.add(
+        DetailModelCard.WideCardWithText(
+            indicatorCellFields = IndicatorCellFields(
+                title = "Ветренность",
+                text = "${roundSpeed(wind.speed)}м/с",
+                indicatorValue = wind.speed.toFloat() / 10f,
+                description = ""
+            ),
+        )
+    )
+
+    cards.add(
+        DetailModelCard.CardWithTextAndText(
+            leftCardWithText = DetailModelCard.CardWithText(
+                cellFields = CellFields(
+                    title = "Рассвет",
+                    text = "${dtMap(cityDetail.sunrise)} AM",
+                    description = "",
+                )
+            ),
+            rightCardWithText = DetailModelCard.CardWithText(
+                cellFields = CellFields(
+                    title = "Закат",
+                    text = "${dtMap(cityDetail.sunset)} PM",
+                    description = ""
+                )
+            )
+        )
+    )
+
+    cards.add(
+        DetailModelCard.CardWithTextAndIndicator(
+            cardWithText = DetailModelCard.CardWithText(
+                cellFields = CellFields(
+                    title = "Облачность",
+                    text = "${clouds.all}%",
+                    description = ""
+                )
+            ),
+            cardWithIndicator = DetailModelCard.CardWithIndicator(
                 indicatorCellFields = IndicatorCellFields(
-                    title = "Ветренность",
-                    text = "${roundSpeed(wind.speed)}м/с",
-                    indicatorValue = wind.speed.toFloat() / 10f,
+                    title = "Видимость",
+                    text = "",
+                    indicatorValue = visibility / 10000f,
                     description = ""
                 ),
             )
         )
+    )
 
-        cards.add(
-            DetailModelCard.CardWithTextAndText(
-                leftCardWithText = DetailModelCard.CardWithText(
-                    cellFields = CellFields(
-                        title = "Рассвет",
-                        text = "${dtMap(sunDetail.sunrise)} AM",
-                        description = "",
-                    )
-                ),
-                rightCardWithText = DetailModelCard.CardWithText(
-                    cellFields = CellFields(
-                        title = "Закат",
-                        text = "${dtMap(sunDetail.sunset)} PM",
-                        description = ""
-                    )
-                )
-            )
-        )
-
-        cards.add(
-            DetailModelCard.CardWithTextAndIndicator(
-                cardWithText = DetailModelCard.CardWithText(
-                    cellFields = CellFields(
-                        title = "Облачность",
-                        text = "${clouds.all}%",
-                        description = ""
-                    )
-                ),
-                cardWithIndicator = DetailModelCard.CardWithIndicator(
-                    indicatorCellFields = IndicatorCellFields(
-                        title = "Видимость",
-                        text = "",
-                        indicatorValue = visibility / 10000f,
-                        description = ""
-                    ),
-                )
-            )
-        )
-
-        return cards
-    }
+    return cards
 }
 
 private fun roundSpeed(windSpeed: Double): Double {
