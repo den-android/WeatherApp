@@ -5,18 +5,18 @@ import android.os.Parcelable
 import net.denis.weatherapp.core.util.DetailModelCard
 
 data class DetailData(
-    val sunDetail: SunDetail,
+    val cityDetail: CityDetail,
     val detailList: List<DetailModelCard>,
 ): Parcelable {
     constructor(parcel: Parcel) : this(
-        sunDetail = parcel.readValue(SunDetail::class.java.classLoader) as SunDetail,
-        detailList = parcel.readValue(DetailModelCard::class.java.classLoader) as List<DetailModelCard>
+        cityDetail = parcel.readValue(CityDetail::class.java.classLoader) as CityDetail,
+        detailList = parcel.readValue(DetailItem::class.java.classLoader) as List<DetailModelCard>
     )
 
     override fun describeContents(): Int = 0
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeValue(sunDetail)
+        parcel.writeValue(cityDetail)
         parcel.writeValue(detailList)
     }
 

@@ -3,7 +3,7 @@ package net.denis.weatherapp.features.detail_forecast.model
 import android.os.Parcel
 import android.os.Parcelable
 
-data class SunDetail(
+data class CityDetail(
     val cityName: String,
     val sunrise: Int,
     val sunset: Int,
@@ -23,12 +23,12 @@ data class SunDetail(
 
     override fun describeContents(): Int = 0
 
-    companion object CREATOR : Parcelable.Creator<SunDetail> {
-        override fun createFromParcel(parcel: Parcel): SunDetail {
-            return SunDetail(parcel)
+    companion object CREATOR : Parcelable.Creator<CityDetail> {
+        override fun createFromParcel(parcel: Parcel): CityDetail {
+            return CityDetail(parcel)
         }
 
-        override fun newArray(size: Int): Array<SunDetail?> {
+        override fun newArray(size: Int): Array<CityDetail?> {
             return arrayOfNulls(size)
         }
     }

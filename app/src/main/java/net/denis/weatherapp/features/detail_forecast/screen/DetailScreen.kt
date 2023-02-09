@@ -35,7 +35,7 @@ fun DetailWeatherScreen(
         topBar = {
             detailState?.let {
                 Toolbar(
-                    label = it.sunDetail.cityName,
+                    label = it.cityDetail.cityName,
                     modifier = modifier.background(MiddleGradientColor),
                     onClicked = { onBackPressedDispatcher?.onBackPressed() }
                 )
