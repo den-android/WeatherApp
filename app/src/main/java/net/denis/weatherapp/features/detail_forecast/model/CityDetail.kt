@@ -10,9 +10,9 @@ data class CityDetail(
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
-        parcel.readString().toString(),
-        parcel.readInt(),
-        parcel.readInt()
+        cityName = parcel.readString() ?: "",
+        sunrise = parcel.readInt(),
+        sunset = parcel.readInt()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

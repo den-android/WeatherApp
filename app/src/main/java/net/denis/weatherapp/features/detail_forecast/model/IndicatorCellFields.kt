@@ -2,20 +2,19 @@ package net.denis.weatherapp.features.detail_forecast.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 
 data class IndicatorCellFields(
     val title: String,
     val text: String,
     val description: String,
     val indicatorValue: Float,
-): Parcelable {
+) : Parcelable {
 
     constructor(parcel: Parcel) : this(
-        parcel.readString().toString(),
-        parcel.readString().toString(),
-        parcel.readString().toString(),
-        parcel.readFloat(),
+        title = parcel.readString() ?: "",
+        text = parcel.readString() ?: "",
+        description = parcel.readString() ?: "",
+        indicatorValue = parcel.readFloat(),
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
