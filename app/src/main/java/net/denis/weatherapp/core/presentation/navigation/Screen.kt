@@ -1,21 +1,19 @@
 package net.denis.weatherapp.core.presentation.navigation
 
-import net.denis.weatherapp.features.fetch_new_city.model.CityData
-
 sealed class Screen(val route: String) {
 
-    object MainForecastScreen : Screen(route = "MainForecastScreen?cityData={cityData}") {
-        fun passCoords(cityData: CityData): String {
-            return "MainForecastScreen?cityData=$cityData"
+    object MainScreen : Screen(route = "main_screen/lat={lat}/lon={lon}") {
+        fun passCoords(lat: Double, lon: Double): String {
+            return "main_screen/lat=$lat/lon=$lon"
         }
     }
 
-    object DetailForecastScreen : Screen(route = "DetailForecastScreen?position={position}") {
+    object DetailScreen : Screen(route = "detail_screen/position={position}") {
         fun passDetailPosition(position: Int): String {
-            return "DetailForecastScreen?position=$position"
+            return "detail_screen/position=$position"
         }
     }
 
-    object FetchCityScreen:Screen(route = "FetchCityScreen")
+    object FetchCityScreen:Screen(route = "fetch_city_screen")
 
 }
