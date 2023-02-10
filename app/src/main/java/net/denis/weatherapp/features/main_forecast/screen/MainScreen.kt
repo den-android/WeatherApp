@@ -25,7 +25,7 @@ fun MainScreen(
     val state = vm.viewState.collectAsState()
     val mainState = state.value.forecastData
 
-    ShimmerMainScreen(isLoading = state.value.isLoading) {
+    ShimmerMainScreen(isLoading = !state.value.isLoading) {
         mainState?.forecastList?.let { itemForecast ->
             Column(
                 modifier = modifier
@@ -47,7 +47,7 @@ fun MainScreen(
                         forecastData = mainState,
                         onClick = {
                             navController.navigate(
-                                route = Screen.DetailForecastScreen.passDetailPosition(it)
+                                route = Screen.DetailScreen.passDetailPosition(it)
                             )
                         }
                     )
