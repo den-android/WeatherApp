@@ -27,7 +27,7 @@ class MainDataMiddleware(
         lon: Double,
         store: Store<MainState, MainAction>
     ) {
-        weatherRepository.getForecast(
+        weatherRepository.fetchForecast(
             lat = lat,
             lon = lon,
         ).collect { data ->

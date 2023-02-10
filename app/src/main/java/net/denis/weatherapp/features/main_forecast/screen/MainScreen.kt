@@ -13,6 +13,7 @@ import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.features.main_forecast.mvi.MainViewModel
 import net.denis.weatherapp.features.main_forecast.screen.components.BottomNavigateMenu
 import net.denis.weatherapp.features.main_forecast.screen.components.CurrentWeatherDisplay
+import net.denis.weatherapp.features.main_forecast.screen.components.ShimmerMainScreen
 import net.denis.weatherapp.features.main_forecast.screen.components.WeatherForecastDisplay
 
 @Composable
@@ -22,40 +23,43 @@ fun MainScreen(
     vm: MainViewModel,
 ) {
     val state = vm.viewState.collectAsState()
-    val forecastState = state.value.forecastData
+    val mainState = state.value.forecastData
 
-    forecastState?.forecastList?.let { itemForecast ->
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .background(color = CityBackground)
-        ) {
-            Box(modifier = modifier.weight(3f)) {
-                CurrentWeatherDisplay(
-                    city = forecastState.cityDetail.cityName,
-                    weatherIcon = itemForecast[0].meteorology[0].id,
-                    temp = itemForecast[0].temp,
-                    weatherDesc = itemForecast[0].meteorology[0].description,
-                    currentDateTime = itemForecast[0].dateTime
-                )
+    ShimmerMainScreen(isLoading = state.value.isLoading) {
+        mainState?.forecastList?.let { itemForecast ->
+            Column(
+                modifier = modifier
+                    .fillMaxSize()
+                    .background(color = CityBackground)
+            ) {
+                Box(modifier = modifier.weight(3f)) {
+                    CurrentWeatherDisplay(
+                        city = mainState.cityDetail.cityName,
+                        weatherIcon = itemForecast[0].meteorology[0].id,
+                        temp = itemForecast[0].temp,
+                        weatherDesc = itemForecast[0].meteorology[0].description,
+                        currentDateTime = itemForecast[0].dateTime
+                    )
+                }
+
+                Box(modifier = modifier.weight(1f)) {
+                    WeatherForecastDisplay(
+                        forecastData = mainState,
+                        onClick = {
+                            navController.navigate(
+                                route = Screen.DetailForecastScreen.passDetailPosition(it)
+                            )
+                        }
+                    )
+                }
+
+                BottomNavigateMenu(onFabClicked = {
+                    navController.navigate(
+                        route = Screen.FetchCityScreen.route
+                    )
+                })
             }
-
-            Box(modifier = modifier.weight(1f)) {
-                WeatherForecastDisplay(
-                    forecastData = forecastState,
-                    onClick = {
-                        navController.navigate(
-                            route = Screen.DetailForecastScreen.passDetailPosition(it)
-                        )
-                    }
-                )
-            }
-
-            BottomNavigateMenu(onFabClicked = {
-                navController.navigate(
-                    route = Screen.FetchCityScreen.route
-                )
-            })
         }
     }
+
 }

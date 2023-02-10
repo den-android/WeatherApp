@@ -14,11 +14,11 @@ class WeatherRepository @Inject constructor(
     private val localDatasource: ILocalDatasource,
     private val remoteDatasource: IRemoteDatasource,
 ) : IWeatherRepository {
-    override suspend fun getForecast(
+    override suspend fun fetchForecast(
         lat: Double,
         lon: Double,
     ): Flow<WeatherDto> {
-        val response = remoteDatasource.getForecastByCity(lat, lon)
+        val response = remoteDatasource.fetchForecastByCoords(lat, lon)
 
         return flow {
             when (response) {

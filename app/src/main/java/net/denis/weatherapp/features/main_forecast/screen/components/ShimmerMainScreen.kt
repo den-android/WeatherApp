@@ -7,6 +7,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.geometry.Offset
@@ -27,34 +28,103 @@ fun ShimmerMainScreen(
         Column(
             modifier = modifier
                 .background(CityBackground)
-                .fillMaxSize()
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
-            Box(
+            Column(
                 modifier = modifier
-                    .height(140.dp)
                     .fillMaxWidth()
-                    .padding(16.dp)
-                    .shimmerEffect()
-            )
-            Row(
-                modifier = modifier.padding(16.dp)
+                    .padding(
+                        start = 40.dp,
+                        end = 40.dp,
+                        top = 48.dp,
+                        bottom = 48.dp
+                    ),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceBetween
             ) {
                 Box(
                     modifier = modifier
-                        .fillMaxWidth()
-                        .height(30.dp)
-                        .weight(0.4f)
+                        .height(20.dp)
+                        .fillMaxWidth(0.35f)
                         .shimmerEffect()
                 )
-                Spacer(modifier = modifier.width(12.dp))
+                Spacer(modifier = modifier.padding(vertical = 4.dp))
                 Box(
                     modifier = modifier
-                        .weight(0.6f)
-                        .height(30.dp)
+                        .height(120.dp)
+                        .fillMaxWidth(0.8f)
+                        .shimmerEffect()
+                )
+                Spacer(modifier = modifier.padding(vertical = 4.dp))
+                Box(
+                    modifier = modifier
+                        .height(20.dp)
+                        .fillMaxWidth(0.30f)
+                        .shimmerEffect()
+                )
+                Spacer(modifier = modifier.padding(vertical = 4.dp))
+                Box(
+                    modifier = modifier
+                        .height(20.dp)
+                        .fillMaxWidth(0.40f)
+                        .shimmerEffect()
+                )
+                Spacer(modifier.height(8.dp))
+                Box(
+                    modifier = modifier
+                        .fillMaxWidth(0.65f)
+                        .height(210.dp)
+                        .shimmerEffect()
+                )
+            }
+            Row(
+                modifier = modifier
+                    .padding(bottom = 16.dp)
+            ) {
+                Box(
+                    modifier = modifier
+                        .padding(horizontal = 16.dp)
+                        .height(100.dp)
+                        .width(65.dp)
+                        .shimmerEffect()
+                )
+                Spacer(modifier = modifier.padding(horizontal = 4.dp))
+                Box(
+                    modifier = modifier
+                        .padding(horizontal = 16.dp)
+                        .height(100.dp)
+                        .width(65.dp)
+                        .shimmerEffect()
+                )
+                Spacer(modifier = modifier.padding(horizontal = 4.dp))
+                Box(
+                    modifier = modifier
+                        .padding(horizontal = 16.dp)
+                        .height(100.dp)
+                        .width(65.dp)
+                        .shimmerEffect()
+                )
+                Spacer(modifier = modifier.padding(horizontal = 4.dp))
+                Box(
+                    modifier = modifier
+                        .padding(horizontal = 16.dp)
+                        .height(100.dp)
+                        .width(65.dp)
+                        .shimmerEffect()
+                )
+                Spacer(modifier = modifier.padding(horizontal = 4.dp))
+                Box(
+                    modifier = modifier
+                        .padding(horizontal = 16.dp)
+                        .height(100.dp)
+                        .width(65.dp)
                         .shimmerEffect()
                 )
             }
         }
+
     } else {
         contentAfterLoading()
     }

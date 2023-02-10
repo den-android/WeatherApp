@@ -56,9 +56,7 @@ fun NavGraph(
             })
         ) { navBackStackEntry ->
 
-            val position = navBackStackEntry.arguments?.getInt(PARAM_TO_DETAIL_SCREEN)
-
-            position?.let { position ->
+            navBackStackEntry.arguments?.getInt(PARAM_TO_DETAIL_SCREEN)?.let { position ->
                 mainState?.let { forecastData ->
                     detailVM.getDetailData(forecastData.forecastList[position].detailData)
                 }

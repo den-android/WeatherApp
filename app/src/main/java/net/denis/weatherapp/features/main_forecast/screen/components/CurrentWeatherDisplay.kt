@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.WeatherText
@@ -55,4 +56,9 @@ fun CurrentWeatherDisplay(
             modifier = modifier.width(200.dp)
         )
     }
+}
+@Preview(showBackground = true)
+@Composable
+fun testCur() {
+    CurrentWeatherDisplay(city = "123", temp = "12333", weatherDesc = "3333", currentDateTime = "2342345", weatherIcon = WeatherType.fromWMO(code = 20).iconRes)
 }
