@@ -16,7 +16,6 @@ class RemoteDatasource @Inject constructor(
 ) : IRemoteDatasource {
 
     override suspend fun fetchForecastByCoords(lat: Double, lon: Double): NetworkResult<WeatherDto> {
-        delay(2000L)
         return handleApi { openWeatherApi.fetchForecastByCity(lat, lon) }
     }
 
