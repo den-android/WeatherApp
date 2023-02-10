@@ -14,9 +14,13 @@ class MainViewModel @Inject constructor(
 
     val viewState: StateFlow<MainState> = mainStore.state
 
-    fun fetchCurrentForecast() {
+    init {
+        fetchCurrentForecast()
+    }
+
+    private fun fetchCurrentForecast() {
         viewModelScope.launch {
-            mainStore.dispatch(MainAction.FetchForecast)
+            mainStore.dispatch(MainAction.FetchCurrentForecast)
         }
     }
 
