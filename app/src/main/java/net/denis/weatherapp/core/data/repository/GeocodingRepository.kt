@@ -3,8 +3,6 @@ package net.denis.weatherapp.core.data.repository
 import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import net.denis.weatherapp.core.data.datasource.local.LocalDatasource
-import net.denis.weatherapp.core.data.datasource.remote.RemoteDatasource
 import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.GeocodingDto
 import net.denis.weatherapp.core.data.interfaces.IGeocodingRepository
 import net.denis.weatherapp.core.data.interfaces.ILocalDatasource

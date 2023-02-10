@@ -1,6 +1,5 @@
 package net.denis.weatherapp.core.data.datasource.remote
 
-import kotlinx.coroutines.delay
 import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.GeocodingDto
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.WeatherDto
 import net.denis.weatherapp.core.data.interfaces.GeocodingApi
