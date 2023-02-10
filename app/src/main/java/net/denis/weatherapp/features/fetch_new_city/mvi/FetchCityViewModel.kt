@@ -15,7 +15,7 @@ class FetchCityViewModel @Inject constructor(
 
     fun fetchCity(name: String) {
         viewModelScope.launch {
-            fetchCityStore.dispatch(FetchCityAction.FetchingCity(name))
+            fetchCityStore.dispatch(FetchCityAction.FetchCity(name))
         }
     }
 }

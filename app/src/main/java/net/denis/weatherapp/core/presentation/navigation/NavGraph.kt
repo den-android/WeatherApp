@@ -7,6 +7,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import net.denis.weatherapp.core.util.Constants.PARAM_LAT
+import net.denis.weatherapp.core.util.Constants.PARAM_LON
 import net.denis.weatherapp.core.util.Constants.PARAM_POSITION
 import net.denis.weatherapp.features.detail_forecast.mvi.DetailViewModel
 import net.denis.weatherapp.features.detail_forecast.screen.DetailWeatherScreen
@@ -31,13 +33,19 @@ fun NavGraph(
     ) {
 
         composable(
-            route = Screen.MainScreen.route
+            route = Screen.MainScreen.route,
+            arguments = listOf(
+                navArgument(PARAM_LAT) { type = NavType.StringType },
+                navArgument(PARAM_LON) { type = NavType.StringType }
+            )
         ) {
             cityState?.let {
-                mainVM.fetchForecastByCityCoords(lat = it.lat, lon = it.lon).also {
+                mainVM.fetchForecast(lat = it.lat, lon = it.lon).also {
                     MainScreen(navController = navController, vm = mainVM)
                 }
-            } ?: MainScreen(navController = navController, vm = mainVM)
+            } ?: mainVM.fetchForecast(lat = 47.2213858, lon = 39.7114196).also {
+                MainScreen(navController = navController, vm = mainVM)
+            }
         }
 
         composable(
