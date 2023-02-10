@@ -20,7 +20,6 @@ import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
 import net.denis.weatherapp.core.presentation.ui.theme.ViewBackground
-import net.denis.weatherapp.core.util.Constants
 import net.denis.weatherapp.features.fetch_new_city.mvi.FetchCityViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,12 +27,12 @@ import net.denis.weatherapp.features.fetch_new_city.mvi.FetchCityViewModel
 fun FetchCityScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    vm: FetchCityViewModel,
+    vm: FetchCityViewModel
 ) {
     val state = vm.viewState.collectAsState()
-    val cityState = state.value.cityName
+    val cityState = state.value.cityData
 
-    var text by rememberSaveable { mutableStateOf("") }
+    var textFieldValue by rememberSaveable { mutableStateOf("") }
 
     LazyColumn(
         modifier = modifier
@@ -45,13 +44,13 @@ fun FetchCityScreen(
                 modifier = modifier.background(ViewBackground),
                 title = {
                     TextField(
-                        value = text,
+                        value = textFieldValue,
                         onValueChange = {
-                            text = it
+                            textFieldValue = it
                             if (it.length >= 3) {
                                 vm.fetchCity(it)
                                 Thread.setDefaultUncaughtExceptionHandler { thread, e ->
-                                    text = e.localizedMessage
+                                    textFieldValue = e.localizedMessage
                                 }
                             }
                         },
@@ -59,8 +58,8 @@ fun FetchCityScreen(
                 }
             )
         }
-        cityState?.let {
-            item {
+        item {
+            cityState?.let {
                 Card(
                     shape = RoundedCornerShape(10.dp),
                     border = BorderStroke(2.dp, MiddleGradientColor),
@@ -69,12 +68,11 @@ fun FetchCityScreen(
                         .height(100.dp)
                         .padding(12.dp)
                         .clickable {
-                            navController.currentBackStackEntry?.savedStateHandle?.set(
-                                key = Constants.PARAM_TO_MAIN_SCREEN,
-                                value = it
-                            )
                             navController.navigate(
-                                route = Screen.MainForecastScreen.route
+                                route = Screen.MainScreen.passCoords(
+                                    lat = cityState.lat,
+                                    lon = cityState.lon,
+                                )
                             )
                         }
                 ) {
@@ -86,7 +84,7 @@ fun FetchCityScreen(
                         verticalArrangement = Arrangement.Center,
                     ) {
                         Text(
-                            text = it.name,
+                            text = cityState.name,
                             color = PrimaryText,
                             fontSize = 32.sp,
                             textAlign = TextAlign.Center,
@@ -94,11 +92,7 @@ fun FetchCityScreen(
                     }
 
                 }
-
             }
         }
-
-
     }
-
 }
