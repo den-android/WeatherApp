@@ -24,12 +24,12 @@ fun MainScreen(
     val state = vm.viewState.collectAsState()
     val mainState = state.value.forecastData
 
-    mainState?.forecastList?.let { itemForecast ->
-        Column(
-            modifier = modifier
-                .fillMaxSize()
-                .background(color = CityBackground)
-        ) {
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .background(color = CityBackground)
+    ) {
+        mainState?.forecastList?.let { itemForecast ->
             Box(modifier = modifier.weight(3f)) {
                 CurrentWeatherDisplay(
                     city = mainState.cityDetail.cityName,
@@ -56,8 +56,7 @@ fun MainScreen(
                     route = Screen.FetchCityScreen.route
                 )
             })
+
         }
     }
-
-
 }
