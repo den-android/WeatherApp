@@ -5,5 +5,5 @@ import net.denis.weatherapp.features.fetch_new_city.model.CityData
 
 data class FetchCityState(
     val isLoading: Boolean = false,
-    val cityName: CityData? = null
+    val cityData: CityData? = null
 ): State

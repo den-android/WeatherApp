@@ -31,9 +31,9 @@ class FetchCityDataMiddleware(
             .collect() { cityList ->
                 cityList.forEach { cityItem ->
                     try {
-                        store.dispatch(FetchCityAction.FetchedCity(cityData = cityItem.toRuCity()))
+                        store.dispatch(FetchCityAction.CityLoaded(cityData = cityItem.toRuCity()))
                     } catch (e: Exception) {
-                        store.dispatch(FetchCityAction.FetchedCity(cityData = cityItem.toEnCity()))
+                        store.dispatch(FetchCityAction.CityLoaded(cityData = cityItem.toEnCity()))
                     }
                 }
             }
