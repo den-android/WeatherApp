@@ -5,7 +5,7 @@ import retrofit2.Response
 
 sealed class NetworkResult<T: Any> {
     class Success<T : Any>(val data: T) : NetworkResult<T>()
-    class Error<T : Any>(val message: String?) : NetworkResult<T>()
+    class Error<T : Any>(val errorMessage: String?) : NetworkResult<T>()
 }
 
 suspend fun <T : Any> handleApi(
@@ -17,9 +17,9 @@ suspend fun <T : Any> handleApi(
         if (response.isSuccessful && body != null) {
             NetworkResult.Success(body)
         } else {
-            NetworkResult.Error(message = response.message())
+            NetworkResult.Error(errorMessage = response.message())
         }
     } catch (e: HttpException) {
-        NetworkResult.Error(message = e.message())
+        NetworkResult.Error(errorMessage = e.message())
     }
 }

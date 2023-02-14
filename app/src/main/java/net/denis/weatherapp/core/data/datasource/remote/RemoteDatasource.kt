@@ -6,6 +6,7 @@ import net.denis.weatherapp.core.data.interfaces.GeocodingApi
 import net.denis.weatherapp.core.data.interfaces.IRemoteDatasource
 import net.denis.weatherapp.core.data.interfaces.OpenWeatherApi
 import net.denis.weatherapp.core.util.NetworkResult
+import net.denis.weatherapp.core.util.getResult
 import net.denis.weatherapp.core.util.handleApi
 import javax.inject.Inject
 

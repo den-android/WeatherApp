@@ -4,6 +4,7 @@ import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.toF
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
+import net.denis.weatherapp.core.util.catchLog
 
 class MainDataMiddleware(
     private val weatherRepository: IWeatherRepository,
@@ -25,7 +26,7 @@ class MainDataMiddleware(
 
     private suspend fun fetchForecast(lat: Double, lon: Double, store: Store<MainState, MainAction>) {
         store.dispatch(MainAction.FetchingForecast)
-        weatherRepository.fetchForecast(lat = lat, lon = lon).collect { data ->
+        weatherRepository.fetchForecast(lat = lat, lon = lon).catchLog().collect { data ->
             store.dispatch(MainAction.ForecastLoaded(forecastData = data.toForecastData()))
         }
     }

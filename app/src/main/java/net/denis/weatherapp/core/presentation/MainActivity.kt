@@ -25,9 +25,9 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-                    Thread.setDefaultUncaughtExceptionHandler { thread, e ->
-                        Log.d("AppCrash", "$e")
-                    }
+//                    Thread.setDefaultUncaughtExceptionHandler { thread, e ->
+//                        Log.d("AppCrash", "$e")
+//                    }
                     NavGraph(
                         navController = navController,
                         mainVM = viewModel(),
