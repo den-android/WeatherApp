@@ -25,11 +25,16 @@ class WeatherRepository @Inject constructor(
         return flow {
             when (response) {
                 is NetworkResult.Success -> {
-                    getResult { emit(response.data) }
+                    emit(response.data)
                 }
+
                 is NetworkResult.Error -> {
-                    getResult { response.errorMessage }
+                    response.message
                     //Log.d("Logging", "ERROR: ${response.errorMessage}\n")
+                }
+
+                is NetworkResult.Exception -> {
+                    Log.d("App crash", "${response.e.localizedMessage}")
                 }
 
             }

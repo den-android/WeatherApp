@@ -26,3 +26,4 @@ inline fun <T> Flow<T>.catchLog(default: T? = null): Flow<T> = this.catch { e ->
     )
     default?.let { emit(it) }
 }
+

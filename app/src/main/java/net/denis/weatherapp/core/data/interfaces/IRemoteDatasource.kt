@@ -8,7 +8,7 @@ interface IRemoteDatasource {
     suspend fun fetchForecastByCoords(
         lat: Double,
         lon: Double,
-    ): NetworkResult<WeatherDto>
+    ): Result<WeatherDto>
 
     suspend fun fetchCity(
         name: String,
