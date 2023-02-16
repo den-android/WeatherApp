@@ -14,17 +14,12 @@ class GeocodingRepository @Inject constructor(
     private val localDatasource: ILocalDatasource,
     private val remoteDatasource: IRemoteDatasource,
 ): IGeocodingRepository {
-    override suspend fun fetchNewCity(name: String): Flow<GeocodingDto> {
+
+    override suspend fun fetchNewCity(name: String): Flow<NetworkResult<GeocodingDto>> {
         val response = remoteDatasource.fetchCity(name)
         return flow {
-            when (response) {
-                is NetworkResult.Success -> {
-                    emit(response.data)
-                }
-                is NetworkResult.Error -> {
-                    Log.d("Logging", "ERROR: ${response.message}")
-                }
-            }
+            emit(value = response)
         }
     }
+
 }
