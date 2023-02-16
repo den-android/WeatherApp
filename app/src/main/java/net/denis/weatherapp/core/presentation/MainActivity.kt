@@ -1,7 +1,6 @@
 package net.denis.weatherapp.core.presentation
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -25,9 +24,6 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val navController = rememberNavController()
-//                    Thread.setDefaultUncaughtExceptionHandler { thread, e ->
-//                        Log.d("AppCrash", "$e")
-//                    }
                     NavGraph(
                         navController = navController,
                         mainVM = viewModel(),
