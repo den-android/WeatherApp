@@ -20,6 +20,13 @@ class MainReducer : Reducer<MainState, MainAction> {
                 )
             }
 
+            is MainAction.ShowError -> {
+                currentState.copy(
+                    isLoading = false,
+                    error = action.failureResponse
+                )
+            }
+
             else -> currentState
 
         }
