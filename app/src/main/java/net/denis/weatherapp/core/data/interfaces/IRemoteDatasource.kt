@@ -5,12 +5,6 @@ import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Wea
 import net.denis.weatherapp.core.util.NetworkResult
 
 interface IRemoteDatasource {
-    suspend fun fetchForecastByCoords(
-        lat: Double,
-        lon: Double,
-    ): Result<WeatherDto>
-
-    suspend fun fetchCity(
-        name: String,
-    ): NetworkResult<GeocodingDto>
+    suspend fun fetchForecastByCoords(lat: Double, lon: Double): NetworkResult<WeatherDto>
+    suspend fun fetchCity(name: String): NetworkResult<GeocodingDto>
 }
