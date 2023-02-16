@@ -15,4 +15,5 @@ interface OpenWeatherApi {
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
     ): Response<WeatherDto>
+
 }

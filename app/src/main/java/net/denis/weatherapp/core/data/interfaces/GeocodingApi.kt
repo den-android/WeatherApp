@@ -16,4 +16,5 @@ interface GeocodingApi {
         @Query("limit") limit: Int = 1,
         @Query("appid") appid: String = API_KEY,
     ): Response<GeocodingDto>
+
 }
