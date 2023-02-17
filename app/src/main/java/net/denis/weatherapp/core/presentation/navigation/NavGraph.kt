@@ -8,11 +8,10 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import net.denis.weatherapp.core.util.Constants.PARAM_LAT
-import net.denis.weatherapp.core.util.Constants.PARAM_LON
 import net.denis.weatherapp.core.util.Constants.PARAM_POSITION
 import net.denis.weatherapp.features.detail_forecast.mvi.DetailViewModel
 import net.denis.weatherapp.features.detail_forecast.screen.DetailScreen
+import net.denis.weatherapp.features.fetch_new_city.model.CityData
 import net.denis.weatherapp.features.fetch_new_city.mvi.FetchCityViewModel
 import net.denis.weatherapp.features.fetch_new_city.screen.FetchCityScreen
 import net.denis.weatherapp.features.main_forecast.mvi.MainViewModel
@@ -25,25 +24,21 @@ fun NavGraph(
     detailVM: DetailViewModel,
     fetchCityVM: FetchCityViewModel,
 ) {
-
     val mainState = mainVM.viewState.collectAsState().value.forecastData
     val cityState = fetchCityVM.viewState.collectAsState().value.cityData
-var i =0
+    var i = 0
     NavHost(
         navController = navController,
-        startDestination = Screen.MainScreen.route
+        startDestination = Screen.FetchCityScreen.route
     ) {
 
-        composable(
-            route = Screen.MainScreen.route,
-        ) {
-            cityState?.let {
-                    mainVM.fetchForecast(it.lat,it.lon)
-                    Log.d("Logging", "qwe")
+        composable(route = Screen.MainScreen.route) {
+            navController.previousBackStackEntry?.arguments?.getParcelable("COORDS_KEY", CityData::class.java)?.let { cityData ->
+                mainVM.fetchForecast(cityData.lat, cityData.lon)
+                i++
+                Log.d("Logging", "$i")
             }
-
             MainScreen(navController = navController, vm = mainVM)
-
         }
 
         composable(

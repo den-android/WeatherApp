@@ -5,7 +5,7 @@ import android.os.Parcelable
 import androidx.navigation.NavController
 import androidx.navigation.NavOptionsBuilder
 
-fun NavController.navigate(
+fun NavController.navigater(
     route: String,
     param: Pair<String, Parcelable>?,
     builder: NavOptionsBuilder.() -> Unit = {}
@@ -14,7 +14,7 @@ fun NavController.navigate(
     navigate(route, builder)
 }
 
-fun NavController.navigate(
+fun NavController.navigater(
     route: String,
     params: List<Pair<String, Parcelable>>?,
     builder: NavOptionsBuilder.() -> Unit = {}
@@ -26,7 +26,7 @@ fun NavController.navigate(
     navigate(route, builder)
 }
 
-fun NavController.navigate(
+fun NavController.navigater(
     route: String,
     params: Bundle?,
     builder: NavOptionsBuilder.() -> Unit = {}

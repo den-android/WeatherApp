@@ -1,5 +1,6 @@
 package net.denis.weatherapp.features.fetch_new_city.screen
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -21,6 +22,7 @@ import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
 import net.denis.weatherapp.core.presentation.ui.theme.ViewBackground
+import net.denis.weatherapp.core.util.navigater
 import net.denis.weatherapp.features.fetch_new_city.mvi.FetchCityViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,9 +68,10 @@ fun FetchCityScreen(
                         .height(100.dp)
                         .padding(12.dp)
                         .clickable {
-                            navController.navigate(
-                                "MainScreen", bundleOf("COORDS_KEY")
+                            navController.navigater(
+                                Screen.MainScreen.route, bundleOf("COORDS_KEY" to it)
                             )
+                            Log.d("Logging", "New city clicked")
                         }
                 ) {
                     Column(
