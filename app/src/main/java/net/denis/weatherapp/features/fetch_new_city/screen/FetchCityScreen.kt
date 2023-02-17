@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import net.denis.weatherapp.core.presentation.navigation.Screen
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
@@ -49,9 +50,6 @@ fun FetchCityScreen(
                             textFieldValue = it
                             if (it.length >= 3) {
                                 vm.fetchCity(it)
-                                Thread.setDefaultUncaughtExceptionHandler { thread, e ->
-                                    textFieldValue = e.localizedMessage
-                                }
                             }
                         },
                     )
@@ -69,10 +67,7 @@ fun FetchCityScreen(
                         .padding(12.dp)
                         .clickable {
                             navController.navigate(
-                                route = Screen.MainScreen.passCoords(
-                                    lat = cityState.lat,
-                                    lon = cityState.lon,
-                                )
+                                "MainScreen", bundleOf("COORDS_KEY")
                             )
                         }
                 ) {

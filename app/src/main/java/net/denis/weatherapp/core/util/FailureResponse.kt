@@ -5,5 +5,5 @@ import androidx.annotation.Keep
 @Keep
 data class FailureResponse(
     val errMessage: String,
-    val actionTitle: String
+    val btnTitle: String
 )

@@ -5,15 +5,15 @@ fun handleHttpCode(code: Int): FailureResponse {
         401 -> {
             FailureResponse(
                 errMessage = "Unauthorized call",
-                actionTitle = "fix 401 error"
+                btnTitle = "fix 401 error"
             )
         }
         404 -> {
             FailureResponse(
                 errMessage = "page not found",
-                actionTitle = "fix 404 error"
+                btnTitle = "fix 404 error"
             )
         }
-        else -> FailureResponse(errMessage = "Unexpected error", actionTitle = "Перезапустить приложение")
+        else -> FailureResponse(errMessage = "Unexpected error", btnTitle = "Перезапустить приложение")
     }
 }

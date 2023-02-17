@@ -16,15 +16,19 @@ import androidx.compose.ui.platform.LocalContext
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
 import net.denis.weatherapp.core.util.DetailModelCard
+import net.denis.weatherapp.features.detail_forecast.model.DetailData
 import net.denis.weatherapp.features.detail_forecast.mvi.DetailViewModel
 import net.denis.weatherapp.features.detail_forecast.screen.components.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DetailWeatherScreen(
+fun DetailScreen(
     modifier: Modifier = Modifier,
-    vm: DetailViewModel
+    vm: DetailViewModel,
+    detailData: DetailData
 ) {
+    vm.getDetailData(detailData)
+
     val context = LocalContext.current
 
     val state = vm.viewState.collectAsState()

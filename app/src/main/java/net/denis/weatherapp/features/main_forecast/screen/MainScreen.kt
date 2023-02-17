@@ -21,6 +21,7 @@ fun MainScreen(
     navController: NavController,
     vm: MainViewModel,
 ) {
+
     val state = vm.viewState.collectAsState()
     val mainState = state.value.forecastData
 
@@ -50,13 +51,13 @@ fun MainScreen(
                     }
                 )
             }
-
+        }
             BottomNavigateMenu(onFabClicked = {
                 navController.navigate(
                     route = Screen.FetchCityScreen.route
                 )
             })
 
-        }
+
     }
 }
