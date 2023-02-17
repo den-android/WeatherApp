@@ -14,6 +14,10 @@ class MainViewModel @Inject constructor(
 
     val viewState: StateFlow<MainState> = mainStore.state
 
+    init {
+        fetchForecast(lat = 47.2213858, lon = 39.7114196)
+    }
+
     fun fetchForecast(lat: Double, lon: Double) {
         viewModelScope.launch {
             mainStore.dispatch(MainAction.FetchForecast(lat = lat, lon = lon))
