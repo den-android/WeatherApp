@@ -9,12 +9,6 @@ class DetailReducer : Reducer<DetailState, DetailAction> {
 
             is DetailAction.GetDetailData -> {
                 currentState.copy(
-                    isLoading = true
-                )
-            }
-
-            is DetailAction.DetailDataLoaded -> {
-                currentState.copy(
                     isLoading = false,
                     detailData = action.detailData,
                 )

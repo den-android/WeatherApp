@@ -5,5 +5,4 @@ import net.denis.weatherapp.features.detail_forecast.model.DetailData
 
 sealed class DetailAction : Action {
     data class GetDetailData(val detailData: DetailData) : DetailAction()
-    data class DetailDataLoaded(val detailData: DetailData) : DetailAction()
 }

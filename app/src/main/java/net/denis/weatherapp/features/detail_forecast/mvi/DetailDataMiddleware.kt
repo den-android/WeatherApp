@@ -16,14 +16,11 @@ class DetailDataMiddleware(
     ) {
         when (action) {
             is DetailAction.GetDetailData -> {
-                detailLoading(detailData = action.detailData, store = store)
+                action.detailData
             }
 
             else -> currentState
         }
     }
 
-    private suspend fun detailLoading(detailData: DetailData, store: Store<DetailState, DetailAction>) {
-        store.dispatch(DetailAction.DetailDataLoaded(detailData))
-    }
 }
