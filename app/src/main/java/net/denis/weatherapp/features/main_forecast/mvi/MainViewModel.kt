@@ -1,5 +1,6 @@
 package net.denis.weatherapp.features.main_forecast.mvi
 
+import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -22,5 +23,10 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             mainStore.dispatch(MainAction.FetchForecast(lat = lat, lon = lon))
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        mainStore.state.value.copy(false, error = null, forecastData = null)
     }
 }

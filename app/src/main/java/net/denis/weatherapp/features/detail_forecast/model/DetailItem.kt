@@ -4,7 +4,6 @@ import android.os.Parcel
 import android.os.Parcelable
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Clouds
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Wind
-import net.denis.weatherapp.core.util.DetailModelCard
 import java.math.RoundingMode
 import java.text.SimpleDateFormat
 import java.util.*

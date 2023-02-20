@@ -23,13 +23,12 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val navController = rememberNavController()
                     NavGraph(
-                        navController = navController,
-                        mainVM = viewModel(),
-                        detailVM = viewModel(),
-                        fetchCityVM = viewModel(),
+                      //  mainVM = viewModel(),
+                      //  detailVM = viewModel(),
+                        //fetchCityVM = viewModel(),
                     )
+
                 }
             }
         }

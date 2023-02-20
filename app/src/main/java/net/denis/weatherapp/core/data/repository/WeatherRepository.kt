@@ -1,6 +1,7 @@
 package net.denis.weatherapp.core.data.repository
 
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.withContext
@@ -19,6 +20,7 @@ class WeatherRepository @Inject constructor(
 
     override suspend fun fetchForecast(lat: Double, lon: Double): Flow<NetworkResult<WeatherDto>> =
         withContext(scopeIo.coroutineContext) {
+            delay(3000L)
             val response = remoteDatasource.fetchForecastByCoords(lat = lat, lon = lon)
             return@withContext flow {
                 emit(value = response)

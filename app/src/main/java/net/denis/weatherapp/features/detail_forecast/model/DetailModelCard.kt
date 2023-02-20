@@ -1,9 +1,7 @@
-package net.denis.weatherapp.core.util
+package net.denis.weatherapp.features.detail_forecast.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import net.denis.weatherapp.features.detail_forecast.model.CellFields
-import net.denis.weatherapp.features.detail_forecast.model.IndicatorCellFields
 
 @Parcelize
 sealed class DetailModelCard : Parcelable {

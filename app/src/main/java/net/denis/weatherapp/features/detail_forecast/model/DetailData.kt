@@ -2,7 +2,6 @@ package net.denis.weatherapp.features.detail_forecast.model
 
 import android.os.Parcel
 import android.os.Parcelable
-import net.denis.weatherapp.core.util.DetailModelCard
 
 data class DetailData(
     val cityDetail: CityDetail,
