@@ -25,8 +25,4 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        mainStore.state.value.copy(false, error = null, forecastData = null)
-    }
 }

@@ -20,14 +20,11 @@ import net.denis.weatherapp.features.main_forecast.screen.MainScreen
 
 @Composable
 fun NavGraph(
- //   mainVM: MainViewModel,
-//    detailVM: DetailViewModel,
-   // fetchCityVM: FetchCityViewModel,
+    mainVM: MainViewModel,
+    detailVM: DetailViewModel,
+    fetchCityVM: FetchCityViewModel,
 ) {
     val navController = rememberNavController()
-
-   // val mainState = mainVM.viewState.collectAsState().value.forecastData
-//    val fetchCityState = fetchCityVM.viewState.collectAsState().value.cityData
 
     var i = 0
     NavHost(
@@ -36,8 +33,8 @@ fun NavGraph(
     ) {
         composable(route = Screen.MainScreen.route) {
             i++
-            Log.d("Logging", "Nav graph$i")
-            MainScreen(navController = navController)
+            Log.d("Logging", "------------Nav graph$i")
+            MainScreen(navController = navController, vm = mainVM, fetchCityVM = fetchCityVM)
         }
 
 //        composable(
@@ -54,7 +51,7 @@ fun NavGraph(
 //        }
 
         composable(route = Screen.FetchCityScreen.route) {
-            FetchCityScreen(navController = navController, navigateUp = {
+            FetchCityScreen(navController = navController, vm = fetchCityVM, navigateUp = {
                 navController.popBackStack(Screen.FetchCityScreen.route, inclusive = true)
             })
         }

@@ -14,9 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import net.denis.weatherapp.core.presentation.navigation.Screen
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
@@ -28,11 +26,10 @@ import net.denis.weatherapp.features.fetch_new_city.mvi.FetchCityViewModel
 fun FetchCityScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
-    vm: FetchCityViewModel = viewModel(),
+    vm: FetchCityViewModel,
     navigateUp: () -> Unit,
 ) {
-    val state = vm.viewState.collectAsState()
-    val cityState = state.value.cityData
+    val cityState by vm.viewState.collectAsState()
 
     var textFieldValue by rememberSaveable { mutableStateOf("") }
 
@@ -57,8 +54,8 @@ fun FetchCityScreen(
                 }
             )
         }
-        item {
-            cityState?.let {
+        cityState.cityData?.let { cityData ->
+            item {
                 Card(
                     shape = RoundedCornerShape(10.dp),
                     border = BorderStroke(2.dp, MiddleGradientColor),
@@ -76,7 +73,7 @@ fun FetchCityScreen(
                         verticalArrangement = Arrangement.Center,
                     ) {
                         Text(
-                            text = cityState.name,
+                            text = cityData.name,
                             color = PrimaryText,
                             fontSize = 32.sp,
                             textAlign = TextAlign.Center,

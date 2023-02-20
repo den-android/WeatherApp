@@ -8,7 +8,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import net.denis.weatherapp.core.presentation.navigation.NavGraph
 import net.denis.weatherapp.core.presentation.ui.theme.WeatherAppTheme
@@ -24,9 +23,9 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     NavGraph(
-                      //  mainVM = viewModel(),
-                      //  detailVM = viewModel(),
-                        //fetchCityVM = viewModel(),
+                        mainVM = viewModel(),
+                        detailVM = viewModel(),
+                        fetchCityVM = viewModel(),
                     )
 
                 }
