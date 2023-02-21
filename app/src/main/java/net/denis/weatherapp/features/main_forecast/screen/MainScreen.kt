@@ -12,13 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
+import net.denis.weatherapp.core.util.ErrorAlertDialog
+import net.denis.weatherapp.core.util.FailureResponse
 import net.denis.weatherapp.features.main_forecast.model.ForecastData
 import net.denis.weatherapp.features.main_forecast.mvi.MainViewModel
 import net.denis.weatherapp.features.main_forecast.screen.components.BottomNavigateMenu
 import net.denis.weatherapp.features.main_forecast.screen.components.CurrentWeatherDisplay
 import net.denis.weatherapp.features.main_forecast.screen.components.WeatherForecastDisplay
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,
@@ -29,6 +30,9 @@ fun MainScreen(
     val mainState by vm.viewState.collectAsState()
 
     val alertDialogState = remember { mutableStateOf(true) }
+    if (alertDialogState.value) {
+        ErrorAlertDialog(onDismiss = { /*TODO*/ }, onExit = {  }, failureResponse = FailureResponse("404", "rset"))
+    }
 
     mainState?.let { state ->
         Column(
@@ -62,5 +66,4 @@ fun MainScreen(
             BottomNavigateMenu(onFabClicked = { onFabClick() })
         }
     }
-
 }

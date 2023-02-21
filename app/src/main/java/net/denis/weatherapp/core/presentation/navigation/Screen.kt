@@ -6,6 +6,6 @@ sealed class Screen(val route: String) {
 
     object DetailScreen : Screen(route = "detail_screen")
 
-    object FetchCityScreen:Screen(route = "fetch_city_screen")
+    object FetchCityScreen : Screen(route = "fetch_city_screen")
 
 }
