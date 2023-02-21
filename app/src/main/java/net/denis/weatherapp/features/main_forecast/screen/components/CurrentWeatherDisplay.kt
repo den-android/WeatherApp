@@ -12,7 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.WeatherText
-import net.denis.weatherapp.core.util.WeatherType
+import net.denis.weatherapp.features.main_forecast.model.WeatherType
 import net.denis.weatherapp.features.detail_forecast.screen.components.CustomTextBox
 
 @Composable

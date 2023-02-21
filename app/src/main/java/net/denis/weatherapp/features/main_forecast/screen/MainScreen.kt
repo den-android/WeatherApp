@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -19,6 +20,7 @@ import net.denis.weatherapp.features.main_forecast.screen.components.BottomNavig
 import net.denis.weatherapp.features.main_forecast.screen.components.CurrentWeatherDisplay
 import net.denis.weatherapp.features.main_forecast.screen.components.WeatherForecastDisplay
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,

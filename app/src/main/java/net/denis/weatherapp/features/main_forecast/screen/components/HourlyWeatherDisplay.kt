@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
-import net.denis.weatherapp.core.util.WeatherType
+import net.denis.weatherapp.features.main_forecast.model.WeatherType
 import net.denis.weatherapp.features.main_forecast.model.ForecastItem
 
 @Composable
