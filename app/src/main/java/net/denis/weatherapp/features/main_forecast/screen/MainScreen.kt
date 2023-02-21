@@ -29,12 +29,16 @@ fun MainScreen(
 ) {
     val mainState by vm.viewState.collectAsState()
 
-    val alertDialogState = remember { mutableStateOf(true) }
-    if (alertDialogState.value) {
-        ErrorAlertDialog(onDismiss = { /*TODO*/ }, onExit = {  }, failureResponse = FailureResponse("404", "rset"))
+    val alertDialogState = remember { mutableStateOf(false) }
+
+    mainState.error?.let {
+        
+            ErrorAlertDialog(onDismiss = { /*TODO*/ }, onExit = {  }, failureResponse = it)
+
     }
 
     mainState?.let { state ->
+
         Column(
             modifier = modifier
                 .fillMaxSize()
