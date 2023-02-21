@@ -1,17 +1,10 @@
 package net.denis.weatherapp.core.presentation.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
-import net.denis.weatherapp.core.util.Constants.PARAM_POSITION
 import net.denis.weatherapp.features.detail_forecast.mvi.DetailViewModel
 import net.denis.weatherapp.features.detail_forecast.screen.DetailScreen
 import net.denis.weatherapp.features.fetch_new_city.mvi.FetchCityViewModel
@@ -21,40 +14,43 @@ import net.denis.weatherapp.features.main_forecast.screen.MainScreen
 
 @Composable
 fun NavGraph(
-    mainVM: MainViewModel,
-    detailVM: DetailViewModel,
-    fetchCityVM: FetchCityViewModel,
+    mainVM: MainViewModel = viewModel(),
+    detailVM: DetailViewModel = viewModel(),
+    fetchCityVM: FetchCityViewModel = viewModel(),
 ) {
     val navController = rememberNavController()
 
-    var i = 0
     NavHost(
         navController = navController,
         startDestination = Screen.MainScreen.route
     ) {
         composable(route = Screen.MainScreen.route) {
-            i++
-            Log.d("Logging", "------------Nav graph$i")
-            MainScreen(navController = navController, vm = mainVM, fetchCityVM = fetchCityVM)
+            MainScreen(
+                navController = navController,
+                vm = mainVM,
+                onRangeTimeClick = { position, forecastData ->
+                    detailVM.getDetailData(forecastData.forecastList[position].detailData)
+                    navController.navigate(route = Screen.DetailScreen.route)
+                },
+                onFabClick = {
+                    navController.navigate(Screen.FetchCityScreen.route)
+                }
+            )
         }
 
-//        composable(
-//            route = Screen.DetailScreen.route,
-//            arguments = listOf(navArgument(PARAM_POSITION) {
-//                type = NavType.IntType
-//            })
-//        ) { navBackStackEntry ->
-//            navBackStackEntry.arguments?.getInt(PARAM_POSITION)?.let { position ->
-//                mainState?.forecastList?.let { listForecast ->
-//                    DetailScreen(vm = detailVM, detailData = listForecast[position].detailData)
-//                }
-//            }
-//        }
+        composable(route = Screen.DetailScreen.route) {
+            DetailScreen(vm = detailVM)
+        }
 
         composable(route = Screen.FetchCityScreen.route) {
-            FetchCityScreen(navController = navController, vm = fetchCityVM, navigateUp = {
-                navController.popBackStack(Screen.FetchCityScreen.route, inclusive = true)
-            })
+            FetchCityScreen(
+                navController = navController,
+                vm = fetchCityVM,
+                navigateUp = {
+                    mainVM.fetchForecast(lat = it.lat, lon = it.lon)
+                    navController.popBackStack(Screen.FetchCityScreen.route, inclusive = true)
+                }
+            )
         }
 
     }

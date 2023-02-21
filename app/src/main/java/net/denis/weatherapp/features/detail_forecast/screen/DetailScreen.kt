@@ -1,5 +1,6 @@
 package net.denis.weatherapp.features.detail_forecast.screen
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -11,12 +12,13 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
 import net.denis.weatherapp.features.detail_forecast.model.DetailModelCard
-import net.denis.weatherapp.features.detail_forecast.model.DetailData
 import net.denis.weatherapp.features.detail_forecast.mvi.DetailViewModel
 import net.denis.weatherapp.features.detail_forecast.screen.components.*
 
@@ -24,27 +26,24 @@ import net.denis.weatherapp.features.detail_forecast.screen.components.*
 @Composable
 fun DetailScreen(
     modifier: Modifier = Modifier,
-    vm: DetailViewModel,
-    detailData: DetailData
+    vm: DetailViewModel
 ) {
-    vm.getDetailData(detailData)
-
     val context = LocalContext.current
 
-    val state = vm.viewState.collectAsState()
-    val detailState = state.value.detailData
+    val detailState by vm.viewState.collectAsState()
+
     Scaffold(
         topBar = {
-            detailState?.let {
+            detailState.detailData?.let { detailData ->
                 Toolbar(
-                    label = it.cityDetail.cityName,
+                    label = detailData.cityDetail.cityName,
                     modifier = modifier.background(MiddleGradientColor),
                 )
             }
         },
     ) { contentPadding ->
         Box(modifier = modifier.padding(contentPadding)) {
-            detailState?.detailList?.let { listWeather ->
+            detailState.detailData?.detailList?.let { listWeather ->
                 LazyColumn(
                     modifier = modifier
                         .fillMaxSize()

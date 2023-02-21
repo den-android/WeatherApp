@@ -19,6 +19,7 @@ import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
 import net.denis.weatherapp.core.presentation.ui.theme.ViewBackground
+import net.denis.weatherapp.features.fetch_new_city.model.CityData
 import net.denis.weatherapp.features.fetch_new_city.mvi.FetchCityViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,7 +28,7 @@ fun FetchCityScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
     vm: FetchCityViewModel,
-    navigateUp: () -> Unit,
+    navigateUp: (CityData) -> Unit,
 ) {
     val cityState by vm.viewState.collectAsState()
 
@@ -63,7 +64,7 @@ fun FetchCityScreen(
                         .fillMaxWidth()
                         .height(100.dp)
                         .padding(12.dp)
-                        .clickable { navigateUp() }
+                        .clickable { navigateUp(cityData) }
                 ) {
                     Column(
                         modifier = modifier

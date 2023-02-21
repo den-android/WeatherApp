@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import dagger.hilt.android.AndroidEntryPoint
 import net.denis.weatherapp.core.presentation.navigation.NavGraph
 import net.denis.weatherapp.core.presentation.ui.theme.WeatherAppTheme
@@ -22,12 +21,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    NavGraph(
-                        mainVM = viewModel(),
-                        detailVM = viewModel(),
-                        fetchCityVM = viewModel(),
-                    )
-
+                    NavGraph()
                 }
             }
         }
