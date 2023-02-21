@@ -26,7 +26,6 @@ import net.denis.weatherapp.features.fetch_new_city.mvi.FetchCityViewModel
 @Composable
 fun FetchCityScreen(
     modifier: Modifier = Modifier,
-    navController: NavController,
     vm: FetchCityViewModel,
     navigateUp: (CityData) -> Unit,
 ) {

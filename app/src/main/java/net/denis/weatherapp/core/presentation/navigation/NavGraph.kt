@@ -26,7 +26,6 @@ fun NavGraph(
     ) {
         composable(route = Screen.MainScreen.route) {
             MainScreen(
-                navController = navController,
                 vm = mainVM,
                 onRangeTimeClick = { position, forecastData ->
                     detailVM.getDetailData(forecastData.forecastList[position].detailData)
@@ -44,7 +43,6 @@ fun NavGraph(
 
         composable(route = Screen.FetchCityScreen.route) {
             FetchCityScreen(
-                navController = navController,
                 vm = fetchCityVM,
                 navigateUp = {
                     mainVM.fetchForecast(lat = it.lat, lon = it.lon)

@@ -7,9 +7,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -24,12 +22,13 @@ import net.denis.weatherapp.features.main_forecast.screen.components.WeatherFore
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,
-    navController: NavController,
     vm: MainViewModel,
     onRangeTimeClick: (Int, ForecastData) -> Unit,
     onFabClick: () -> Unit,
 ) {
     val mainState by vm.viewState.collectAsState()
+
+    val alertDialogState = remember { mutableStateOf(true) }
 
     mainState?.let { state ->
         Column(
