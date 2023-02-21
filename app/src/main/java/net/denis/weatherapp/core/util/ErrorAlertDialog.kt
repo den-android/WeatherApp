@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,21 +49,11 @@ fun ErrorAlertDialog(
             ) {
                 Text(
                     text = failureResponse.errMessage,
+                    textAlign = TextAlign.Center,
                     modifier = Modifier.padding(8.dp), fontSize = 20.sp
                 )
                 Row(Modifier.padding(top = 10.dp)) {
                     OutlinedButton(
-                        onClick = { onDismiss() },
-                        Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp)
-                            .weight(1F)
-                    ) {
-                        Text(text = failureResponse.btnTitle)
-                    }
-
-
-                    Button(
                         onClick = { onExit() },
                         Modifier
                             .fillMaxWidth()
@@ -70,6 +61,16 @@ fun ErrorAlertDialog(
                             .weight(1F)
                     ) {
                         Text(text = "Выход")
+                    }
+
+                    Button(
+                        onClick = { onDismiss() },
+                        Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp)
+                            .weight(1F)
+                    ) {
+                        Text(text = failureResponse.btnTitle)
                     }
                 }
 
