@@ -1,15 +1,12 @@
 package net.denis.weatherapp.features.main_forecast.mvi
 
-import android.util.Log
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.toForecastData
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
-import net.denis.weatherapp.core.presentation.error.ErrorType
-import net.denis.weatherapp.core.presentation.error.model.HttpErrorResponse
+import net.denis.weatherapp.core.presentation.error.handlers.handleException
+import net.denis.weatherapp.core.presentation.error.handlers.handleHttpCode
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
 import net.denis.weatherapp.core.util.network.NetworkResult
-import net.denis.weatherapp.core.presentation.error.handleHttpCode
-import net.denis.weatherapp.core.presentation.error.model.handleException
 
 class MainDataMiddleware(
     private val weatherRepository: IWeatherRepository,

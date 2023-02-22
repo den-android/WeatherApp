@@ -6,7 +6,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import net.denis.weatherapp.features.detail_forecast.model.DetailData
-import net.denis.weatherapp.features.fetch_new_city.mvi.FetchCityAction
 import javax.inject.Inject
 
 @HiltViewModel

@@ -13,9 +13,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import net.denis.weatherapp.core.presentation.error.ErrorAlertDialog
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
+import net.denis.weatherapp.features.detail_forecast.screen.components.BottomNavigateMenu
 import net.denis.weatherapp.features.main_forecast.model.ForecastData
 import net.denis.weatherapp.features.main_forecast.mvi.MainViewModel
-import net.denis.weatherapp.features.main_forecast.screen.components.BottomNavigateMenu
 import net.denis.weatherapp.features.main_forecast.screen.components.CurrentWeatherDisplay
 import net.denis.weatherapp.features.main_forecast.screen.components.WeatherForecastDisplay
 import kotlin.system.exitProcess

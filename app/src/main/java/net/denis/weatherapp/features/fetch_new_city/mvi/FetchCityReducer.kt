@@ -1,7 +1,6 @@
 package net.denis.weatherapp.features.fetch_new_city.mvi
 
 import net.denis.weatherapp.core.presentation.redux.Reducer
-import net.denis.weatherapp.features.main_forecast.mvi.MainAction
 
 class FetchCityReducer : Reducer<FetchCityState, FetchCityAction> {
 

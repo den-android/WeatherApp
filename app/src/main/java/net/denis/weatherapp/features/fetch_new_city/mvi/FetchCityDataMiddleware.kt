@@ -3,12 +3,11 @@ package net.denis.weatherapp.features.fetch_new_city.mvi
 import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.toEnCity
 import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.toRuCity
 import net.denis.weatherapp.core.data.interfaces.IGeocodingRepository
-import net.denis.weatherapp.core.presentation.error.handleHttpCode
-import net.denis.weatherapp.core.presentation.error.model.handleException
+import net.denis.weatherapp.core.presentation.error.handlers.handleException
+import net.denis.weatherapp.core.presentation.error.handlers.handleHttpCode
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
 import net.denis.weatherapp.core.util.network.NetworkResult
-import net.denis.weatherapp.features.main_forecast.mvi.MainAction
 
 class FetchCityDataMiddleware(
     private val geocodingRepository: IGeocodingRepository,
