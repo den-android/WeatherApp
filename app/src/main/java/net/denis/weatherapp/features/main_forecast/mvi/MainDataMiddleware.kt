@@ -8,6 +8,7 @@ import net.denis.weatherapp.core.presentation.error.model.HttpErrorResponse
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
 import net.denis.weatherapp.core.util.NetworkResult
+import net.denis.weatherapp.core.util.handleHttpCode
 
 class MainDataMiddleware(
     private val weatherRepository: IWeatherRepository,
@@ -24,7 +25,7 @@ class MainDataMiddleware(
             }
 
             is MainAction.ShowError -> {
-                Log.d("Logging", "${action.errorType}")
+                errorHandling(action.errorType)
             }
 
             else -> currentState
@@ -62,6 +63,17 @@ class MainDataMiddleware(
                         )
                     )
                 }
+            }
+        }
+    }
+
+    private fun errorHandling(errorType: ErrorType) {
+        when (errorType) {
+            is ErrorType.HttpError -> {
+                handleHttpCode(errorType.httpErrorResponse.code)
+            }
+            is ErrorType.OnExceptionError -> {
+                Log.d("Logging", "${errorType.exMessage}")
             }
         }
     }

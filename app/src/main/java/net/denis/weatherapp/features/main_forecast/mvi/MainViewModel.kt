@@ -26,17 +26,4 @@ class MainViewModel @Inject constructor(
         }
     }
 
-//    private fun testError() {
-//        when (viewState.value.error) {
-//            is ErrorType.HttpError -> {
-//                Log.d("Logging", "${}")
-//            }
-//            is ErrorType.OnExceptionError -> {
-//
-//            }
-//            null -> {}
-//        }
-//
-//    }
-
 }
