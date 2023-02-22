@@ -5,8 +5,8 @@ import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Wea
 import net.denis.weatherapp.core.data.interfaces.GeocodingApi
 import net.denis.weatherapp.core.data.interfaces.IRemoteDatasource
 import net.denis.weatherapp.core.data.interfaces.OpenWeatherApi
-import net.denis.weatherapp.core.util.NetworkResult
-import net.denis.weatherapp.core.util.handleApi
+import net.denis.weatherapp.core.util.network.NetworkResult
+import net.denis.weatherapp.core.util.network.handleApi
 import javax.inject.Inject
 
 class RemoteDatasource @Inject constructor(

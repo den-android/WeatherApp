@@ -1,4 +1,4 @@
-package net.denis.weatherapp.core.util
+package net.denis.weatherapp.core.presentation.error
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

@@ -1,13 +1,12 @@
 package net.denis.weatherapp.core.data.repository
 
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.GeocodingDto
 import net.denis.weatherapp.core.data.interfaces.IGeocodingRepository
 import net.denis.weatherapp.core.data.interfaces.ILocalDatasource
 import net.denis.weatherapp.core.data.interfaces.IRemoteDatasource
-import net.denis.weatherapp.core.util.NetworkResult
+import net.denis.weatherapp.core.util.network.NetworkResult
 import javax.inject.Inject
 
 class GeocodingRepository @Inject constructor(

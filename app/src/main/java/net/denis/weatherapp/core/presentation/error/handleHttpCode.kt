@@ -1,4 +1,4 @@
-package net.denis.weatherapp.core.util
+package net.denis.weatherapp.core.presentation.error
 
 import net.denis.weatherapp.core.presentation.error.model.FailureResponse
 
@@ -7,13 +7,13 @@ fun handleHttpCode(code: Int): FailureResponse {
         401 -> {
             FailureResponse(
                 errMessage = "Unauthorized call",
-                btnTitle = "fix 401 error"
+                btnTitle = "Попробовать снова"
             )
         }
         404 -> {
             FailureResponse(
                 errMessage = "page not found",
-                btnTitle = "fix 404 error"
+                btnTitle = "Повторить"
             )
         }
         else -> FailureResponse(errMessage = "Unexpected error", btnTitle = "Перезапустить приложение")

@@ -1,4 +1,4 @@
-package net.denis.weatherapp.core.util
+package net.denis.weatherapp.core.util.network
 
 import retrofit2.Response
 

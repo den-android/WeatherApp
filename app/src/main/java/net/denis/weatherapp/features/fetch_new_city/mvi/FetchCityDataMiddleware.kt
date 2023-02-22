@@ -5,7 +5,7 @@ import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.toRuCity
 import net.denis.weatherapp.core.data.interfaces.IGeocodingRepository
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
-import net.denis.weatherapp.core.util.NetworkResult
+import net.denis.weatherapp.core.util.network.NetworkResult
 
 class FetchCityDataMiddleware(
     private val geocodingRepository: IGeocodingRepository,

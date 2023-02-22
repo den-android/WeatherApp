@@ -7,8 +7,8 @@ import net.denis.weatherapp.core.presentation.error.ErrorType
 import net.denis.weatherapp.core.presentation.error.model.HttpErrorResponse
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
-import net.denis.weatherapp.core.util.NetworkResult
-import net.denis.weatherapp.core.util.handleHttpCode
+import net.denis.weatherapp.core.util.network.NetworkResult
+import net.denis.weatherapp.core.presentation.error.handleHttpCode
 
 class MainDataMiddleware(
     private val weatherRepository: IWeatherRepository,
