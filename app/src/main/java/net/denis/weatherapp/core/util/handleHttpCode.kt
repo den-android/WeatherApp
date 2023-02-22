@@ -1,5 +1,7 @@
 package net.denis.weatherapp.core.util
 
+import net.denis.weatherapp.core.presentation.error.model.FailureResponse
+
 fun handleHttpCode(code: Int): FailureResponse {
     return when (code) {
         401 -> {

@@ -3,10 +3,11 @@ package net.denis.weatherapp.features.main_forecast.mvi
 import android.util.Log
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.toForecastData
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
+import net.denis.weatherapp.core.presentation.error.ErrorType
+import net.denis.weatherapp.core.presentation.error.model.HttpErrorResponse
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
 import net.denis.weatherapp.core.util.NetworkResult
-import net.denis.weatherapp.core.util.handleHttpCode
 
 class MainDataMiddleware(
     private val weatherRepository: IWeatherRepository,
@@ -22,10 +23,19 @@ class MainDataMiddleware(
                 fetchForecast(lat = action.lat, lon = action.lon, store = store)
             }
 
+            is MainAction.ShowError -> {
+                Log.d("Logging", "${action.errorType}")
+            }
+
             else -> currentState
         }
     }
-    private suspend fun fetchForecast(lat: Double, lon: Double, store: Store<MainState, MainAction>) {
+
+    private suspend fun fetchForecast(
+        lat: Double,
+        lon: Double,
+        store: Store<MainState, MainAction>
+    ) {
         store.dispatch(MainAction.FetchingForecast)
         weatherRepository.fetchForecast(lat = lat, lon = lon).collect { response ->
             when (response) {
@@ -33,11 +43,24 @@ class MainDataMiddleware(
                     store.dispatch(MainAction.ForecastLoaded(forecastData = response.data.toForecastData()))
                 }
                 is NetworkResult.Failure -> {
-                    store.dispatch(MainAction.ShowError(handleHttpCode(response.code)))
-                    Log.d("Logging", "${handleHttpCode(response.code)}")
+                    store.dispatch(
+                        MainAction.ShowError(
+                            ErrorType.HttpError(
+                                HttpErrorResponse(
+                                    code = response.code, message = response.message
+                                )
+                            )
+                        )
+                    )
                 }
                 is NetworkResult.Exception -> {
-                    Log.d("Logging", "[APP CRASH]: ${response.e.message}")
+                    store.dispatch(
+                        MainAction.ShowError(
+                            ErrorType.OnExceptionError(
+                                response.e.localizedMessage
+                            )
+                        )
+                    )
                 }
             }
         }

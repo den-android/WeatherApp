@@ -1,11 +1,12 @@
 package net.denis.weatherapp.features.main_forecast.mvi
 
-import androidx.compose.runtime.collectAsState
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import net.denis.weatherapp.core.presentation.error.ErrorType
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,5 +25,18 @@ class MainViewModel @Inject constructor(
             mainStore.dispatch(MainAction.FetchForecast(lat = lat, lon = lon))
         }
     }
+
+//    private fun testError() {
+//        when (viewState.value.error) {
+//            is ErrorType.HttpError -> {
+//                Log.d("Logging", "${}")
+//            }
+//            is ErrorType.OnExceptionError -> {
+//
+//            }
+//            null -> {}
+//        }
+//
+//    }
 
 }
