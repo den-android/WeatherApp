@@ -16,21 +16,35 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import net.denis.weatherapp.core.presentation.error.ErrorAlertDialog
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
 import net.denis.weatherapp.features.detail_forecast.model.DetailModelCard
 import net.denis.weatherapp.features.detail_forecast.mvi.DetailViewModel
 import net.denis.weatherapp.features.detail_forecast.screen.components.*
+import kotlin.system.exitProcess
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailScreen(
     modifier: Modifier = Modifier,
-    vm: DetailViewModel
+    vm: DetailViewModel,
+    onActionErrorClicked: () -> Unit,
 ) {
     val context = LocalContext.current
 
     val detailState by vm.viewState.collectAsState()
+
+    detailState.error?.let {
+        ErrorAlertDialog(
+            onActionErrorClick = {
+                vm.clearErrorState()
+                onActionErrorClicked()
+            },
+            onExitClick = { exitProcess(-1) },
+            failureResponse = it
+        )
+    }
 
     Scaffold(
         topBar = {

@@ -41,7 +41,12 @@ fun NavGraph(
         }
 
         composable(route = Screen.DetailScreen.route) {
-            DetailScreen(vm = detailVM)
+            DetailScreen(
+                vm = detailVM,
+                onActionErrorClicked = {
+                    navController.popBackStack(Screen.DetailScreen.route, inclusive = true)
+                }
+            )
         }
 
         composable(route = Screen.FetchCityScreen.route) {

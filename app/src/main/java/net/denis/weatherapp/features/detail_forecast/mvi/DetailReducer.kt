@@ -1,6 +1,7 @@
 package net.denis.weatherapp.features.detail_forecast.mvi
 
 import net.denis.weatherapp.core.presentation.redux.Reducer
+import net.denis.weatherapp.features.fetch_new_city.mvi.FetchCityAction
 
 class DetailReducer : Reducer<DetailState, DetailAction> {
 
@@ -11,6 +12,19 @@ class DetailReducer : Reducer<DetailState, DetailAction> {
                 currentState.copy(
                     isLoading = false,
                     detailData = action.detailData,
+                )
+            }
+
+            is DetailAction.ShowError -> {
+                currentState.copy(
+                    isLoading = false,
+                    error = action.failureResponse
+                )
+            }
+
+            is DetailAction.ClearErrorState -> {
+                currentState.copy(
+                    error = null
                 )
             }
 
