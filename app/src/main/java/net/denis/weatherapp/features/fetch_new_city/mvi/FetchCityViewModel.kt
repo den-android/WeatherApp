@@ -18,4 +18,10 @@ class FetchCityViewModel @Inject constructor(
             fetchCityStore.dispatch(FetchCityAction.FetchCity(name))
         }
     }
+
+    fun clearErrorState() {
+        viewModelScope.launch {
+            fetchCityStore.dispatch(FetchCityAction.ClearErrorState)
+        }
+    }
 }

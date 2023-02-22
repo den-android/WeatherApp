@@ -3,9 +3,12 @@ package net.denis.weatherapp.features.fetch_new_city.mvi
 import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.toEnCity
 import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.toRuCity
 import net.denis.weatherapp.core.data.interfaces.IGeocodingRepository
+import net.denis.weatherapp.core.presentation.error.handleHttpCode
+import net.denis.weatherapp.core.presentation.error.model.handleException
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
 import net.denis.weatherapp.core.util.network.NetworkResult
+import net.denis.weatherapp.features.main_forecast.mvi.MainAction
 
 class FetchCityDataMiddleware(
     private val geocodingRepository: IGeocodingRepository,
@@ -25,8 +28,7 @@ class FetchCityDataMiddleware(
     }
 
     private suspend fun fetchNewCity(cityName: String, store: Store<FetchCityState, FetchCityAction>) {
-        geocodingRepository.fetchNewCity(cityName)
-            .collect() { response ->
+        geocodingRepository.fetchNewCity(cityName).collect() { response ->
                 when (response) {
                     is NetworkResult.Success -> {
                         response.data.forEach { cityItem ->
@@ -37,8 +39,12 @@ class FetchCityDataMiddleware(
                             }
                         }
                     }
-                    is NetworkResult.Failure -> {}
-                    is NetworkResult.Exception -> {}
+                    is NetworkResult.Failure -> {
+                        store.dispatch(FetchCityAction.ShowError(handleHttpCode(response.code)))
+                    }
+                    is NetworkResult.Exception -> {
+                        store.dispatch(FetchCityAction.ShowError(handleException(response.e)))
+                    }
                 }
 
             }

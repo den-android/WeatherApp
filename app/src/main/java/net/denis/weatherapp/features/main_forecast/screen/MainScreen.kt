@@ -1,17 +1,17 @@
 package net.denis.weatherapp.features.main_forecast.screen
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import net.denis.weatherapp.core.presentation.error.ErrorAlertDialog
-import net.denis.weatherapp.core.presentation.error.ErrorType
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.features.main_forecast.model.ForecastData
 import net.denis.weatherapp.features.main_forecast.mvi.MainViewModel
@@ -24,8 +24,8 @@ import kotlin.system.exitProcess
 fun MainScreen(
     modifier: Modifier = Modifier,
     vm: MainViewModel,
-    onRangeTimeClick: (Int, ForecastData) -> Unit,
-    onFabClick: () -> Unit,
+    onRangeTimeClicked: (Int, ForecastData) -> Unit,
+    onFabClicked: () -> Unit,
     onActionErrorClicked: () -> Unit,
 ) {
     val mainState by vm.viewState.collectAsState()
@@ -42,7 +42,6 @@ fun MainScreen(
     }
 
     mainState?.let { state ->
-
         Column(
             modifier = modifier
                 .fillMaxSize()
@@ -66,12 +65,12 @@ fun MainScreen(
                     WeatherForecastDisplay(
                         forecastData = state.forecastData,
                         onClick = {
-                            onRangeTimeClick(it, state.forecastData)
+                            onRangeTimeClicked(it, state.forecastData)
                         }
                     )
                 }
             }
-            BottomNavigateMenu(onFabClicked = { onFabClick() })
+            BottomNavigateMenu(onFabClick = { onFabClicked() })
         }
     }
 }

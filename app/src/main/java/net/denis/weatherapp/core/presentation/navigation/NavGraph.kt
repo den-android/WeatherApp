@@ -27,11 +27,11 @@ fun NavGraph(
         composable(route = Screen.MainScreen.route) {
             MainScreen(
                 vm = mainVM,
-                onRangeTimeClick = { position, forecastData ->
+                onRangeTimeClicked = { position, forecastData ->
                     detailVM.getDetailData(forecastData.forecastList[position].detailData)
                     navController.navigate(route = Screen.DetailScreen.route)
                 },
-                onFabClick = {
+                onFabClicked = {
                     navController.navigate(Screen.FetchCityScreen.route)
                 },
                 onActionErrorClicked = {
@@ -50,6 +50,10 @@ fun NavGraph(
                 navigateUp = {
                     mainVM.fetchForecast(lat = it.lat, lon = it.lon)
                     navController.popBackStack(Screen.FetchCityScreen.route, inclusive = true)
+                },
+                onActionErrorClicked = {
+                    navController.popBackStack(Screen.FetchCityScreen.route, inclusive = true)
+                    navController.navigate(Screen.FetchCityScreen.route)
                 }
             )
         }

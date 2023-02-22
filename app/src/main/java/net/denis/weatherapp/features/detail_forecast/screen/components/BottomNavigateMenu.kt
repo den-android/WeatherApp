@@ -18,7 +18,7 @@ import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
 @Composable
 fun BottomNavigateMenu(
     modifier: Modifier = Modifier,
-    onFabClicked: (String) -> Unit,
+    onFabClick: () -> Unit,
 ) {
     Column(
         modifier = modifier
@@ -28,7 +28,7 @@ fun BottomNavigateMenu(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        FloatingActionButton(onClick = { onFabClicked("Ростов на дону") }) {
+        FloatingActionButton(onClick = { onFabClick() }) {
             Icon(imageVector = Icons.Filled.Add, contentDescription = null)
         }
     }
