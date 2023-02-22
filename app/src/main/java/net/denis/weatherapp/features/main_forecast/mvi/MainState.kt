@@ -7,6 +7,6 @@ import net.denis.weatherapp.features.main_forecast.model.ForecastData
 
 data class MainState(
     val isLoading: Boolean = false,
-    val error: ErrorType? = null,
+    val error: FailureResponse? = null,
     val forecastData: ForecastData? = null
 ) : State

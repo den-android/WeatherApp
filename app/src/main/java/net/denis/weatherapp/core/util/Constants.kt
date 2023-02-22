@@ -7,5 +7,5 @@ object Constants {
     const val PARAM_LAT = "lat"
     const val PARAM_LON = "lon"
     const val PRIVATE_API_KEY = BuildConfig.API_KEY
-    const val API_KEY = "b05865d24d90b1dbccfb3ced2627b4e90"
+    const val API_KEY = "b05865d24d90b1dbccfb3ced2627b4e9"
 }

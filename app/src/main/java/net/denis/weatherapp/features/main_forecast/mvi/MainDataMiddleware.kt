@@ -9,6 +9,7 @@ import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
 import net.denis.weatherapp.core.util.network.NetworkResult
 import net.denis.weatherapp.core.presentation.error.handleHttpCode
+import net.denis.weatherapp.core.presentation.error.model.handleException
 
 class MainDataMiddleware(
     private val weatherRepository: IWeatherRepository,
@@ -23,9 +24,8 @@ class MainDataMiddleware(
             is MainAction.FetchForecast -> {
                 fetchForecast(lat = action.lat, lon = action.lon, store = store)
             }
-
-            is MainAction.ShowError -> {
-                errorHandling(action.errorType)
+            is MainAction.ClearErrorState -> {
+                store.dispatch(MainAction.ClearedErrorState)
             }
 
             else -> currentState
@@ -46,20 +46,23 @@ class MainDataMiddleware(
                 is NetworkResult.Failure -> {
                     store.dispatch(
                         MainAction.ShowError(
-                            ErrorType.HttpError(
-                                HttpErrorResponse(
-                                    code = response.code, message = response.message
-                                )
-                            )
+                            handleHttpCode(response.code)
+//                            ErrorType.HttpError(
+//                                HttpErrorResponse(
+//                                    code = response.code, message = response.message
+//                                )
+//                            )
                         )
                     )
                 }
                 is NetworkResult.Exception -> {
                     store.dispatch(
                         MainAction.ShowError(
-                            ErrorType.OnExceptionError(
-                                response.e.localizedMessage
-                            )
+                            handleException(response.e)
+//                            ErrorType.OnExceptionError(
+//                                response.e.localizedMessage
+//                            )
+//                        )
                         )
                     )
                 }
@@ -67,14 +70,14 @@ class MainDataMiddleware(
         }
     }
 
-    private fun errorHandling(errorType: ErrorType) {
-        when (errorType) {
-            is ErrorType.HttpError -> {
-                handleHttpCode(errorType.httpErrorResponse.code)
-            }
-            is ErrorType.OnExceptionError -> {
-                Log.d("Logging", "${errorType.exMessage}")
-            }
-        }
-    }
+//    private fun errorHandling(errorType: ErrorType) {
+//        when (errorType) {
+//            is ErrorType.HttpError -> {
+//                handleHttpCode(errorType.httpErrorResponse.code)
+//            }
+//            is ErrorType.OnExceptionError -> {
+//                Log.d("Logging", "${errorType.exMessage}")
+//            }
+//        }
+//    }
 }

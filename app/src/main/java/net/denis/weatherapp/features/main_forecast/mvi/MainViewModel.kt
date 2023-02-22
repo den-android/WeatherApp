@@ -26,4 +26,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun clearErrorState() {
+        viewModelScope.launch {
+            mainStore.dispatch(MainAction.ClearErrorState)
+        }
+    }
 }
