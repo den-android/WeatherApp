@@ -24,9 +24,6 @@ class MainDataMiddleware(
             is MainAction.FetchForecast -> {
                 fetchForecast(lat = action.lat, lon = action.lon, store = store)
             }
-            is MainAction.ClearErrorState -> {
-                store.dispatch(MainAction.ClearedErrorState)
-            }
 
             else -> currentState
         }
@@ -44,40 +41,13 @@ class MainDataMiddleware(
                     store.dispatch(MainAction.ForecastLoaded(forecastData = response.data.toForecastData()))
                 }
                 is NetworkResult.Failure -> {
-                    store.dispatch(
-                        MainAction.ShowError(
-                            handleHttpCode(response.code)
-//                            ErrorType.HttpError(
-//                                HttpErrorResponse(
-//                                    code = response.code, message = response.message
-//                                )
-//                            )
-                        )
-                    )
+                    store.dispatch(MainAction.ShowError(handleHttpCode(response.code)))
                 }
                 is NetworkResult.Exception -> {
-                    store.dispatch(
-                        MainAction.ShowError(
-                            handleException(response.e)
-//                            ErrorType.OnExceptionError(
-//                                response.e.localizedMessage
-//                            )
-//                        )
-                        )
-                    )
+                    store.dispatch(MainAction.ShowError(handleException(response.e)))
                 }
             }
         }
     }
 
-//    private fun errorHandling(errorType: ErrorType) {
-//        when (errorType) {
-//            is ErrorType.HttpError -> {
-//                handleHttpCode(errorType.httpErrorResponse.code)
-//            }
-//            is ErrorType.OnExceptionError -> {
-//                Log.d("Logging", "${errorType.exMessage}")
-//            }
-//        }
-//    }
 }

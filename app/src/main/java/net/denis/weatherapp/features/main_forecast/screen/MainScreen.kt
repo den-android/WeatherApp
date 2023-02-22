@@ -26,20 +26,17 @@ fun MainScreen(
     vm: MainViewModel,
     onRangeTimeClick: (Int, ForecastData) -> Unit,
     onFabClick: () -> Unit,
-    onDismissClicked: () -> Unit,
+    onActionErrorClicked: () -> Unit,
 ) {
     val mainState by vm.viewState.collectAsState()
 
-    val alertDialogState = remember { mutableStateOf(false) }
-
     mainState.error?.let {
         ErrorAlertDialog(
-            onDismiss = {
-                Log.d("Logging", "SCREEN 1${mainState.error}")
-                onDismissClicked()
-                Log.d("Logging", "SCREEN 2${mainState.error}")
+            onActionErrorClick = {
+                vm.clearErrorState()
+                onActionErrorClicked()
             },
-            onExit = { exitProcess(-1) },
+            onExitClick = { exitProcess(-1) },
             failureResponse = it
         )
     }

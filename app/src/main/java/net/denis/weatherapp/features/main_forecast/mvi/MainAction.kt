@@ -12,5 +12,4 @@ sealed class MainAction : Action {
 
     data class ShowError(val failureResponse: FailureResponse): MainAction()
     object ClearErrorState: MainAction()
-    object ClearedErrorState: MainAction()
 }

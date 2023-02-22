@@ -24,15 +24,12 @@ import net.denis.weatherapp.core.presentation.error.model.FailureResponse
 @Composable
 fun ErrorAlertDialog(
     modifier: Modifier = Modifier,
-    onDismiss: () -> Unit,
-    onExit: () -> Unit,
+    onActionErrorClick: () -> Unit,
+    onExitClick: () -> Unit,
     failureResponse: FailureResponse
 ) {
-
     Dialog(
-        onDismissRequest = {
-            onDismiss()
-        },
+        onDismissRequest = { onActionErrorClick() },
         properties = DialogProperties(
             dismissOnBackPress = false, dismissOnClickOutside = false
         )
@@ -55,7 +52,7 @@ fun ErrorAlertDialog(
                 )
                 Row(Modifier.padding(top = 10.dp)) {
                     OutlinedButton(
-                        onClick = { onExit() },
+                        onClick = { onExitClick() },
                         Modifier
                             .fillMaxWidth()
                             .padding(8.dp)
@@ -65,7 +62,7 @@ fun ErrorAlertDialog(
                     }
 
                     Button(
-                        onClick = { onDismiss() },
+                        onClick = { onActionErrorClick() },
                         Modifier
                             .fillMaxWidth()
                             .padding(8.dp)

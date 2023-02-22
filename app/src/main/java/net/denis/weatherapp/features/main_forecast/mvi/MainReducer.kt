@@ -27,7 +27,7 @@ class MainReducer : Reducer<MainState, MainAction> {
                 )
             }
 
-            is MainAction.ClearedErrorState -> {
+            is MainAction.ClearErrorState -> {
                 currentState.copy(
                     error = null
                 )

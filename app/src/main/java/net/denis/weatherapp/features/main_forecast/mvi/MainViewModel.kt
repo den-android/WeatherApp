@@ -17,6 +17,10 @@ class MainViewModel @Inject constructor(
     val viewState: StateFlow<MainState> = mainStore.state
 
     init {
+        loadDefaultCity()
+    }
+
+    fun loadDefaultCity() {
         fetchForecast(lat = 47.2213858, lon = 39.7114196)
     }
 
