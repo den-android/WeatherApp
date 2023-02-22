@@ -101,6 +101,10 @@ fun DetailScreen(
                                     }
                                 )
                             }
+
+                            is DetailModelCard.Custom -> {
+
+                            }
                             else -> {}
                         }
                     }

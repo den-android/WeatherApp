@@ -1,18 +1,27 @@
 package net.denis.weatherapp.features.detail_forecast.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
-@Parcelize
-sealed class DetailModelCard : Parcelable {
+sealed class DetailModelCard {
 
     data class WideCardWithText(val indicatorCellFields: IndicatorCellFields) : DetailModelCard()
+
+    data class Custom (
+        val cardOne: DetailModelCard,
+        val cardTwo: DetailModelCard,
+    ): DetailModelCard()
 
     data class CardWithText(val cellFields: CellFields) : DetailModelCard()
 
     data class CardWithIndicator(val indicatorCellFields: IndicatorCellFields) : DetailModelCard()
 
-    data class CardWithTextAndIndicator(
+
+
+
+
+}
+
+/*
+
+data class CardWithTextAndIndicator(
         val cardWithText: CardWithText,
         val cardWithIndicator: CardWithIndicator,
     ) : DetailModelCard()
@@ -22,4 +31,4 @@ sealed class DetailModelCard : Parcelable {
         val rightCardWithText: CardWithText,
     ) : DetailModelCard()
 
-}
+ */

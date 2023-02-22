@@ -1,7 +1,5 @@
 package net.denis.weatherapp.features.detail_forecast.model
 
-import android.os.Parcel
-import android.os.Parcelable
 import androidx.annotation.Keep
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Clouds
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Wind
@@ -15,32 +13,7 @@ data class DetailItem(
     val wind: Wind,
     val clouds: Clouds,
     val visibility: Int,
-) : Parcelable {
-    constructor(parcel: Parcel) : this(
-        cityDetail = parcel.readValue(CityDetail::class.java.classLoader) as CityDetail,
-        wind = parcel.readValue(Wind::class.java.classLoader) as Wind,
-        clouds = parcel.readValue(Clouds::class.java.classLoader) as Clouds,
-        visibility = parcel.readInt()
-    )
-
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeParcelable(cityDetail, flags)
-        parcel.writeInt(visibility)
-    }
-
-    override fun describeContents(): Int = 0
-
-    companion object CREATOR : Parcelable.Creator<DetailItem> {
-        override fun createFromParcel(parcel: Parcel): DetailItem {
-            return DetailItem(parcel)
-        }
-
-        override fun newArray(size: Int): Array<DetailItem?> {
-            return arrayOfNulls(size)
-        }
-    }
-
-}
+)
 
 fun DetailItem.mapToUiCard(): List<DetailModelCard> {
     val cards = mutableListOf<DetailModelCard>()
