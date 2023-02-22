@@ -14,7 +14,10 @@ class RemoteDatasource @Inject constructor(
     private val geocodingApi: GeocodingApi,
 ) : IRemoteDatasource {
 
-    override suspend fun fetchForecastByCoords(lat: Double, lon: Double): NetworkResult<WeatherDto> {
+    override suspend fun fetchForecastByCoords(
+        lat: Double,
+        lon: Double
+    ): NetworkResult<WeatherDto> {
         return handleApi { openWeatherApi.fetchForecastByCity(lat = lat, lon = lon) }
     }
 

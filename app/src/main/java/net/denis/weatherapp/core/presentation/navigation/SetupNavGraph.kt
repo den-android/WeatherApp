@@ -13,7 +13,7 @@ import net.denis.weatherapp.features.main_forecast.mvi.MainViewModel
 import net.denis.weatherapp.features.main_forecast.screen.MainScreen
 
 @Composable
-fun NavGraph(
+fun SetupNavGraph(
     mainVM: MainViewModel = viewModel(),
     detailVM: DetailViewModel = viewModel(),
     fetchCityVM: FetchCityViewModel = viewModel(),

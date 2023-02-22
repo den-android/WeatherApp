@@ -1,4 +1,4 @@
-package net.denis.weatherapp.core.presentation.error
+package net.denis.weatherapp.core.presentation.error.handlers
 
 import net.denis.weatherapp.core.presentation.error.model.FailureResponse
 
@@ -16,6 +16,9 @@ fun handleHttpCode(code: Int): FailureResponse {
                 btnTitle = "Повторить"
             )
         }
-        else -> FailureResponse(errMessage = "Unexpected error", btnTitle = "Перезапустить приложение")
+        else -> FailureResponse(
+            errMessage = "Unexpected error",
+            btnTitle = "Перезапустить приложение"
+        )
     }
 }

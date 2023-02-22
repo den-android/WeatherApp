@@ -2,12 +2,14 @@ package net.denis.weatherapp.features.detail_forecast.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import androidx.annotation.Keep
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Clouds
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Wind
 import java.math.RoundingMode
 import java.text.SimpleDateFormat
 import java.util.*
 
+@Keep
 data class DetailItem(
     val cityDetail: CityDetail,
     val wind: Wind,

@@ -12,7 +12,7 @@ import javax.inject.Inject
 class GeocodingRepository @Inject constructor(
     private val localDatasource: ILocalDatasource,
     private val remoteDatasource: IRemoteDatasource,
-): IGeocodingRepository {
+) : IGeocodingRepository {
 
     override suspend fun fetchNewCity(name: String): Flow<NetworkResult<GeocodingDto>> {
         val response = remoteDatasource.fetchCity(name)

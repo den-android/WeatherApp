@@ -62,4 +62,5 @@ class NetworkModule {
             .build()
             .create(GeocodingApi::class.java)
     }
+
 }

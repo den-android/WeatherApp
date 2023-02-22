@@ -17,6 +17,7 @@ data class Main(
     val temp_max: Double,
     val temp_min: Double
 )
+
 fun Main.toTemp() = "${roundTemp(temp)}°"
 
 private fun roundTemp(temp: Double): String {
