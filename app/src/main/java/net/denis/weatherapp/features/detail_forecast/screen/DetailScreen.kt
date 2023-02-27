@@ -17,9 +17,12 @@ import androidx.compose.ui.platform.LocalContext
 import net.denis.weatherapp.core.presentation.error.ErrorAlertDialog
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
-import net.denis.weatherapp.features.detail_forecast.model.DetailModelCard
+import net.denis.weatherapp.features.detail_forecast.model.DualCard
+import net.denis.weatherapp.features.detail_forecast.model.SingleCard
 import net.denis.weatherapp.features.detail_forecast.mvi.DetailViewModel
-import net.denis.weatherapp.features.detail_forecast.screen.components.*
+import net.denis.weatherapp.features.detail_forecast.screen.components.DualCardUi
+import net.denis.weatherapp.features.detail_forecast.screen.components.SingleCardUi
+import net.denis.weatherapp.features.detail_forecast.screen.components.Toolbar
 import kotlin.system.exitProcess
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -64,47 +67,44 @@ fun DetailScreen(
                     items(listWeather) { item ->
                         when (item) {
 
-                            is DetailModelCard.WideCardWithText -> {
-                                WideCellWithIndicator(
-                                    indicatorCellFields = item.indicatorCellFields,
+                            is SingleCard.WideCardWithText -> {
+                                SingleCardUi(
+                                    cellFields = item.cellFields,
                                     onCellClicked = {
                                         Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
                                     }
                                 )
                             }
 
-                            is DetailModelCard.CardWithTextAndText -> {
-                                RowCellTextAndText(
-                                    leftCellFields = item.leftCardWithText.cellFields,
-                                    rightCellFields = item.rightCardWithText.cellFields,
+                            is DualCard.Custom -> {
+                                DualCardUi(
+                                    leftCard = item.cardOne,
+                                    rightCard = item.cardTwo,
                                     onCellClicked = {
                                         Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
                                     }
                                 )
                             }
+//
+//                            is DetailModelCard.DualCard.Custom -> {
+//                                RowCellTextAndIndicator(
+//                                    cellFields = item.cardOne,
+//                                    indicatorCellFields = item.cardWithIndicator.indicatorCellFields,
+//                                    onCellClicked = {
+//                                        Toast.makeText(context, it,Toast.LENGTH_SHORT).show()
+//                                    }
+//                                )
+//                            }
+//
+//                            is DetailModelCard.CardWithIndicator -> {
+//                                CellWithIndicator(
+//                                    indicatorCellFields = item.indicatorCellFields,
+//                                    onCellClicked = {
+//                                        Toast.makeText( context, it, Toast.LENGTH_SHORT).show()
+//                                    }
+//                                )
+//                            }
 
-                            is DetailModelCard.CardWithTextAndIndicator -> {
-                                RowCellTextAndIndicator(
-                                    cellFields = item.cardWithText.cellFields,
-                                    indicatorCellFields = item.cardWithIndicator.indicatorCellFields,
-                                    onCellClicked = {
-                                        Toast.makeText(context, it,Toast.LENGTH_SHORT).show()
-                                    }
-                                )
-                            }
-
-                            is DetailModelCard.CardWithIndicator -> {
-                                CellWithIndicator(
-                                    indicatorCellFields = item.indicatorCellFields,
-                                    onCellClicked = {
-                                        Toast.makeText( context, it, Toast.LENGTH_SHORT).show()
-                                    }
-                                )
-                            }
-
-                            is DetailModelCard.Custom -> {
-
-                            }
                             else -> {}
                         }
                     }

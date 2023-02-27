@@ -11,17 +11,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
 import net.denis.weatherapp.core.presentation.ui.theme.ViewBackground
-import net.denis.weatherapp.features.detail_forecast.model.IndicatorCellFields
+import net.denis.weatherapp.features.detail_forecast.model.CellFields
 
 @Composable
-fun WideCellWithIndicator(
+fun SingleCardUi(
     modifier: Modifier = Modifier,
-    indicatorCellFields: IndicatorCellFields,
+    cellFields: CellFields,
     onCellClicked: (String) -> Unit,
 ) {
     Card(
@@ -30,7 +31,7 @@ fun WideCellWithIndicator(
         modifier = modifier
             .fillMaxWidth()
             .padding(12.dp)
-            .clickable { onCellClicked(indicatorCellFields.title) }
+            .clickable { onCellClicked(cellFields.title) }
     ) {
         Column(
             modifier = modifier
@@ -39,27 +40,40 @@ fun WideCellWithIndicator(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = indicatorCellFields.title,
+                text = cellFields.title,
                 fontSize = 22.sp,
                 color = PrimaryText,
                 textAlign = TextAlign.Center,
             )
             Spacer(modifier = modifier.height(2.dp))
             Text(
-                text = indicatorCellFields.text,
+                text = cellFields.text,
                 fontSize = 16.sp,
                 color = PrimaryText,
                 textAlign = TextAlign.Center,
             )
             Spacer(modifier = modifier.height(2.dp))
-            CustomLPB(indicatorValue = indicatorCellFields.indicatorValue)
+            cellFields.indicatorValue?.let {
+                CustomLPB(indicatorValue = it)
+            }
             Spacer(modifier = modifier.height(2.dp))
             Text(
-                text = indicatorCellFields.description,
+                text = cellFields.description,
                 fontSize = 14.sp,
                 color = PrimaryText,
                 textAlign = TextAlign.Center,
             )
         }
     }
+}
+
+@Preview (showBackground = true)
+@Composable
+fun qw() {
+    SingleCardUi(cellFields = CellFields(
+        title = "titl",
+        text = "111111",
+        description = "",
+        indicatorValue = null
+    ), onCellClicked = {})
 }

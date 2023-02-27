@@ -16,12 +16,12 @@ import androidx.compose.ui.unit.sp
 import net.denis.weatherapp.core.presentation.ui.theme.MiddleGradientColor
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
 import net.denis.weatherapp.core.presentation.ui.theme.ViewBackground
-import net.denis.weatherapp.features.detail_forecast.model.IndicatorCellFields
+import net.denis.weatherapp.features.detail_forecast.model.CellFields
 
 @Composable
 fun CellWithIndicator(
     modifier: Modifier = Modifier,
-    indicatorCellFields: IndicatorCellFields,
+    cellFields: CellFields,
     onCellClicked: (String) -> Unit,
 ) {
     Card(
@@ -31,7 +31,7 @@ fun CellWithIndicator(
             .fillMaxWidth()
             .height(100.dp)
             .padding(12.dp)
-            .clickable { onCellClicked(indicatorCellFields.title) }
+            .clickable { onCellClicked(cellFields.title) }
     ) {
         Column(
             modifier = modifier
@@ -40,23 +40,23 @@ fun CellWithIndicator(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = indicatorCellFields.title,
+                text = cellFields.title,
                 fontSize = 22.sp,
                 color = PrimaryText,
                 textAlign = TextAlign.Center,
             )
             Spacer(modifier = modifier.height(2.dp))
             Text(
-                text = indicatorCellFields.text,
+                text = cellFields.text,
                 fontSize = 16.sp,
                 color = PrimaryText,
                 textAlign = TextAlign.Center,
             )
             Spacer(modifier = modifier.height(2.dp))
-            CustomLPB(indicatorValue = indicatorCellFields.indicatorValue)
+            CustomLPB(indicatorValue = cellFields.indicatorValue)
             Spacer(modifier = modifier.height(2.dp))
             Text(
-                text = indicatorCellFields.description,
+                text = cellFields.description,
                 fontSize = 14.sp,
                 color = PrimaryText,
                 textAlign = TextAlign.Center,
