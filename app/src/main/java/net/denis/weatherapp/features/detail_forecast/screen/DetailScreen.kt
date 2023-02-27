@@ -76,15 +76,15 @@ fun DetailScreen(
                                 )
                             }
 
-                            is DualCard.Custom -> {
-                                DualCardUi(
-                                    leftCard = item.cardOne,
-                                    rightCard = item.cardTwo,
-                                    onCellClicked = {
-                                        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
-                                    }
-                                )
-                            }
+//                            is DualCard.Custom -> {
+//                                DualCardUi(
+//                                    leftCard = item.cardOne,
+//                                    rightCard = item.cardTwo,
+//                                    onCellClicked = {
+//                                        Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
+//                                    }
+//                                )
+//                            }
 //
 //                            is DetailModelCard.DualCard.Custom -> {
 //                                RowCellTextAndIndicator(

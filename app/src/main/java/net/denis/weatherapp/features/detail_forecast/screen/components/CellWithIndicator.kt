@@ -53,7 +53,9 @@ fun CellWithIndicator(
                 textAlign = TextAlign.Center,
             )
             Spacer(modifier = modifier.height(2.dp))
-            CustomLPB(indicatorValue = cellFields.indicatorValue)
+            cellFields.indicatorValue?.let {
+                CustomLPB(indicatorValue = it)
+            }
             Spacer(modifier = modifier.height(2.dp))
             Text(
                 text = cellFields.description,
