@@ -20,30 +20,32 @@ fun DetailItem.mapToUiCard(): List<DetailModelCard> {
 
     cards.add(
         SingleCard.WideCardWithText(
-            cellFields = CellFields(
-                title = "Ветренность",
-                text = "${roundSpeed(wind.speed)}м/с",
-                indicatorValue = wind.speed.toFloat() / 10f,
-                description = ""
-            ),
+            card = CardWithIndicator(
+                cellFields = CellFields(
+                    title = "Ветренность",
+                    text = "${roundSpeed(wind.speed)}м/с",
+                    indicatorValue = wind.speed.toFloat() / 10f,
+                    description = null
+                ),
+            )
         )
     )
 
     cards.add(
-        DualCard.Custom(
-            cardOne = SingleCard.CardWithText(
+        DualCard.DualCardItem(
+            CardWithText(
                 cellFields = CellFields(
                     title = "Рассвет",
                     text = "${dtMap(cityDetail.sunrise)} AM",
-                    description = "",
+                    description = null,
                     indicatorValue = null,
                 )
             ),
-            cardTwo = SingleCard.CardWithText(
+            CardWithText(
                 cellFields = CellFields(
                     title = "Закат",
                     text = "${dtMap(cityDetail.sunset)} PM",
-                    description = "",
+                    description = null,
                     indicatorValue = null,
                 )
             )
@@ -51,21 +53,21 @@ fun DetailItem.mapToUiCard(): List<DetailModelCard> {
     )
 
     cards.add(
-        DualCard.Custom(
-            cardOne = SingleCard.CardWithText(
+        DualCard.DualCardItem(
+            cardOne = CardWithText(
                 cellFields = CellFields(
                     title = "Облачность",
                     text = "${clouds.all}%",
-                    description = "",
+                    description = null,
                     indicatorValue = null,
                 )
             ),
-            cardTwo = SingleCard.CardWithIndicator(
+            cardTwo = CardWithIndicator(
                 cellFields = CellFields(
                     title = "Видимость",
-                    text = "",
+                    text = null,
                     indicatorValue = visibility / 10000f,
-                    description = "",
+                    description = null,
                 ),
             )
         )

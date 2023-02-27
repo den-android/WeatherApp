@@ -2,14 +2,15 @@ package net.denis.weatherapp.features.detail_forecast.model
 
 sealed interface DetailModelCard
 
+data class CardWithText(val cellFields: CellFields) : DetailModelCard
+data class CardWithIndicator(val cellFields: CellFields) : DetailModelCard
+
 sealed class SingleCard : DetailModelCard {
-    data class WideCardWithText(val cellFields: CellFields) : SingleCard()
-    data class CardWithText(val cellFields: CellFields) : SingleCard()
-    data class CardWithIndicator(val cellFields: CellFields) : SingleCard()
+    data class WideCardWithText(val card: DetailModelCard) : SingleCard()
 }
 
 sealed class DualCard : DetailModelCard {
-    data class Custom(
+    data class DualCardItem(
         val cardOne: DetailModelCard,
         val cardTwo: DetailModelCard,
     ) : DualCard()
