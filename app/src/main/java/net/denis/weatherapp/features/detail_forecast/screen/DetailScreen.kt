@@ -8,15 +8,16 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.TopAppBar
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.platform.LocalContext
 import net.denis.weatherapp.core.presentation.error.ErrorAlertDialog
 import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
@@ -43,15 +44,17 @@ fun DetailScreen(
 
     Scaffold(
         topBar = {
-//            detailState.detailData?.let { detailData ->
-//                Toolbar(
-//                    label = detailData.cityDetail.cityName,
-//                    modifier = modifier.background(MiddleGradientColor),
-//                )
-//            }
             TopAppBar(
-                modifier = modifier.background(Color.Black),
-                title = { detailState.detailData?.cityDetail?.cityName }
+                title = {
+                    Text(
+                        text = "${detailState.detailData?.cityDetail?.cityName}"
+                    )
+                },
+                navigationIcon = {
+                    IconButton(onClick = {}) {
+                        Icon(Icons.Filled.ArrowBack, contentDescription = null)
+                    }
+                }
             )
         },
     ) { contentPadding ->
