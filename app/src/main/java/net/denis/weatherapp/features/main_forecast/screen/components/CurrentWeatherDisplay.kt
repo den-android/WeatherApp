@@ -7,9 +7,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
+import net.denis.weatherapp.core.presentation.ui.theme.PrimaryColor
 import net.denis.weatherapp.core.presentation.ui.theme.WeatherText
 import net.denis.weatherapp.features.detail_forecast.screen.components.CustomTextBox
 import net.denis.weatherapp.features.main_forecast.model.WeatherType
@@ -25,8 +26,7 @@ fun CurrentWeatherDisplay(
 ) {
     Column(
         modifier = modifier
-            .fillMaxSize()
-            .background(color = CityBackground),
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Column(
@@ -38,8 +38,7 @@ fun CurrentWeatherDisplay(
                     end = 40.dp,
                     top = 48.dp,
                     bottom = 48.dp
-                )
-                .background(color = CityBackground),
+                ),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceAround,
         ) {
