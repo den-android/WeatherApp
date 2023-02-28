@@ -9,12 +9,19 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import net.denis.weatherapp.R
 import net.denis.weatherapp.core.presentation.error.ErrorAlertDialog
-import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
-import net.denis.weatherapp.core.presentation.ui.theme.ViewBackground
+import net.denis.weatherapp.core.presentation.ui.components.Toolbar
+import net.denis.weatherapp.core.presentation.ui.theme.PrimaryColor
+import net.denis.weatherapp.core.presentation.ui.theme.backgroundColor
 import net.denis.weatherapp.features.fetch_new_city.model.CityData
 import net.denis.weatherapp.features.fetch_new_city.mvi.FetchCityViewModel
 import net.denis.weatherapp.features.fetch_new_city.screen.components.ResponseTextBox
+import net.denis.weatherapp.features.fetch_new_city.screen.components.SearchCityTextField
 import kotlin.system.exitProcess
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -26,7 +33,7 @@ fun FetchCityScreen(
     onActionErrorClicked: () -> Unit,
 ) {
     val cityState by vm.viewState.collectAsState()
-    var textFieldValue by rememberSaveable { mutableStateOf("") }
+
 
     cityState.error?.let {
         ErrorAlertDialog(
@@ -42,23 +49,17 @@ fun FetchCityScreen(
     LazyColumn(
         modifier = modifier
             .fillMaxSize()
-            .background(CityBackground)
+            .background(brush = Brush.verticalGradient(backgroundColor()))
+            .paint(
+                painter = painterResource(id = R.drawable.unsplash1),
+                contentScale = ContentScale.FillWidth
+            )
     ) {
         item {
-            TopAppBar(
-                modifier = modifier.background(ViewBackground),
-                title = {
-                    TextField(
-                        value = textFieldValue,
-                        onValueChange = {
-                            textFieldValue = it
-                            if (it.length >= 3) {
-                                vm.fetchCity(it)
-                            }
-                        },
-                    )
-                }
-            )
+            Toolbar()
+        }
+        item {
+            SearchCityTextField(searchCity = { vm.fetchCity(it) })
         }
         cityState.cityData?.let { cityData ->
             item {
