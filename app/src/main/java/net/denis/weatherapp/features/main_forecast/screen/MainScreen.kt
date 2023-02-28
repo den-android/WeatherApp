@@ -9,10 +9,16 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import net.denis.weatherapp.R
 import net.denis.weatherapp.core.presentation.error.ErrorAlertDialog
-import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
+import net.denis.weatherapp.core.presentation.ui.theme.backgroundColor
 import net.denis.weatherapp.features.detail_forecast.screen.components.BottomNavigateMenu
 import net.denis.weatherapp.features.main_forecast.model.ForecastData
 import net.denis.weatherapp.features.main_forecast.mvi.MainViewModel
@@ -45,10 +51,18 @@ fun MainScreen(
         Column(
             modifier = modifier
                 .fillMaxSize()
-                .background(color = CityBackground)
+                .background(brush = Brush.verticalGradient(backgroundColor()))
+                .paint(
+                    painter = painterResource(id = R.drawable.unsplash1),
+                    contentScale = ContentScale.FillWidth
+                )
         ) {
             if (state.isLoading) {
-                CircularProgressIndicator(modifier.height(160.dp))
+                CircularProgressIndicator(
+                    modifier = modifier
+                        .height(160.dp)
+                        .align(CenterHorizontally)
+                )
             }
             state.forecastData?.forecastList?.let { itemForecast ->
                 Box(modifier = modifier.weight(3f)) {
