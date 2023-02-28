@@ -1,6 +1,6 @@
 package net.denis.weatherapp.features.main_forecast.mvi
 
-import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.toForecastData
+import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.mapToForecastData
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.presentation.error.handlers.handleException
 import net.denis.weatherapp.core.presentation.error.handlers.handleHttpCode
@@ -35,7 +35,7 @@ class MainDataMiddleware(
         weatherRepository.fetchForecast(lat = lat, lon = lon).collect { response ->
             when (response) {
                 is NetworkResult.Success -> {
-                    store.dispatch(MainAction.ForecastLoaded(forecastData = response.data.toForecastData()))
+                    store.dispatch(MainAction.ForecastLoaded(forecastData = response.data.mapToForecastData()))
                 }
                 is NetworkResult.Failure -> {
                     store.dispatch(MainAction.ShowError(handleHttpCode(response.code)))
