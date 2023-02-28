@@ -8,8 +8,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
-import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
+import net.denis.weatherapp.core.presentation.ui.theme.SecondaryColor
 
 @Composable
 fun CustomTextBox(
@@ -23,8 +23,6 @@ fun CustomTextBox(
         textAlign = TextAlign.Center,
         fontSize = size.sp,
         color = color,
-        fontFamily = FontFamily.SansSerif,
-        modifier = modifier
-            .background(CityBackground)
+        fontFamily = FontFamily.SansSerif
     )
 }
