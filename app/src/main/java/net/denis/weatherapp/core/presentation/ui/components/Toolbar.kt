@@ -26,8 +26,8 @@ import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
 @Composable
 fun Toolbar(
     modifier: Modifier = Modifier,
-    label: String = "Rostov on Don",
-    temp: String = "0.0°"
+    label: String? = null,
+    temp: String? = null,
 ) {
     val onBackPressedDispatcher = LocalOnBackPressedDispatcherOwner.current?.onBackPressedDispatcher
 
@@ -56,13 +56,13 @@ fun Toolbar(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = label,
+                    text = label?:"",
                     textAlign = TextAlign.Center,
                     fontSize = 24.sp,
                     color = PrimaryText
                 )
                 Text(
-                    text = temp,
+                    text = temp?:"",
                     textAlign = TextAlign.Center,
                     fontSize = 14.sp,
                     color = PrimaryText
