@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
-import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
+import net.denis.weatherapp.core.presentation.ui.theme.PrimaryColor
 
 @Composable
 fun ShimmerMainScreen(
@@ -27,7 +27,7 @@ fun ShimmerMainScreen(
     if (isLoading) {
         Column(
             modifier = modifier
-                .background(CityBackground)
+                .background(PrimaryColor)
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceBetween
