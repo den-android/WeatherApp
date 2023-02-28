@@ -28,7 +28,7 @@ fun SetupNavGraph(
             MainScreen(
                 vm = mainVM,
                 onRangeTimeClicked = { position, forecastData ->
-                    detailVM.getDetailData(forecastData.forecastList[position].detailData)
+                    detailVM.getForecastItem(forecastData.forecastList[position])
                     navController.navigate(route = Screen.DetailScreen.route)
                 },
                 onFabClicked = {
