@@ -8,4 +8,5 @@ data class CellFields(
     val text: String?,
     val description: String?,
     val indicatorValue: Float?,
+    val icon: Int?
 )
