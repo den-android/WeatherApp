@@ -1,21 +1,20 @@
 package net.denis.weatherapp.features.main_forecast.screen.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import net.denis.weatherapp.core.presentation.ui.theme.CityBackground
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
 import net.denis.weatherapp.features.main_forecast.model.ForecastItem
 import net.denis.weatherapp.features.main_forecast.model.WeatherType
@@ -24,16 +23,24 @@ import net.denis.weatherapp.features.main_forecast.model.WeatherType
 fun HourlyWeatherDisplay(
     modifier: Modifier = Modifier,
     forecastItem: ForecastItem,
+    onRangeClicked: () -> Unit,
 ) {
     Box(
         modifier = modifier
-            .border(width = 1.dp, color = Color.LightGray)
-            .background(CityBackground)
+            .clip(RoundedCornerShape(50))
+            .border(
+                border = BorderStroke(width = 1.dp, color = Color.LightGray),
+                shape = RoundedCornerShape(50)
+            )
+            .clickable { onRangeClicked() }
     ) {
         Column(
-            modifier = modifier,
+            modifier = modifier
+                .padding(4.dp)
+                .fillMaxWidth(0.3f)
+                .height(140.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceBetween
+            verticalArrangement = Arrangement.SpaceEvenly
         ) {
             Text(
                 text = forecastItem.dateTime,

@@ -27,11 +27,10 @@ fun WeatherForecastDisplay(
             LazyRow {
                 items(data) { weatherData ->
                     HourlyWeatherDisplay(
+                        modifier = modifier
+                            .padding(horizontal = 16.dp),
                         forecastItem = weatherData,
-                        modifier = Modifier
-                            .height(100.dp)
-                            .padding(horizontal = 16.dp)
-                            .clickable { onClick(data.indexOf(weatherData)) },
+                        onRangeClicked = { onClick(data.indexOf(weatherData)) }
                     )
                 }
             }
