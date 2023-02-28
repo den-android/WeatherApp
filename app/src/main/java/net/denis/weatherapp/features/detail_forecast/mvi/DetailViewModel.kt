@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import net.denis.weatherapp.features.detail_forecast.model.DetailData
+import net.denis.weatherapp.features.main_forecast.model.ForecastItem
 import javax.inject.Inject
 
 @HiltViewModel
@@ -14,9 +14,9 @@ class DetailViewModel @Inject constructor(
 ) : ViewModel() {
     val viewState: StateFlow<DetailState> = detailStore.state
 
-    fun getDetailData(detailData: DetailData) {
+    fun getForecastItem(forecastItem: ForecastItem) {
         viewModelScope.launch {
-            detailStore.dispatch(DetailAction.GetDetailData(detailData = detailData))
+            detailStore.dispatch(DetailAction.GetForecastItem(forecastItem = forecastItem))
         }
     }
 

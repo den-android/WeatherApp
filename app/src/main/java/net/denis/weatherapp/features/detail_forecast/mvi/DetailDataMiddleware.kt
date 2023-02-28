@@ -14,8 +14,8 @@ class DetailDataMiddleware(
         store: Store<DetailState, DetailAction>
     ) {
         when (action) {
-            is DetailAction.GetDetailData -> {
-                action.detailData
+            is DetailAction.GetForecastItem -> {
+                action.forecastItem
             }
 
             else -> currentState
