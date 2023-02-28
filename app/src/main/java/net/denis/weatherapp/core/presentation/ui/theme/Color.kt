@@ -11,15 +11,19 @@ val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
 val PrimaryText = Color(0xFFDFDFDF)
-val WeatherText = Color(0xFFC0C0C0)
-
-val ViewBackground = Color(0xFF3A47B6)
+val WeatherText = Color(0xFFCFCFCF)
 
 val StartGradientColor = Color(0xFF10EBFF)
 val MiddleGradientColor = Color(0xFFAF01FF)
 val EndGradientColor = Color(0xFFFF1010)
 
-val CityBackground = Color(0xFF4652B3)
-val ActivedCard = Color(0xFF343D83)
+val StartBackgroundColor = Color(0xFF2E335A)
+val StartMiddleBackgroundColor = Color(0xFF3A3F54)
+val EndMiddleBackgroundColor = Color(0xFFCCCCCC)
+val EndBackgroundColor = Color(0xFF1C1B33)
 
-val CurrentHourlyItem = Color(0xFF3A47B6)
+val PrimaryColor = Color (0xFF181D26)
+val SecondaryColor = Color (0xFF373743)
+
+val CellBackgroundColor = Color (0xFF2E335A)
+val CellBorderColor = Color (0xFF6D3A99)
