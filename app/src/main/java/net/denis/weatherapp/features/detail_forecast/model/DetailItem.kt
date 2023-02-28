@@ -1,6 +1,7 @@
 package net.denis.weatherapp.features.detail_forecast.model
 
 import androidx.annotation.Keep
+import net.denis.weatherapp.R
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Clouds
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.Wind
 import java.math.RoundingMode
@@ -25,7 +26,8 @@ fun DetailItem.mapToUiCard(): List<DetailModelCard> {
                     title = "Ветренность",
                     text = "${roundSpeed(wind.speed)}м/с",
                     indicatorValue = wind.speed.toFloat() / 10f,
-                    description = null
+                    description = null,
+                    icon = R.drawable.ic_vector
                 ),
             )
         )
@@ -39,6 +41,7 @@ fun DetailItem.mapToUiCard(): List<DetailModelCard> {
                     text = "${dtMap(cityDetail.sunrise)} AM",
                     description = null,
                     indicatorValue = null,
+                    icon = R.drawable.ic_sunrise
                 )
             ),
             CardWithText(
@@ -47,6 +50,7 @@ fun DetailItem.mapToUiCard(): List<DetailModelCard> {
                     text = "${dtMap(cityDetail.sunset)} PM",
                     description = null,
                     indicatorValue = null,
+                    icon = R.drawable.ic_sunset
                 )
             )
         )
@@ -60,6 +64,7 @@ fun DetailItem.mapToUiCard(): List<DetailModelCard> {
                     text = "${clouds.all}%",
                     description = null,
                     indicatorValue = null,
+                    icon = R.drawable.ic_clouds
                 )
             ),
             cardTwo = CardWithIndicator(
@@ -68,6 +73,7 @@ fun DetailItem.mapToUiCard(): List<DetailModelCard> {
                     text = null,
                     indicatorValue = visibility / 10000f,
                     description = null,
+                    icon = R.drawable.ic_visibility
                 ),
             )
         )
