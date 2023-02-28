@@ -20,35 +20,35 @@ data class WeatherDto(
     val forecast: List<Forecast>,
     val message: Int
 ) {
-    fun WeatherDto.toCityDetail() = CityDetail(
+    fun WeatherDto.mapToCityDetail() = CityDetail(
         cityName = city.name,
         sunrise = city.sunrise,
         sunset = city.sunset,
     )
 
-    fun Forecast.toDetailItem() = DetailItem(
-        cityDetail = toCityDetail(),
+    private fun Forecast.mapToDetailItem() = DetailItem(
+        cityDetail = mapToCityDetail(),
         wind = wind,
         clouds = clouds,
         visibility = visibility
     ).mapToUiCard()
 
-    fun Forecast.toDetailData() = DetailData(
-        cityDetail = toCityDetail(),
-        detailList = toDetailItem()
+    private fun Forecast.mapToDetailData() = DetailData(
+        cityDetail = mapToCityDetail(),
+        detailList = mapToDetailItem()
     )
 
-    fun Forecast.toForecastItem() = ForecastItem(
+    fun Forecast.mapToForecastItem() = ForecastItem(
         dateTime = dtMap(dateTime),
         temp = main.toTemp(),
         meteorology = weather.map { it.toMeteorology() },
-        detailData = toDetailData(),
+        detailData = mapToDetailData(),
     )
 }
 
-fun WeatherDto.toForecastData() = ForecastData(
-    cityDetail = toCityDetail(),
-    forecastList = forecast.map { it.toForecastItem() }
+fun WeatherDto.mapToForecastData() = ForecastData(
+    cityDetail = mapToCityDetail(),
+    forecastList = forecast.map { it.mapToForecastItem() }
 )
 
 private fun dtMap(dt: Int): String {
