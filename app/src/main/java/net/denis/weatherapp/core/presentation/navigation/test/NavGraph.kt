@@ -13,27 +13,26 @@ fun NavGraph() {
 
     NavHost(
         navController = navController,
-        startDestination = NavigationDirections.testCurrentForecast.destination
+        startDestination = CurrentForecastDirections.testCurrentForecast.destination
     ) {
 
-        composable(NavigationDirections.testCurrentForecast.destination) { backStackEntry ->
-            val vmCurrent = hiltViewModel<TestCurrentVM>()
-            testCurrentScreen(vm = vmCurrent)
-        }
-
-        composable(NavigationDirections.testCurrentForecast.destination) { backStackEntry ->
-
-            val parentEntry = remember(backStackEntry) {
-                navController.getBackStackEntry(route = NavigationDirections.testCurrentForecast.destination)
-            }
-            val vmDetail = hiltViewModel<TestDetailVM>(parentEntry)
-            testDetailForecast(vm = vmDetail)
-        }
-
-        composable(NavigationDirections.testCurrentForecast.destination) { backStackEntry ->
-            val vmFetch = hiltViewModel<TestFetchVM>()
-            testFetchCityScreen(vm = vmFetch)
-        }
+//        composable(CurrentForecastDirections.testCurrentForecast.destination) { backStackEntry ->
+//            val vmCurrent = hiltViewModel<TestCurrentVM>()
+//            testCurrentScreen(vm = vmCurrent)
+//        }
+//
+//        composable() { backStackEntry ->
+//            val parentEntry = remember(backStackEntry) {
+//                navController.getBackStackEntry(route = NavigationDirections.testCurrentForecast.destination)
+//            }
+//            val vmDetail = hiltViewModel<TestDetailVM>(parentEntry)
+//            testDetailForecast(vm = vmDetail)
+//        }
+//
+//        composable(FetchCityDirections) { backStackEntry ->
+//            val vmFetch = hiltViewModel<TestFetchVM>()
+//            testFetchCityScreen(vm = vmFetch)
+//        }
 
     }
 
