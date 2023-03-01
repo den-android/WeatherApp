@@ -27,8 +27,8 @@ fun SetupNavGraph(
         composable(route = Screen.MainScreen.route) {
             MainScreen(
                 vm = mainVM,
-                onRangeTimeClicked = { position, forecastData ->
-                    detailVM.getForecastItem(forecastData.forecastList[position])
+                onRangeTimeClicked = { position, hourlyCard ->
+                   // detailVM.getHourlyItem(hourlyCard[position])
                     navController.navigate(route = Screen.DetailScreen.route)
                 },
                 onFabClicked = {

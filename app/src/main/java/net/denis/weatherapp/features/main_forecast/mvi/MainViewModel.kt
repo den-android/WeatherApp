@@ -33,4 +33,5 @@ class MainViewModel @Inject constructor(
             mainStore.dispatch(MainAction.ClearErrorState)
         }
     }
+
 }

@@ -21,6 +21,8 @@ import net.denis.weatherapp.core.presentation.ui.components.CustomCircularProgre
 import net.denis.weatherapp.core.presentation.ui.theme.backgroundColor
 import net.denis.weatherapp.features.detail_forecast.screen.components.BottomNavigateMenu
 import net.denis.weatherapp.features.main_forecast.model.ForecastData
+import net.denis.weatherapp.features.main_forecast.model.HourlyItem
+import net.denis.weatherapp.features.main_forecast.model.HourlyModelCard
 import net.denis.weatherapp.features.main_forecast.mvi.MainViewModel
 import net.denis.weatherapp.features.main_forecast.screen.components.CurrentWeatherDisplay
 import net.denis.weatherapp.features.main_forecast.screen.components.WeatherForecastDisplay
@@ -31,7 +33,7 @@ import kotlin.system.exitProcess
 fun MainScreen(
     modifier: Modifier = Modifier,
     vm: MainViewModel,
-    onRangeTimeClicked: (Int, ForecastData) -> Unit,
+    onRangeTimeClicked: (Int, HourlyModelCard) -> Unit,
     onFabClicked: () -> Unit,
 ) {
     val mainState by vm.viewState.collectAsState()
@@ -66,22 +68,23 @@ fun MainScreen(
                     if (state.isLoading) {
                         CustomCircularProgressIndicator()
                     }
-                    state.forecastData?.forecastList?.let { itemForecast ->
+                    state.forecastData?.forecast?.let { itemForecast ->
+
                         Box(modifier = modifier.weight(3f)) {
                             CurrentWeatherDisplay(
                                 city = state.forecastData.cityDetail.cityName,
-                                weatherIcon = itemForecast[0].meteorology[0].id,
-                                temp = itemForecast[0].temp,
-                                weatherDesc = itemForecast[0].meteorology[0].description,
-                                currentDateTime = itemForecast[0].dateTime
+                                weatherIcon = itemForecast.meteorology[0].id,
+                                temp = itemForecast.temp,
+                                weatherDesc = itemForecast.meteorology[0].description,
+                                currentDateTime = itemForecast.dateTime.toString()
                             )
                         }
 
                         Box(modifier = modifier.weight(1f)) {
                             WeatherForecastDisplay(
-                                forecastData = state.forecastData,
+                                hourlyList = state.forecastData.hourlyList,
                                 onClick = {
-                                    onRangeTimeClicked(it, state.forecastData)
+                                    onRangeTimeClicked(it, state.forecastData.hourlyList[1])
                                 }
                             )
                         }

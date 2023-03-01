@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 @Keep
-data class ForecastItem(
+data class HourlyItem(
     val dateTime: String,
     val meteorology: List<Meteorology>,
     val temp: String,

@@ -6,8 +6,7 @@ import net.denis.weatherapp.features.detail_forecast.model.CityDetail
 import net.denis.weatherapp.features.detail_forecast.model.DetailData
 import net.denis.weatherapp.features.detail_forecast.model.DetailItem
 import net.denis.weatherapp.features.detail_forecast.model.mapToUiCard
-import net.denis.weatherapp.features.main_forecast.model.ForecastData
-import net.denis.weatherapp.features.main_forecast.model.ForecastItem
+import net.denis.weatherapp.features.main_forecast.model.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -44,17 +43,44 @@ data class WeatherDto(
         meteorology = weather.map { it.toMeteorology() },
         detailData = mapToDetailData(),
     )
+
+    fun Forecast.mapToHourlyItem() =
+        if (dateTime >= getLocalDateTime() && dateTime <= (getLocalDateTime() + 10800))
+            HourlyModelCard.CurrentHourlyCard(
+                hourlyItem = HourlyItem(
+                    dateTime = dtMap(dateTime),
+                    temp = main.mapToTemp(),
+                    meteorology = weather.map { it.toMeteorology() },
+                    detailData = mapToDetailData(),
+                )
+            )
+        else {
+            HourlyModelCard.HourlyCard(
+                hourlyItem = HourlyItem(
+                    dateTime = dtMap(dateTime),
+                    temp = main.mapToTemp(),
+                    meteorology = weather.map { it.toMeteorology() },
+                    detailData = mapToDetailData(),
+                )
+            )
+
+        }
+
 }
 
 fun WeatherDto.mapToForecastData() = ForecastData(
     cityDetail = mapToCityDetail(),
-    forecastList = forecast.map { it.mapToForecastItem() }
+    forecast = forecast[0].mapToForecastItem(),
+    hourlyList = forecast.map { it.mapToHourlyItem() },
 )
 
-private fun dtMap(dt: Int): String {
+
+private fun getLocalDateTime(): Long {
+    return (System.currentTimeMillis() / 1000)
+}
+
+private fun dtMap(dt: Long): String {
     val sdf = SimpleDateFormat("HH:mm")
     val netDate = Date(dt.toLong() * 1000)
     return sdf.format(netDate)
 }
-
-

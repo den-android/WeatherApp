@@ -8,7 +8,7 @@ data class Forecast(
     val clouds: Clouds,
 
     @SerializedName("dt")
-    val dateTime: Int,
+    val dateTime: Long,
 
     @SerializedName("dt_txt")
     val dateTime_txt: String,

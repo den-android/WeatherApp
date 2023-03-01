@@ -44,14 +44,14 @@ fun DetailScreen(
             ),
     ) {
         item {
-            detailState?.forecastItem?.let {
+            detailState?.hourlyItem?.let {
                 Toolbar(
                     label = it.detailData.cityDetail.cityName,
                     temp = it.temp
                 )
             }
         }
-        detailState.forecastItem?.detailData?.detailList?.let { listWeather ->
+        detailState.hourlyItem?.detailData?.detailList?.let { listWeather ->
             items(listWeather) { item ->
                 when (item) {
 
