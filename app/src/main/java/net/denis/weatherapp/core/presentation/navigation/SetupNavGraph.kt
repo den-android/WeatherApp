@@ -33,9 +33,6 @@ fun SetupNavGraph(
                 },
                 onFabClicked = {
                     navController.navigate(Screen.FetchCityScreen.route)
-                },
-                onActionErrorClicked = {
-                    mainVM.loadDefaultCity()
                 }
             )
         }
