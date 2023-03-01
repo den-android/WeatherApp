@@ -9,6 +9,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
 import net.denis.weatherapp.core.presentation.navigation.SetupNavGraph
+import net.denis.weatherapp.core.presentation.navigation.test.NavGraph
 import net.denis.weatherapp.core.presentation.ui.theme.WeatherAppTheme
 
 @AndroidEntryPoint
@@ -22,6 +23,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     SetupNavGraph()
+                    NavGraph()
                 }
             }
         }

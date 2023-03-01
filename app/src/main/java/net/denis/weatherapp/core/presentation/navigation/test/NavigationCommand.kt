@@ -1,4 +1,4 @@
-package net.denis.weatherapp.core.presentation.navigation
+package net.denis.weatherapp.core.presentation.navigation.test
 
 import androidx.navigation.NamedNavArgument
 
