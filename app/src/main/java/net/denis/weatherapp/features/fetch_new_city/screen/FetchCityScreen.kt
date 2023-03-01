@@ -4,10 +4,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TopAppBar
-import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Brush
@@ -16,7 +15,6 @@ import androidx.compose.ui.res.painterResource
 import net.denis.weatherapp.R
 import net.denis.weatherapp.core.presentation.error.ErrorAlertDialog
 import net.denis.weatherapp.core.presentation.ui.components.Toolbar
-import net.denis.weatherapp.core.presentation.ui.theme.PrimaryColor
 import net.denis.weatherapp.core.presentation.ui.theme.backgroundColor
 import net.denis.weatherapp.features.fetch_new_city.model.CityData
 import net.denis.weatherapp.features.fetch_new_city.mvi.FetchCityViewModel
@@ -33,7 +31,6 @@ fun FetchCityScreen(
     onActionErrorClicked: () -> Unit,
 ) {
     val cityState by vm.viewState.collectAsState()
-
 
     cityState.error?.let {
         ErrorAlertDialog(
