@@ -10,10 +10,17 @@ import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
 import net.denis.weatherapp.core.presentation.navigation.SetupNavGraph
 import net.denis.weatherapp.core.presentation.navigation.test.NavGraph
+import net.denis.weatherapp.core.presentation.navigation.test.NavigationManager
 import net.denis.weatherapp.core.presentation.ui.theme.WeatherAppTheme
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var navigationManager: NavigationManager
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
