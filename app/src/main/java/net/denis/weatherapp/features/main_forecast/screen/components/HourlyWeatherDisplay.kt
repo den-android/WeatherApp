@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
 import net.denis.weatherapp.features.main_forecast.model.ForecastItem
 import net.denis.weatherapp.features.main_forecast.model.WeatherType
@@ -54,6 +55,7 @@ fun HourlyWeatherDisplay(
             Text(
                 text = forecastItem.temp,
                 color = PrimaryText,
+                fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )
         }
