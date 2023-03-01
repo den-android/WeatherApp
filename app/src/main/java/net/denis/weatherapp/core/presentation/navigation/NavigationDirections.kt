@@ -4,17 +4,17 @@ import androidx.navigation.NamedNavArgument
 
 object NavigationDirections {
 
-    val currentForecast = object : NavigationCommand {
+    val testCurrentForecast = object : NavigationCommand {
         override val arguments: List<NamedNavArgument> = emptyList<NamedNavArgument>()
         override val destination = "test_current_forecast"
     }
 
-    val detailForecast = object : NavigationCommand {
+    val testDetailForecast = object : NavigationCommand {
         override val arguments: List<NamedNavArgument> = emptyList<NamedNavArgument>()
         override val destination = "test_detail_forecast"
     }
 
-    val fetchCity = object : NavigationCommand {
+    val testFetchCity = object : NavigationCommand {
         override val arguments: List<NamedNavArgument> = emptyList<NamedNavArgument>()
         override val destination = "test_fetch_city"
     }
