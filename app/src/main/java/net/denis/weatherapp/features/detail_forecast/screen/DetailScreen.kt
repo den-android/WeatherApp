@@ -15,7 +15,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import net.denis.weatherapp.R
-import net.denis.weatherapp.core.presentation.error.ErrorAlertDialog
+import net.denis.weatherapp.core.presentation.ui.components.ErrorAlertDialog
 import net.denis.weatherapp.core.presentation.ui.components.Toolbar
 import net.denis.weatherapp.core.presentation.ui.theme.backgroundColor
 import net.denis.weatherapp.features.detail_forecast.model.DualCard
