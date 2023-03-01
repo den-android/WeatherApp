@@ -18,9 +18,9 @@ data class Main(
     val temp_min: Double
 )
 
-fun Main.toTemp() = "${roundTemp(temp)}°"
+fun Main.mapToTemp() = "${roundTemp(temp)}°"
 
 private fun roundTemp(temp: Double): String {
-    val df = DecimalFormat("#.#", DecimalFormatSymbols(Locale.ENGLISH))
+    val df = DecimalFormat("#", DecimalFormatSymbols(Locale.ENGLISH))
     return df.format(temp.toBigDecimal())
 }
