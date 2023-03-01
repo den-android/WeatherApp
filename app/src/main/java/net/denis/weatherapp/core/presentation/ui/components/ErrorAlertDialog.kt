@@ -1,4 +1,4 @@
-package net.denis.weatherapp.core.presentation.error
+package net.denis.weatherapp.core.presentation.ui.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -48,25 +48,25 @@ fun ErrorAlertDialog(
                 Text(
                     text = failureResponse.errMessage,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.padding(8.dp), fontSize = 20.sp
+                    modifier = modifier.padding(8.dp), fontSize = 20.sp
                 )
                 Row(Modifier.padding(top = 10.dp)) {
                     OutlinedButton(
                         onClick = { onExitClick() },
-                        Modifier
+                        modifier = modifier
                             .fillMaxWidth()
                             .padding(8.dp)
-                            .weight(1F)
+                            .weight(1f)
                     ) {
                         Text(text = "Закрыть")
                     }
 
                     Button(
                         onClick = { onActionErrorClick() },
-                        Modifier
+                        modifier = modifier
                             .fillMaxWidth()
                             .padding(8.dp)
-                            .weight(1F)
+                            .weight(1f)
                     ) {
                         Text(
                             overflow = TextOverflow.Ellipsis,
