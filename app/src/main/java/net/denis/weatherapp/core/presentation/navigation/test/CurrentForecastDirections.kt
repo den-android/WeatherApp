@@ -9,24 +9,9 @@ object CurrentForecastDirections {
         override val destination = ""
     }
 
-    val root = object : NavigationCommand {
-        override val arguments = emptyList<NamedNavArgument>()
-        override val destination = "connect"
-    }
-
     val testCurrentForecast = object : NavigationCommand {
         override val arguments = emptyList<NamedNavArgument>()
         override val destination = "test_current_forecast"
-    }
-
-    val testDetailForecast = object : NavigationCommand {
-        override val arguments = emptyList<NamedNavArgument>()
-        override val destination = "test_detail_forecast"
-    }
-
-    val testFetchCity = object : NavigationCommand {
-        override val arguments = emptyList<NamedNavArgument>()
-        override val destination = "test_fetch_city"
     }
 
 }
