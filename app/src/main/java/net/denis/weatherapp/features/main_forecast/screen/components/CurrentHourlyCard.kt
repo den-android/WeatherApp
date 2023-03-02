@@ -8,14 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.BlurEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
-import net.denis.weatherapp.features.main_forecast.model.ForecastItem
 import net.denis.weatherapp.features.main_forecast.model.HourlyItem
 import net.denis.weatherapp.features.main_forecast.model.WeatherType
 
@@ -44,8 +42,8 @@ fun CurrentHourlyWeatherDisplay(
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
             Text(
-                text = hourlyItem.dateTime.toString()?:"1",
-                color = PrimaryText
+                text = hourlyItem.dateTime,
+                color = Color.DarkGray
             )
             Image(
                 painter = painterResource(id = WeatherType.fromWMO(code = hourlyItem.meteorology[0].id).iconRes),
@@ -54,7 +52,7 @@ fun CurrentHourlyWeatherDisplay(
             )
             Text(
                 text = hourlyItem.temp,
-                color = PrimaryText,
+                color = Color.DarkGray,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold
             )

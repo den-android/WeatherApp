@@ -44,7 +44,7 @@ fun HourlyWeatherDisplay(
             verticalArrangement = Arrangement.SpaceEvenly
         ) {
             Text(
-                text = hourlyItem.dateTime.toString() ?: "1",
+                text = hourlyItem.dateTime,
                 color = PrimaryText
             )
             Image(
