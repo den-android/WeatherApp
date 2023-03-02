@@ -13,6 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import net.denis.weatherapp.core.presentation.ui.theme.CurrentCardColor
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
 import net.denis.weatherapp.features.main_forecast.model.HourlyItem
 import net.denis.weatherapp.features.main_forecast.model.WeatherType
@@ -30,7 +31,7 @@ fun CurrentHourlyWeatherDisplay(
                 border = BorderStroke(width = 1.dp, color = Color.LightGray),
                 shape = RoundedCornerShape(50)
             )
-            .background(Color.LightGray)
+            .background(CurrentCardColor)
             .clickable { onRangeClicked() }
     ) {
         Column(

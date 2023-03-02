@@ -27,3 +27,5 @@ val SecondaryColor = Color (0xFF373743)
 
 val CellBackgroundColor = Color (0xFF2E335A)
 val CellBorderColor = Color (0xFF6D3A99)
+
+val CurrentCardColor = Color(0x81CFCFCF)
