@@ -37,8 +37,8 @@ fun CurrentHourlyWeatherDisplay(
     ) {
         Column(
             modifier = modifier
+                .width(80.dp)
                 .padding(4.dp)
-                .fillMaxWidth(0.3f)
                 .height(140.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly

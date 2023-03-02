@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import net.denis.weatherapp.features.main_forecast.model.ForecastItem
 import net.denis.weatherapp.features.main_forecast.model.HourlyItem
 import javax.inject.Inject
 

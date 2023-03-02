@@ -38,7 +38,7 @@ fun HourlyWeatherDisplay(
         Column(
             modifier = modifier
                 .padding(4.dp)
-                .fillMaxWidth(0.3f)
+                .width(80.dp)
                 .height(140.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.SpaceEvenly

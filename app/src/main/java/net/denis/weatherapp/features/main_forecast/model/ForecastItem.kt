@@ -10,5 +10,4 @@ data class ForecastItem(
     val dateTime: String,
     val meteorology: List<Meteorology>,
     val temp: String,
-    val detailData: DetailData,
 )

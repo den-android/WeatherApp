@@ -40,8 +40,7 @@ data class WeatherDto(
     fun Forecast.mapToForecastItem() = ForecastItem(
         dateTime = dtMap(dateTime),
         temp = main.mapToTemp(),
-        meteorology = weather.map { it.toMeteorology() },
-        detailData = mapToDetailData(),
+        meteorology = weather.map { it.toMeteorology() }
     )
 
     fun Forecast.mapToHourlyItem() =

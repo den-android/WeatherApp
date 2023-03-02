@@ -33,7 +33,7 @@ import kotlin.system.exitProcess
 fun MainScreen(
     modifier: Modifier = Modifier,
     vm: MainViewModel,
-    onRangeTimeClicked: (Int, HourlyModelCard) -> Unit,
+    onRangeTimeClicked: (HourlyItem) -> Unit,
     onFabClicked: () -> Unit,
 ) {
     val mainState by vm.viewState.collectAsState()
@@ -84,7 +84,7 @@ fun MainScreen(
                             WeatherForecastDisplay(
                                 hourlyList = state.forecastData.hourlyList,
                                 onClick = {
-                                    onRangeTimeClicked(it, state.forecastData.hourlyList[1])
+                                    onRangeTimeClicked(it)
                                 }
                             )
                         }
