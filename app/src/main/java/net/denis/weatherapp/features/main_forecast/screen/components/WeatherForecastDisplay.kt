@@ -24,28 +24,28 @@ fun WeatherForecastDisplay(
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
         ) {
-            LazyRow{
+            LazyRow {
                 items(hourlyItem) { item ->
-Box(
-    modifier = modifier
-        .padding(start = 16.dp, end = 16.dp)
-)  {
-    when (item) {
-        is HourlyModelCard.CurrentHourlyCard -> {
-            CurrentHourlyWeatherDisplay(
-                hourlyItem = item.hourlyItem,
-                onRangeClicked = { onClick(item.hourlyItem) }
-            )
-        }
+                    Box(
+                        modifier = modifier
+                            .padding(start = 16.dp, end = 16.dp)
+                    ) {
+                        when (item) {
+                            is HourlyModelCard.CurrentHourlyCard -> {
+                                CurrentHourlyWeatherDisplay(
+                                    hourlyItem = item.hourlyItem,
+                                    onRangeClicked = { onClick(item.hourlyItem) }
+                                )
+                            }
 
-        is HourlyModelCard.HourlyCard -> {
-            HourlyWeatherDisplay(
-                hourlyItem = item.hourlyItem,
-                onRangeClicked = { onClick(item.hourlyItem) }
-            )
-        }
-    }
-}
+                            is HourlyModelCard.HourlyCard -> {
+                                HourlyWeatherDisplay(
+                                    hourlyItem = item.hourlyItem,
+                                    onRangeClicked = { onClick(item.hourlyItem) }
+                                )
+                            }
+                        }
+                    }
 
 
                 }
