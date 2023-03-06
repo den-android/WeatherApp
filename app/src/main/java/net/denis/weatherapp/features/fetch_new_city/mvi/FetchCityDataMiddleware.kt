@@ -3,8 +3,6 @@ package net.denis.weatherapp.features.fetch_new_city.mvi
 import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.toEnCity
 import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.toRuCity
 import net.denis.weatherapp.core.data.interfaces.IGeocodingRepository
-import net.denis.weatherapp.core.presentation.error.handlers.handleException
-import net.denis.weatherapp.core.presentation.error.handlers.handleHttpCode
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
 import net.denis.weatherapp.core.util.network.NetworkResult
@@ -39,10 +37,10 @@ class FetchCityDataMiddleware(
                         }
                     }
                     is NetworkResult.Failure -> {
-                        store.dispatch(FetchCityAction.ShowError(handleHttpCode(response.code)))
+                      //  store.dispatch(FetchCityAction.ShowError(handleHttpCode(response.code)))
                     }
                     is NetworkResult.Exception -> {
-                        store.dispatch(FetchCityAction.ShowError(handleException(response.e)))
+                      //  store.dispatch(FetchCityAction.ShowError(handleException(response.e)))
                     }
                 }
 
