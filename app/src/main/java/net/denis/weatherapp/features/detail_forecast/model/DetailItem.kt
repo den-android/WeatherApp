@@ -19,19 +19,6 @@ data class DetailItem(
 fun DetailItem.mapToUiCard(): List<DetailModelCard> {
     val cards = mutableListOf<DetailModelCard>()
 
-    cards.add(
-        SingleCard.WideCardWithText(
-            card = CardWithIndicator(
-                cellFields = CellFields(
-                    title = "Ветренность",
-                    text = "${roundSpeed(wind.speed)}м/с",
-                    indicatorValue = wind.speed.toFloat() / 10f,
-                    description = null,
-                    icon = R.drawable.ic_vector
-                ),
-            )
-        )
-    )
 
     cards.add(
         DualCard.DualCardItem(
@@ -74,6 +61,20 @@ fun DetailItem.mapToUiCard(): List<DetailModelCard> {
                     indicatorValue = visibility / 10000f,
                     description = null,
                     icon = R.drawable.ic_visibility
+                ),
+            )
+        )
+    )
+
+    cards.add(
+        SingleCard.WideCardWithText(
+            card = CardWithIndicator(
+                cellFields = CellFields(
+                    title = "Ветренность",
+                    text = "${roundSpeed(wind.speed)}м/с",
+                    indicatorValue = wind.speed.toFloat() / 10f,
+                    description = null,
+                    icon = R.drawable.ic_vector
                 ),
             )
         )
