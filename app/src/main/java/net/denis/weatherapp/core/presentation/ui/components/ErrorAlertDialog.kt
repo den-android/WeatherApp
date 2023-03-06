@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
-import net.denis.weatherapp.core.presentation.error.model.FailureResponse
+import net.denis.weatherapp.core.util.FailureResponse
 
 @Composable
 fun ErrorAlertDialog(
