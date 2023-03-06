@@ -1,28 +1,27 @@
 package net.denis.weatherapp.features.main_forecast.screen
 
+import android.app.AlertDialog
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.window.Dialog
 import net.denis.weatherapp.R
-import net.denis.weatherapp.core.presentation.ui.components.ErrorAlertDialog
 import net.denis.weatherapp.core.presentation.ui.components.CustomCircularProgressIndicator
+import net.denis.weatherapp.core.presentation.ui.components.ErrorAlertDialog
 import net.denis.weatherapp.core.presentation.ui.theme.backgroundColor
+import net.denis.weatherapp.core.util.FailureResponse
 import net.denis.weatherapp.features.detail_forecast.screen.components.BottomNavigateMenu
-import net.denis.weatherapp.features.main_forecast.model.ForecastData
 import net.denis.weatherapp.features.main_forecast.model.HourlyItem
-import net.denis.weatherapp.features.main_forecast.model.HourlyModelCard
 import net.denis.weatherapp.features.main_forecast.mvi.MainViewModel
 import net.denis.weatherapp.features.main_forecast.screen.components.CurrentWeatherDisplay
 import net.denis.weatherapp.features.main_forecast.screen.components.WeatherForecastDisplay
@@ -38,15 +37,19 @@ fun MainScreen(
 ) {
     val mainState by vm.viewState.collectAsState()
 
-    mainState.error?.let {
-        ErrorAlertDialog(
-            onActionErrorClick = {
-                vm.clearErrorState()
-                vm.loadDefaultCity()
-            },
-            onExitClick = { exitProcess(-1) },
-            failureResponse = it
-        )
+    if (mainState.failureResponse?.alertState == true) {
+        if (mainState.failureResponse != null){
+            ErrorAlertDialog(
+                onActionErrorClick = { vm.FixError() },
+                onExitClick = { /*TODO*/ },
+                failureResponse = mainState.failureResponse!!
+            )
+        } else {
+            Log.d("Logging", "2: ${mainState.failureResponse?.alertState}")
+        }
+
+    } else {
+        Log.d("Logging", "1: ${mainState.failureResponse?.alertState}")
     }
 
     Scaffold(
