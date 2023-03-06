@@ -1,6 +1,6 @@
 package net.denis.weatherapp.features.fetch_new_city.mvi
 
-import net.denis.weatherapp.core.presentation.error.model.FailureResponse
+import net.denis.weatherapp.core.util.FailureResponse
 import net.denis.weatherapp.core.presentation.redux.Action
 import net.denis.weatherapp.features.fetch_new_city.model.CityData
 
