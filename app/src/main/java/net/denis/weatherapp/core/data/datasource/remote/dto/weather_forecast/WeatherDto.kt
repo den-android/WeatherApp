@@ -6,7 +6,10 @@ import net.denis.weatherapp.features.detail_forecast.model.CityDetail
 import net.denis.weatherapp.features.detail_forecast.model.DetailData
 import net.denis.weatherapp.features.detail_forecast.model.DetailItem
 import net.denis.weatherapp.features.detail_forecast.model.mapToUiCard
-import net.denis.weatherapp.features.main_forecast.model.*
+import net.denis.weatherapp.features.main_forecast.model.ForecastData
+import net.denis.weatherapp.features.main_forecast.model.ForecastItem
+import net.denis.weatherapp.features.main_forecast.model.HourlyItem
+import net.denis.weatherapp.features.main_forecast.model.HourlyModelCard
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -43,8 +46,8 @@ data class WeatherDto(
         meteorology = weather.map { it.toMeteorology() }
     )
 
-    fun Forecast.mapToHourlyItem() =
-        if (dateTime >= getLocalDateTime() && dateTime <= (getLocalDateTime() + 10800))
+    fun Forecast.mapToHourlyItem(currentDateTime: Long) =
+        if (dateTime >= currentDateTime && dateTime <= (currentDateTime + 10800))
             HourlyModelCard.CurrentHourlyCard(
                 hourlyItem = HourlyItem(
                     dateTime = dtMap(dateTime),
@@ -62,20 +65,17 @@ data class WeatherDto(
                     detailData = mapToDetailData(),
                 )
             )
-
         }
 
 }
 
-fun WeatherDto.mapToForecastData() = ForecastData(
-    cityDetail = mapToCityDetail(),
-    forecast = forecast[0].mapToForecastItem(),
-    hourlyList = forecast.map { it.mapToHourlyItem() },
-)
-
-
-private fun getLocalDateTime(): Long {
-    return (System.currentTimeMillis() / 1000)
+fun WeatherDto.mapToForecastData(): ForecastData {
+    val currentDateTime = System.currentTimeMillis() / 1000
+    return ForecastData(
+        cityDetail = mapToCityDetail(),
+        forecast = forecast[0].mapToForecastItem(),
+        hourlyList = forecast.map { it.mapToHourlyItem(currentDateTime) },
+    )
 }
 
 private fun dtMap(dt: Long): String {
@@ -83,3 +83,7 @@ private fun dtMap(dt: Long): String {
     val netDate = Date(dt.toLong() * 1000)
     return sdf.format(netDate)
 }
+
+// invalid input
+// http error
+// ex parse
