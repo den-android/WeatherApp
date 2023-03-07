@@ -10,8 +10,6 @@ import net.denis.weatherapp.core.util.FailureResponse
 import net.denis.weatherapp.core.util.OnExceptionError
 import net.denis.weatherapp.core.util.OnHttpError
 import net.denis.weatherapp.core.util.network.NetworkResult
-import net.denis.weatherapp.features.main_forecast.mvi.MainAction
-import net.denis.weatherapp.features.main_forecast.mvi.MainState
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -62,7 +60,10 @@ class FetchCityDataMiddleware(
         }
     }
 
-    private suspend fun handlerErrors(failureResponse: FailureResponse?, store: Store<FetchCityState, FetchCityAction>) {
+    private suspend fun handlerErrors(
+        failureResponse: FailureResponse?,
+        store: Store<FetchCityState, FetchCityAction>
+    ) {
         when (failureResponse) {
             OnHttpError.Code1 -> {}
             OnHttpError.Code2 -> {}
@@ -95,10 +96,12 @@ class FetchCityDataMiddleware(
         }
     }
 
-    private suspend fun handlerException(ex: Exception, store: Store<FetchCityState, FetchCityAction>) {
+    private suspend fun handlerException(
+        ex: Exception,
+        store: Store<FetchCityState, FetchCityAction>
+    ) {
         when (ex) {
             is UnknownHostException -> {
-                Log.d("Logging", "${ex.localizedMessage}")
                 store.dispatch(FetchCityAction.SendErrorToUI(OnExceptionError.ExUnknownHostException))
             }
             is SocketTimeoutException -> {
