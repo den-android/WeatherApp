@@ -20,16 +20,17 @@ class FetchCityReducer : Reducer<FetchCityState, FetchCityAction> {
                 )
             }
 
-            is FetchCityAction.ShowError -> {
+            is FetchCityAction.SendErrorToUI -> {
                 currentState.copy(
                     isLoading = false,
-                    error = action.failureResponse
+                    failureResponse = action.failureResponse
                 )
             }
 
             is FetchCityAction.ClearErrorState -> {
                 currentState.copy(
-                    error = null
+                    isLoading = false,
+                    failureResponse = null,
                 )
             }
 

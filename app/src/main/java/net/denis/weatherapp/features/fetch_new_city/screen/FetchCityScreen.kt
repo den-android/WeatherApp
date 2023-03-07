@@ -28,19 +28,17 @@ fun FetchCityScreen(
     modifier: Modifier = Modifier,
     vm: FetchCityViewModel,
     navigateUp: (CityData) -> Unit,
-    onActionErrorClicked: () -> Unit,
 ) {
     val cityState by vm.viewState.collectAsState()
 
-    cityState.error?.let {
-        ErrorAlertDialog(
-            onActionErrorClick = {
-                vm.clearErrorState()
-                onActionErrorClicked()
-            },
-            onExitClick = { exitProcess(-1) },
-            failureResponse = it
-        )
+    cityState?.let {
+        it.failureResponse?.let { failureResponse ->
+            ErrorAlertDialog(
+                onActionErrorClick = { vm.onActionErrorClicked() },
+                onExitClick = { exitProcess(-1) },
+                failureResponse = failureResponse
+            )
+        }
     }
 
     LazyColumn(

@@ -10,7 +10,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FetchCityViewModel @Inject constructor(
     private val fetchCityStore: FetchCityStore
-): ViewModel() {
+) : ViewModel() {
     val viewState: StateFlow<FetchCityState> = fetchCityStore.state
 
     fun fetchCity(name: String) {
@@ -19,9 +19,10 @@ class FetchCityViewModel @Inject constructor(
         }
     }
 
-    fun clearErrorState() {
+    fun onActionErrorClicked() {
         viewModelScope.launch {
-            fetchCityStore.dispatch(FetchCityAction.ClearErrorState)
+            fetchCityStore.dispatch(FetchCityAction.OnActionErrorClicked)
         }
     }
+
 }

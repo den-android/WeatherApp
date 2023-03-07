@@ -1,11 +1,20 @@
 package net.denis.weatherapp.features.fetch_new_city.mvi
 
+import android.util.Log
 import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.toEnCity
 import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.toRuCity
 import net.denis.weatherapp.core.data.interfaces.IGeocodingRepository
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
+import net.denis.weatherapp.core.util.FailureResponse
+import net.denis.weatherapp.core.util.OnExceptionError
+import net.denis.weatherapp.core.util.OnHttpError
 import net.denis.weatherapp.core.util.network.NetworkResult
+import net.denis.weatherapp.features.main_forecast.mvi.MainAction
+import net.denis.weatherapp.features.main_forecast.mvi.MainState
+import retrofit2.HttpException
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 
 class FetchCityDataMiddleware(
     private val geocodingRepository: IGeocodingRepository,
@@ -20,30 +29,84 @@ class FetchCityDataMiddleware(
                 fetchNewCity(cityName = action.name, store = store)
             }
 
+            is FetchCityAction.OnActionErrorClicked -> {
+                handlerErrors(currentState.failureResponse, store)
+            }
+
             else -> currentState
         }
     }
 
-    private suspend fun fetchNewCity(cityName: String, store: Store<FetchCityState, FetchCityAction>) {
+    private suspend fun fetchNewCity(
+        cityName: String,
+        store: Store<FetchCityState, FetchCityAction>
+    ) {
         geocodingRepository.fetchNewCity(cityName).collect() { response ->
-                when (response) {
-                    is NetworkResult.Success -> {
-                        response.data.forEach { cityItem ->
-                            try {
-                                store.dispatch(FetchCityAction.CityLoaded(cityData = cityItem.toRuCity()))
-                            } catch (e: Exception) {
-                                store.dispatch(FetchCityAction.CityLoaded(cityData = cityItem.toEnCity()))
-                            }
+            when (response) {
+                is NetworkResult.Success -> {
+                    response.data.forEach { cityItem ->
+                        try {
+                            store.dispatch(FetchCityAction.CityLoaded(cityData = cityItem.toRuCity()))
+                        } catch (e: Exception) {
+                            store.dispatch(FetchCityAction.CityLoaded(cityData = cityItem.toEnCity()))
                         }
                     }
-                    is NetworkResult.Failure -> {
-                      //  store.dispatch(FetchCityAction.ShowError(handleHttpCode(response.code)))
-                    }
-                    is NetworkResult.Exception -> {
-                      //  store.dispatch(FetchCityAction.ShowError(handleException(response.e)))
-                    }
                 }
-
+                is NetworkResult.Failure -> {
+                    handlerHttpCode(response.code, store)
+                }
+                is NetworkResult.Exception -> {
+                    handlerException(response.e, store)
+                }
             }
+        }
+    }
+
+    private suspend fun handlerErrors(failureResponse: FailureResponse?, store: Store<FetchCityState, FetchCityAction>) {
+        when (failureResponse) {
+            OnHttpError.Code1 -> {}
+            OnHttpError.Code2 -> {}
+            OnHttpError.Code401 -> {}
+
+            OnExceptionError.ExUnknownHostException -> {
+                store.dispatch(FetchCityAction.ClearErrorState)
+            }
+            OnExceptionError.ExSocketTimeoutException -> {
+                store.dispatch(FetchCityAction.ClearErrorState)
+            }
+            OnExceptionError.ExHttpException -> {
+                store.dispatch(FetchCityAction.ClearErrorState)
+            }
+            null -> Log.d("Logging", "FetchCityAction.OnActionErrorClicked -> null")
+        }
+    }
+
+    private suspend fun handlerHttpCode(code: Int, store: Store<FetchCityState, FetchCityAction>) {
+        when (code) {
+            1 -> {
+                store.dispatch(FetchCityAction.SendErrorToUI(OnHttpError.Code1))
+            }
+            2 -> {
+                store.dispatch(FetchCityAction.SendErrorToUI(OnHttpError.Code2))
+            }
+            401 -> {
+                store.dispatch(FetchCityAction.SendErrorToUI(OnHttpError.Code401))
+            }
+        }
+    }
+
+    private suspend fun handlerException(ex: Exception, store: Store<FetchCityState, FetchCityAction>) {
+        when (ex) {
+            is UnknownHostException -> {
+                Log.d("Logging", "${ex.localizedMessage}")
+                store.dispatch(FetchCityAction.SendErrorToUI(OnExceptionError.ExUnknownHostException))
+            }
+            is SocketTimeoutException -> {
+                store.dispatch(FetchCityAction.SendErrorToUI(OnExceptionError.ExSocketTimeoutException))
+            }
+            is HttpException -> {
+                store.dispatch(FetchCityAction.SendErrorToUI(OnExceptionError.ExHttpException))
+            }
+        }
     }
 }

@@ -53,10 +53,10 @@ fun SetupNavGraph(
                     //mainVM.fetchForecast(lat = it.lat, lon = it.lon)
                     navController.popBackStack(Screen.FetchCityScreen.route, inclusive = true)
                 },
-                onActionErrorClicked = {
-                    navController.popBackStack(Screen.FetchCityScreen.route, inclusive = true)
-                    navController.navigate(Screen.FetchCityScreen.route)
-                }
+//                onActionErrorClicked = {
+//                    navController.popBackStack(Screen.FetchCityScreen.route, inclusive = true)
+//                    navController.navigate(Screen.FetchCityScreen.route)
+//                }
             )
         }
 
