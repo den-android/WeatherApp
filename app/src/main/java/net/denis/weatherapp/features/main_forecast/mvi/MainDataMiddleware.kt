@@ -8,8 +8,6 @@ import net.denis.weatherapp.core.presentation.redux.Store
 import net.denis.weatherapp.core.util.OnExceptionError
 import net.denis.weatherapp.core.util.OnHttpError
 import net.denis.weatherapp.core.util.network.NetworkResult
-import retrofit2.HttpException
-import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 class MainDataMiddleware(
@@ -28,18 +26,16 @@ class MainDataMiddleware(
 
             is MainAction.FixError -> {
                 when (currentState.failureResponse) {
-                    OnHttpError.Code1 -> store.dispatch(MainAction.FetchForecast) // restarted fetch
-                    OnHttpError.Code2 -> {} // Does nothing
-                    OnHttpError.Code401 -> store.dispatch(MainAction.FetchForecast) // restarted fetch
+                    OnHttpError.Code1 -> store.dispatch(MainAction.FetchForecast)
+                    OnHttpError.Code2 -> {}
+                    OnHttpError.Code401 -> store.dispatch(MainAction.FetchForecast)
 
                     OnExceptionError.ExUnknownHostException -> {
-                        Log.d("Logging", "222")
                         store.dispatch(MainAction.FetchForecast)
                     }
-//                    OnExceptionError.ExSocketTimeoutException -> {
-//                        Log.d("Logging", "${currentState.failureResponse}")
-//                        store.dispatch(MainAction.FetchForecast)
-//                    }
+                    OnExceptionError.ExSocketTimeoutException -> {
+                        store.dispatch(MainAction.FetchForecast)
+                    }
                     null -> Log.d("Logging", "MainAction.FixError -> null")
                 }
 
@@ -76,13 +72,13 @@ class MainDataMiddleware(
     private suspend fun handlerHttpCode(code: Int, store: Store<MainState, MainAction>) {
         when (code) {
             1 -> {
-                store.dispatch(MainAction.ShowError(OnHttpError.Code1))
+                store.dispatch(MainAction.SendErrorToUI(OnHttpError.Code1))
             }
             2 -> {
-                store.dispatch(MainAction.ShowError(OnHttpError.Code2))
+                store.dispatch(MainAction.SendErrorToUI(OnHttpError.Code2))
             }
             401 -> {
-                store.dispatch(MainAction.ShowError(OnHttpError.Code401))
+                store.dispatch(MainAction.SendErrorToUI(OnHttpError.Code401))
             }
         }
     }
@@ -90,7 +86,7 @@ class MainDataMiddleware(
     private suspend fun handlerException(ex: Exception, store: Store<MainState, MainAction>) {
         when (ex) {
             is UnknownHostException -> {
-                store.dispatch(MainAction.ShowError(OnExceptionError.ExUnknownHostException))
+                store.dispatch(MainAction.SendErrorToUI(OnExceptionError.ExUnknownHostException))
             }
 //            is SocketTimeoutException -> {
 //                store.dispatch(MainAction.ShowError(OnExceptionError.ExSocketTimeoutException))
