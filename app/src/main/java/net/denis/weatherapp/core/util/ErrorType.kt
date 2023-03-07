@@ -4,8 +4,7 @@ sealed interface ErrorType
 
 sealed class FailureResponse(
     val errMessage: String,
-    val btnTitle: String,
-    val alertState: Boolean = true,
+    val btnTitle: String
 ) : ErrorType
 
 sealed class OnHttpError : ErrorType {

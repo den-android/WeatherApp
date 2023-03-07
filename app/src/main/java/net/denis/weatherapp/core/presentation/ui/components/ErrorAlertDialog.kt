@@ -31,12 +31,8 @@ fun ErrorAlertDialog(
     onExitClick: () -> Unit,
     failureResponse: FailureResponse,
 ) {
-    var alert = remember { mutableStateOf(failureResponse.alertState) }
-
-    if (alert.value) {
         Dialog(
             onDismissRequest = {
-                alert.value = false
                 onActionErrorClick()
             },
             properties = DialogProperties(
@@ -86,7 +82,6 @@ fun ErrorAlertDialog(
                     }
                 }
             }
-        }
 
     }
 

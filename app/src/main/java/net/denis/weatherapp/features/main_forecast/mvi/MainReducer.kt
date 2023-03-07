@@ -27,6 +27,12 @@ class MainReducer : Reducer<MainState, MainAction> {
                 )
             }
 
+            is MainAction.ClearErrorState -> {
+                currentState.copy(
+                    isLoading = false,
+                    failureResponse = null,
+                )
+            }
             else -> currentState
 
         }

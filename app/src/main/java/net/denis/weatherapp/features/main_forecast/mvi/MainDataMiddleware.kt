@@ -5,9 +5,12 @@ import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.map
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
+import net.denis.weatherapp.core.util.FailureResponse
 import net.denis.weatherapp.core.util.OnExceptionError
 import net.denis.weatherapp.core.util.OnHttpError
 import net.denis.weatherapp.core.util.network.NetworkResult
+import retrofit2.HttpException
+import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 class MainDataMiddleware(
@@ -24,21 +27,8 @@ class MainDataMiddleware(
                 fetchForecast(lat = 47.2213858, lon = 39.7114196, store = store)
             }
 
-            is MainAction.FixError -> {
-                when (currentState.failureResponse) {
-                    OnHttpError.Code1 -> store.dispatch(MainAction.FetchForecast)
-                    OnHttpError.Code2 -> {}
-                    OnHttpError.Code401 -> store.dispatch(MainAction.FetchForecast)
-
-                    OnExceptionError.ExUnknownHostException -> {
-                        store.dispatch(MainAction.FetchForecast)
-                    }
-                    OnExceptionError.ExSocketTimeoutException -> {
-                        store.dispatch(MainAction.FetchForecast)
-                    }
-                    null -> Log.d("Logging", "MainAction.FixError -> null")
-                }
-
+            is MainAction.OnActionErrorClicked -> {
+                handlerErrors(currentState.failureResponse, store)
             }
 
             else -> currentState
@@ -62,10 +52,28 @@ class MainDataMiddleware(
                     handlerHttpCode(response.code, store)
                 }
                 is NetworkResult.Exception -> {
-                    Log.d("Logging", "AAA")
                     handlerException(response.e, store)
                 }
             }
+        }
+    }
+    private suspend fun handlerErrors(failureResponse: FailureResponse?, store: Store<MainState, MainAction>) {
+        when (failureResponse) {
+            OnHttpError.Code1 -> store.dispatch(MainAction.FetchForecast)
+            OnHttpError.Code2 -> {}
+            OnHttpError.Code401 -> store.dispatch(MainAction.FetchForecast)
+
+            OnExceptionError.ExUnknownHostException -> {
+                store.dispatch(MainAction.ClearErrorState)
+                store.dispatch(MainAction.FetchForecast)
+            }
+            OnExceptionError.ExSocketTimeoutException -> {
+                store.dispatch(MainAction.FetchForecast)
+            }
+            OnExceptionError.ExHttpException -> {
+                store.dispatch(MainAction.FetchForecast)
+            }
+            null -> Log.d("Logging", "MainAction.FixError -> null")
         }
     }
 
@@ -88,9 +96,12 @@ class MainDataMiddleware(
             is UnknownHostException -> {
                 store.dispatch(MainAction.SendErrorToUI(OnExceptionError.ExUnknownHostException))
             }
-//            is SocketTimeoutException -> {
-//                store.dispatch(MainAction.ShowError(OnExceptionError.ExSocketTimeoutException))
-//            }
+            is SocketTimeoutException -> {
+                store.dispatch(MainAction.SendErrorToUI(OnExceptionError.ExSocketTimeoutException))
+            }
+            is HttpException -> {
+                store.dispatch(MainAction.SendErrorToUI(OnExceptionError.ExHttpException))
+            }
         }
     }
 

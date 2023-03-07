@@ -26,7 +26,7 @@ class MainViewModel @Inject constructor(
 
     fun onActionErrorClicked() {
         viewModelScope.launch {
-            mainStore.dispatch(MainAction.FixError)
+            mainStore.dispatch(MainAction.OnActionErrorClicked)
         }
     }
 
