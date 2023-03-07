@@ -36,8 +36,8 @@ fun ErrorAlertDialog(
     if (alert.value) {
         Dialog(
             onDismissRequest = {
-                onActionErrorClick()
                 alert.value = false
+                onActionErrorClick()
             },
             properties = DialogProperties(
                 dismissOnBackPress = false, dismissOnClickOutside = false
