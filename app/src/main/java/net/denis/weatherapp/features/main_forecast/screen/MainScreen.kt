@@ -38,9 +38,7 @@ fun MainScreen(
 
     mainState.failureResponse?.let {
         ErrorAlertDialog(
-            onActionErrorClick = {
-                vm.onActionErrorClicked()
-            },
+            onActionErrorClick = { vm.onActionErrorClicked() },
             onExitClick = { exitProcess(-1) },
             failureResponse = it,
         )

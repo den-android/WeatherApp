@@ -14,51 +14,51 @@ import net.denis.weatherapp.features.main_forecast.screen.MainScreen
 
 @Composable
 fun SetupNavGraph(
-    mainVM: MainViewModel = viewModel(),
-    detailVM: DetailViewModel = viewModel(),
-    fetchCityVM: FetchCityViewModel = viewModel(),
+//    mainVM: MainViewModel = viewModel(),
+//    detailVM: DetailViewModel = viewModel(),
+//    fetchCityVM: FetchCityViewModel = viewModel(),
 ) {
-    val navController = rememberNavController()
-
-    NavHost(
-        navController = navController,
-        startDestination = Screen.MainScreen.route
-    ) {
-        composable(route = Screen.MainScreen.route) {
-            MainScreen(
-                vm = mainVM,
-                onRangeTimeClicked = { hourlyItem ->
-                    detailVM.getHourlyItem(hourlyItem)
-                    navController.navigate(route = Screen.DetailScreen.route)
-                },
-                onFabClicked = {
-                    navController.navigate(Screen.FetchCityScreen.route)
-                }
-            )
-        }
-
-        composable(route = Screen.DetailScreen.route) {
-            DetailScreen(
-                vm = detailVM,
-                onActionErrorClicked = {
-                    navController.popBackStack(Screen.DetailScreen.route, inclusive = true)
-                }
-            )
-        }
-
-        composable(route = Screen.FetchCityScreen.route) {
-            FetchCityScreen(
-                vm = fetchCityVM,
-                navigateUp = {
-                    //mainVM.fetchForecast(lat = it.lat, lon = it.lon)
-                    navController.popBackStack(Screen.FetchCityScreen.route, inclusive = true)
-                },
-//                onActionErrorClicked = {
-//                    navController.popBackStack(Screen.FetchCityScreen.route, inclusive = true)
+//    val navController = rememberNavController()
+//
+//    NavHost(
+//        navController = navController,
+//        startDestination = Screen.MainScreen.route
+//    ) {
+//        composable(route = Screen.MainScreen.route) {
+//            MainScreen(
+//                vm = mainVM,
+//                onRangeTimeClicked = { hourlyItem ->
+//                    detailVM.getHourlyItem(hourlyItem)
+//                    navController.navigate(route = Screen.DetailScreen.route)
+//                },
+//                onFabClicked = {
 //                    navController.navigate(Screen.FetchCityScreen.route)
 //                }
-            )
-        }
-
-    }
+//            )
+//        }
+//
+//        composable(route = Screen.DetailScreen.route) {
+//            DetailScreen(
+//                vm = detailVM,
+//                onActionErrorClicked = {
+//                    navController.popBackStack(Screen.DetailScreen.route, inclusive = true)
+//                }
+//            )
+//        }
+//
+//        composable(route = Screen.FetchCityScreen.route) {
+//            FetchCityScreen(
+//                vm = fetchCityVM,
+//                navigateUp = {
+//                    //mainVM.fetchForecast(lat = it.lat, lon = it.lon)
+//                    navController.popBackStack(Screen.FetchCityScreen.route, inclusive = true)
+//                },
+////                onActionErrorClicked = {
+////                    navController.popBackStack(Screen.FetchCityScreen.route, inclusive = true)
+////                    navController.navigate(Screen.FetchCityScreen.route)
+////                }
+//            )
+//        }
+//
+//    }
 }

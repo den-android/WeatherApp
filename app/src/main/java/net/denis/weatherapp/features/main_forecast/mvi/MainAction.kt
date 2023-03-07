@@ -13,6 +13,6 @@ sealed class MainAction : Action {
     object OnActionErrorClicked : MainAction()
 
     object ClearErrorState : MainAction()
-    //data class NavigateToDetail(val hourlyItem: HourlyItem) : MainAction()
-    object NavigateTo: MainAction()
+
+    object NavigateTo : MainAction()
 }

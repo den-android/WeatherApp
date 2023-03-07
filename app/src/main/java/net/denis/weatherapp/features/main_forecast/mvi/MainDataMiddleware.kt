@@ -1,8 +1,12 @@
 package net.denis.weatherapp.features.main_forecast.mvi
 
 import android.util.Log
+import androidx.compose.runtime.collectAsState
+import androidx.navigation.compose.rememberNavController
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.mapToForecastData
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
+import net.denis.weatherapp.core.presentation.navigation.test.ForecastDirections
+import net.denis.weatherapp.core.presentation.navigation.test.NavigationManager
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
 import net.denis.weatherapp.core.util.FailureResponse
@@ -12,8 +16,10 @@ import net.denis.weatherapp.core.util.network.NetworkResult
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
+import javax.inject.Inject
 
-class MainDataMiddleware(
+class MainDataMiddleware @Inject constructor(
+    private val navigationManager: NavigationManager,
     private val weatherRepository: IWeatherRepository,
 ) : Middleware<MainState, MainAction> {
 
@@ -25,6 +31,10 @@ class MainDataMiddleware(
         when (action) {
             is MainAction.FetchForecast -> {
                 fetchForecast(lat = 47.2213858, lon = 39.7114196, store = store)
+            }
+
+            is MainAction.NavigateTo -> {
+                navigationManager.navigate(ForecastDirections.DetailForecast)
             }
 
             is MainAction.OnActionErrorClicked -> {
@@ -57,7 +67,11 @@ class MainDataMiddleware(
             }
         }
     }
-    private suspend fun handlerErrors(failureResponse: FailureResponse?, store: Store<MainState, MainAction>) {
+
+    private suspend fun handlerErrors(
+        failureResponse: FailureResponse?,
+        store: Store<MainState, MainAction>
+    ) {
         when (failureResponse) {
             OnHttpError.Code1 -> store.dispatch(MainAction.FetchForecast)
             OnHttpError.Code2 -> {}
