@@ -73,7 +73,7 @@ class MainDataMiddleware(
             OnExceptionError.ExHttpException -> {
                 store.dispatch(MainAction.FetchForecast)
             }
-            null -> Log.d("Logging", "MainAction.FixError -> null")
+            null -> Log.d("Logging", "MainAction.OnActionErrorClicked -> null")
         }
     }
 
