@@ -15,7 +15,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import net.denis.weatherapp.R
-import net.denis.weatherapp.core.presentation.ui.components.ErrorAlertDialog
 import net.denis.weatherapp.core.presentation.ui.components.Toolbar
 import net.denis.weatherapp.core.presentation.ui.theme.backgroundColor
 import net.denis.weatherapp.features.detail_forecast.model.DualCard
@@ -23,7 +22,6 @@ import net.denis.weatherapp.features.detail_forecast.model.SingleCard
 import net.denis.weatherapp.features.detail_forecast.mvi.DetailViewModel
 import net.denis.weatherapp.features.detail_forecast.screen.components.card_type.DualCardUi
 import net.denis.weatherapp.features.detail_forecast.screen.components.card_type.SingleCardUi
-import kotlin.system.exitProcess
 
 @Composable
 fun DetailScreen(
@@ -80,15 +78,4 @@ fun DetailScreen(
         }
     }
 
-
-    detailState.error?.let {
-        ErrorAlertDialog(
-            onActionErrorClick = {
-                vm.clearErrorState()
-                onActionErrorClicked()
-            },
-            onExitClick = { exitProcess(-1) },
-            failureResponse = it
-        )
-    }
 }

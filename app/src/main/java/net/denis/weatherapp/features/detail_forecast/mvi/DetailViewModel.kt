@@ -20,9 +20,4 @@ class DetailViewModel @Inject constructor(
         }
     }
 
-    fun clearErrorState() {
-        viewModelScope.launch {
-            detailStore.dispatch(DetailAction.ClearErrorState)
-        }
-    }
 }

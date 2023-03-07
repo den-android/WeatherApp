@@ -14,19 +14,6 @@ class DetailReducer : Reducer<DetailState, DetailAction> {
                 )
             }
 
-            is DetailAction.ShowError -> {
-                currentState.copy(
-                    isLoading = false,
-                    error = action.failureResponse
-                )
-            }
-
-            is DetailAction.ClearErrorState -> {
-                currentState.copy(
-                    error = null
-                )
-            }
-
             else -> currentState
         }
     }
