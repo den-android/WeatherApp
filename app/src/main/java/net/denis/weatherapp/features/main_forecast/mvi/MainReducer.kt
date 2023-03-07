@@ -1,7 +1,6 @@
 package net.denis.weatherapp.features.main_forecast.mvi
 
 import net.denis.weatherapp.core.presentation.redux.Reducer
-import net.denis.weatherapp.core.util.FailureResponse
 
 class MainReducer : Reducer<MainState, MainAction> {
 
@@ -21,16 +20,10 @@ class MainReducer : Reducer<MainState, MainAction> {
                 )
             }
 
-            is MainAction.ShowError -> {
+            is MainAction.SendErrorToUI -> {
                 currentState.copy(
                     isLoading = false,
                     failureResponse = action.failureResponse
-                )
-            }
-
-            is MainAction.FixError -> {
-                currentState.copy(
-                    failureResponse = null
                 )
             }
 
