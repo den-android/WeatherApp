@@ -6,10 +6,10 @@ import net.denis.weatherapp.features.detail_forecast.model.CityDetail
 import net.denis.weatherapp.features.detail_forecast.model.DetailData
 import net.denis.weatherapp.features.detail_forecast.model.DetailItem
 import net.denis.weatherapp.features.detail_forecast.model.mapToUiCard
-import net.denis.weatherapp.features.main_forecast.model.ForecastData
-import net.denis.weatherapp.features.main_forecast.model.ForecastItem
-import net.denis.weatherapp.features.main_forecast.model.HourlyItem
-import net.denis.weatherapp.features.main_forecast.model.HourlyModelCard
+import net.denis.weatherapp.features.current_forecast.model.ForecastData
+import net.denis.weatherapp.features.current_forecast.model.ForecastItem
+import net.denis.weatherapp.features.current_forecast.model.HourlyItem
+import net.denis.weatherapp.features.current_forecast.model.HourlyModelCard
 import java.text.SimpleDateFormat
 import java.util.*
 

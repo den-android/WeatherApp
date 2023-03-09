@@ -1,19 +1,19 @@
-package net.denis.weatherapp.features.main_forecast.mvi
+package net.denis.weatherapp.features.current_forecast.mvi
 
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.presentation.navigation.NavigationManager
 import net.denis.weatherapp.core.presentation.redux.BaseStore
 import javax.inject.Inject
 
-class MainStore @Inject constructor(
+class CurrentForecastStore @Inject constructor(
     navigationManager: NavigationManager,
     weatherRepository: IWeatherRepository,
-) : BaseStore<MainState, MainAction>(
-    initialState = MainState(),
-    reducer = MainReducer(),
+) : BaseStore<CurrentForecastState, CurrentForecastAction>(
+    initialState = CurrentForecastState(),
+    reducer = CurrentForecastReducer(),
     middlewares = listOf(
         //LoggingMiddleware(),
-        MainDataMiddleware(
+        CurrentForecastDataMiddleware(
             navigationManager = navigationManager,
             weatherRepository = weatherRepository
         ),

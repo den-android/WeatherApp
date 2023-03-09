@@ -1,4 +1,4 @@
-package net.denis.weatherapp.features.main_forecast.screen
+package net.denis.weatherapp.features.current_forecast.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -21,16 +21,16 @@ import net.denis.weatherapp.core.presentation.ui.components.CustomCircularProgre
 import net.denis.weatherapp.core.presentation.ui.components.ErrorAlertDialog
 import net.denis.weatherapp.core.presentation.ui.theme.backgroundColor
 import net.denis.weatherapp.features.detail_forecast.screen.components.BottomNavigateMenu
-import net.denis.weatherapp.features.main_forecast.mvi.MainViewModel
-import net.denis.weatherapp.features.main_forecast.screen.components.CurrentWeatherDisplay
-import net.denis.weatherapp.features.main_forecast.screen.components.WeatherForecastDisplay
+import net.denis.weatherapp.features.current_forecast.mvi.CurrentForecastViewModel
+import net.denis.weatherapp.features.current_forecast.screen.components.CurrentWeatherDisplay
+import net.denis.weatherapp.features.current_forecast.screen.components.WeatherForecastDisplay
 import kotlin.system.exitProcess
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,
-    vm: MainViewModel
+    vm: CurrentForecastViewModel
 ) {
     val mainState by vm.viewState.collectAsState()
 

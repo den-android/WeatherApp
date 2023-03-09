@@ -1,4 +1,4 @@
-package net.denis.weatherapp.features.main_forecast.mvi
+package net.denis.weatherapp.features.current_forecast.mvi
 
 import android.util.Log
 import net.denis.weatherapp.core.presentation.redux.Action

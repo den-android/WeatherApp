@@ -3,7 +3,7 @@ package net.denis.weatherapp.features.detail_forecast.mvi
 import androidx.annotation.Keep
 import net.denis.weatherapp.core.presentation.redux.State
 import net.denis.weatherapp.core.util.FailureResponse
-import net.denis.weatherapp.features.main_forecast.model.HourlyItem
+import net.denis.weatherapp.features.current_forecast.model.HourlyItem
 
 @Keep
 data class DetailState(

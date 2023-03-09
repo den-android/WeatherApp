@@ -1,4 +1,4 @@
-package net.denis.weatherapp.features.main_forecast.model
+package net.denis.weatherapp.features.current_forecast.model
 
 sealed class HourlyModelCard {
     data class CurrentHourlyCard(val hourlyItem: HourlyItem) : HourlyModelCard()

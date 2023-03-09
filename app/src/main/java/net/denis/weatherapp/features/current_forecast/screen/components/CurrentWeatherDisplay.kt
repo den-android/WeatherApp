@@ -1,4 +1,4 @@
-package net.denis.weatherapp.features.main_forecast.screen.components
+package net.denis.weatherapp.features.current_forecast.screen.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -9,7 +9,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import net.denis.weatherapp.core.presentation.ui.theme.WeatherText
 import net.denis.weatherapp.features.detail_forecast.screen.components.CustomTextBox
-import net.denis.weatherapp.features.main_forecast.model.WeatherType
+import net.denis.weatherapp.features.current_forecast.model.WeatherType
 
 @Composable
 fun CurrentWeatherDisplay(

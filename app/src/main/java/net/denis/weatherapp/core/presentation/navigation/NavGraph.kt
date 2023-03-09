@@ -10,8 +10,8 @@ import net.denis.weatherapp.features.detail_forecast.mvi.DetailViewModel
 import net.denis.weatherapp.features.detail_forecast.screen.DetailScreen
 import net.denis.weatherapp.features.fetch_new_city.mvi.FetchCityViewModel
 import net.denis.weatherapp.features.fetch_new_city.screen.FetchCityScreen
-import net.denis.weatherapp.features.main_forecast.mvi.MainViewModel
-import net.denis.weatherapp.features.main_forecast.screen.MainScreen
+import net.denis.weatherapp.features.current_forecast.mvi.CurrentForecastViewModel
+import net.denis.weatherapp.features.current_forecast.screen.MainScreen
 
 @Composable
 fun NavGraph(
@@ -32,7 +32,7 @@ fun NavGraph(
     ) {
 
         composable(ForecastDirections.CurrentForecast.destination) { backStackEntry ->
-            MainScreen(vm = hiltViewModel<MainViewModel>())
+            MainScreen(vm = hiltViewModel<CurrentForecastViewModel>())
         }
 
         composable(ForecastDirections.DetailForecast.destination) { backStackEntry ->

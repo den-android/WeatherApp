@@ -1,9 +1,7 @@
-package net.denis.weatherapp.features.main_forecast.model
+package net.denis.weatherapp.features.current_forecast.model
 
 import androidx.annotation.Keep
 import net.denis.weatherapp.features.detail_forecast.model.DetailData
-import java.text.SimpleDateFormat
-import java.util.*
 
 @Keep
 data class HourlyItem(

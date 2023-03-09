@@ -1,4 +1,4 @@
-package net.denis.weatherapp.features.main_forecast.screen.components
+package net.denis.weatherapp.features.current_forecast.screen.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,8 +9,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import net.denis.weatherapp.features.main_forecast.model.HourlyItem
-import net.denis.weatherapp.features.main_forecast.model.HourlyModelCard
+import net.denis.weatherapp.features.current_forecast.model.HourlyItem
+import net.denis.weatherapp.features.current_forecast.model.HourlyModelCard
 
 @Composable
 fun WeatherForecastDisplay(

@@ -1,7 +1,7 @@
 package net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast
 
 import androidx.annotation.Keep
-import net.denis.weatherapp.features.main_forecast.model.Meteorology
+import net.denis.weatherapp.features.current_forecast.model.Meteorology
 
 @Keep
 data class Weather(

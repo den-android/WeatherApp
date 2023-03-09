@@ -1,4 +1,4 @@
-package net.denis.weatherapp.features.main_forecast.screen.components
+package net.denis.weatherapp.features.current_forecast.screen.components
 
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable

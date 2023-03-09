@@ -1,7 +1,5 @@
-package net.denis.weatherapp.features.main_forecast.model
+package net.denis.weatherapp.features.current_forecast.model
 
-import android.os.Parcel
-import android.os.Parcelable
 import androidx.annotation.Keep
 import net.denis.weatherapp.features.detail_forecast.model.CityDetail
 

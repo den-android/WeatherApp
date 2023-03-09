@@ -1,4 +1,4 @@
-package net.denis.weatherapp.features.main_forecast.model
+package net.denis.weatherapp.features.current_forecast.model
 
 import androidx.annotation.DrawableRes
 import net.denis.weatherapp.R

@@ -1,33 +1,33 @@
-package net.denis.weatherapp.features.main_forecast.mvi
+package net.denis.weatherapp.features.current_forecast.mvi
 
 import net.denis.weatherapp.core.presentation.redux.Reducer
 
-class MainReducer : Reducer<MainState, MainAction> {
+class CurrentForecastReducer : Reducer<CurrentForecastState, CurrentForecastAction> {
 
-    override fun reduce(currentState: MainState, action: MainAction): MainState {
+    override fun reduce(currentState: CurrentForecastState, action: CurrentForecastAction): CurrentForecastState {
         return when (action) {
 
-            is MainAction.FetchingForecast -> {
+            is CurrentForecastAction.FetchingForecast -> {
                 currentState.copy(
                     isLoading = true,
                 )
             }
 
-            is MainAction.ForecastLoaded -> {
+            is CurrentForecastAction.ForecastLoaded -> {
                 currentState.copy(
                     isLoading = false,
                     forecastData = action.forecastData,
                 )
             }
 
-            is MainAction.SendErrorToUI -> {
+            is CurrentForecastAction.SendErrorToUI -> {
                 currentState.copy(
                     isLoading = false,
                     failureResponse = action.failureResponse
                 )
             }
 
-            is MainAction.ClearErrorState -> {
+            is CurrentForecastAction.ClearErrorState -> {
                 currentState.copy(
                     isLoading = false,
                     failureResponse = null,
