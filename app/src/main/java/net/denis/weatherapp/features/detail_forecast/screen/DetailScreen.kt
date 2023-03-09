@@ -26,8 +26,7 @@ import net.denis.weatherapp.features.detail_forecast.screen.components.card_type
 @Composable
 fun DetailScreen(
     modifier: Modifier = Modifier,
-    vm: DetailViewModel,
-    onActionErrorClicked: () -> Unit,
+    vm: DetailViewModel
 ) {
     val context = LocalContext.current
     val detailState by vm.viewState.collectAsState()

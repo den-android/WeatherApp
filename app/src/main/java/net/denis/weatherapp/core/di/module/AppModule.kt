@@ -4,7 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import net.denis.weatherapp.core.presentation.navigation.test.NavigationManager
+import kotlinx.coroutines.CoroutineScope
+import net.denis.weatherapp.core.presentation.navigation.NavigationManager
 import javax.inject.Singleton
 
 @Module
@@ -13,5 +14,5 @@ class AppModule {
 
     @Singleton
     @Provides
-    fun providesNavigationManager() = NavigationManager()
+    fun providesNavigationManager(coroutineScope: CoroutineScope) = NavigationManager(coroutineScope)
 }

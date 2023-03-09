@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import net.denis.weatherapp.core.presentation.navigation.INavigationCommand
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,6 +23,12 @@ class FetchCityViewModel @Inject constructor(
     fun onActionErrorClicked() {
         viewModelScope.launch {
             fetchCityStore.dispatch(FetchCityAction.OnActionErrorClicked)
+        }
+    }
+
+    fun navigateTo(destination: INavigationCommand) {
+        viewModelScope.launch {
+            fetchCityStore.dispatch(FetchCityAction.NavigateTo(destination))
         }
     }
 

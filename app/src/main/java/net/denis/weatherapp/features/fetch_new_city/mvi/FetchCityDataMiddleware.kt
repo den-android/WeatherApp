@@ -4,6 +4,7 @@ import android.util.Log
 import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.toEnCity
 import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.toRuCity
 import net.denis.weatherapp.core.data.interfaces.IGeocodingRepository
+import net.denis.weatherapp.core.presentation.navigation.NavigationManager
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
 import net.denis.weatherapp.core.util.FailureResponse
@@ -16,6 +17,7 @@ import java.net.UnknownHostException
 
 class FetchCityDataMiddleware(
     private val geocodingRepository: IGeocodingRepository,
+    private val navigationManager: NavigationManager,
 ) : Middleware<FetchCityState, FetchCityAction> {
     override suspend fun process(
         action: FetchCityAction,
@@ -25,6 +27,10 @@ class FetchCityDataMiddleware(
         when (action) {
             is FetchCityAction.FetchCity -> {
                 fetchNewCity(cityName = action.name, store = store)
+            }
+
+            is FetchCityAction.NavigateTo -> {
+                navigationManager.navigate(directions = action.destination)
             }
 
             is FetchCityAction.OnActionErrorClicked -> {

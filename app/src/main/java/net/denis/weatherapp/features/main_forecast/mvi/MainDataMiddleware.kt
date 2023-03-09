@@ -1,14 +1,13 @@
 package net.denis.weatherapp.features.main_forecast.mvi
 
 import android.util.Log
-import androidx.compose.runtime.collectAsState
-import androidx.navigation.compose.rememberNavController
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.mapToForecastData
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
-import net.denis.weatherapp.core.presentation.navigation.test.ForecastDirections
-import net.denis.weatherapp.core.presentation.navigation.test.NavigationManager
+import net.denis.weatherapp.core.presentation.navigation.NavigationManager
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
+import net.denis.weatherapp.core.util.Constants.DEFAULT_LAT
+import net.denis.weatherapp.core.util.Constants.DEFAULT_LON
 import net.denis.weatherapp.core.util.FailureResponse
 import net.denis.weatherapp.core.util.OnExceptionError
 import net.denis.weatherapp.core.util.OnHttpError
@@ -16,11 +15,10 @@ import net.denis.weatherapp.core.util.network.NetworkResult
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
-import javax.inject.Inject
 
-class MainDataMiddleware @Inject constructor(
-    private val navigationManager: NavigationManager,
+class MainDataMiddleware(
     private val weatherRepository: IWeatherRepository,
+    private val navigationManager: NavigationManager,
 ) : Middleware<MainState, MainAction> {
 
     override suspend fun process(
@@ -30,11 +28,11 @@ class MainDataMiddleware @Inject constructor(
     ) {
         when (action) {
             is MainAction.FetchForecast -> {
-                fetchForecast(lat = 47.2213858, lon = 39.7114196, store = store)
+                fetchForecast(lat = DEFAULT_LAT, lon = DEFAULT_LON, store = store)
             }
 
             is MainAction.NavigateTo -> {
-                navigationManager.navigate(ForecastDirections.DetailForecast)
+                navigationManager.navigate(action.destination)
             }
 
             is MainAction.OnActionErrorClicked -> {

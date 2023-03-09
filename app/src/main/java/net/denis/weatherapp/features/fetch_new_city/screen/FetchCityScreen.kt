@@ -13,10 +13,10 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import net.denis.weatherapp.R
+import net.denis.weatherapp.core.presentation.navigation.ForecastDirections
 import net.denis.weatherapp.core.presentation.ui.components.ErrorAlertDialog
 import net.denis.weatherapp.core.presentation.ui.components.Toolbar
 import net.denis.weatherapp.core.presentation.ui.theme.backgroundColor
-import net.denis.weatherapp.features.fetch_new_city.model.CityData
 import net.denis.weatherapp.features.fetch_new_city.mvi.FetchCityViewModel
 import net.denis.weatherapp.features.fetch_new_city.screen.components.ResponseTextBox
 import net.denis.weatherapp.features.fetch_new_city.screen.components.SearchCityTextField
@@ -27,7 +27,6 @@ import kotlin.system.exitProcess
 fun FetchCityScreen(
     modifier: Modifier = Modifier,
     vm: FetchCityViewModel,
-    navigateUp: (CityData) -> Unit,
 ) {
     val cityState by vm.viewState.collectAsState()
 
@@ -54,14 +53,16 @@ fun FetchCityScreen(
             Toolbar()
         }
         item {
-            SearchCityTextField(searchCity = { vm.fetchCity(it) })
+            SearchCityTextField(searchCity = {
+                vm.fetchCity(it)
+            })
         }
         cityState.cityData?.let { cityData ->
             item {
                 ResponseTextBox(
                     cityData = cityData,
                     onItemClick = {
-                        navigateUp(cityData)
+                        vm.navigateTo(ForecastDirections.CurrentForecast)
                     }
                 )
             }

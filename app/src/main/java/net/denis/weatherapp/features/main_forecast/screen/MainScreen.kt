@@ -16,11 +16,11 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import net.denis.weatherapp.R
+import net.denis.weatherapp.core.presentation.navigation.ForecastDirections
 import net.denis.weatherapp.core.presentation.ui.components.CustomCircularProgressIndicator
 import net.denis.weatherapp.core.presentation.ui.components.ErrorAlertDialog
 import net.denis.weatherapp.core.presentation.ui.theme.backgroundColor
 import net.denis.weatherapp.features.detail_forecast.screen.components.BottomNavigateMenu
-import net.denis.weatherapp.features.main_forecast.model.HourlyItem
 import net.denis.weatherapp.features.main_forecast.mvi.MainViewModel
 import net.denis.weatherapp.features.main_forecast.screen.components.CurrentWeatherDisplay
 import net.denis.weatherapp.features.main_forecast.screen.components.WeatherForecastDisplay
@@ -30,9 +30,7 @@ import kotlin.system.exitProcess
 @Composable
 fun MainScreen(
     modifier: Modifier = Modifier,
-    vm: MainViewModel,
-    onRangeTimeClicked: (HourlyItem) -> Unit,
-    onFabClicked: () -> Unit,
+    vm: MainViewModel
 ) {
     val mainState by vm.viewState.collectAsState()
 
@@ -46,7 +44,7 @@ fun MainScreen(
 
     Scaffold(
         bottomBar = {
-            BottomNavigateMenu(onFabClick = { onFabClicked() })
+            BottomNavigateMenu(onFabClick = { vm.navigateTo(ForecastDirections.FetchNewCity) })
         }
     ) { padding ->
         Box(modifier = modifier.padding(padding)) {
@@ -64,7 +62,6 @@ fun MainScreen(
                         CustomCircularProgressIndicator()
                     }
                     state.forecastData?.forecast?.let { itemForecast ->
-
                         Box(modifier = modifier.weight(3f)) {
                             CurrentWeatherDisplay(
                                 city = state.forecastData.cityDetail.cityName,
@@ -79,7 +76,7 @@ fun MainScreen(
                             WeatherForecastDisplay(
                                 hourlyList = state.forecastData.hourlyList,
                                 onClick = {
-                                    onRangeTimeClicked(it)
+                                    vm.navigateTo(ForecastDirections.DetailForecast)
                                 }
                             )
                         }

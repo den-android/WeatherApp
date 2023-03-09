@@ -1,5 +1,6 @@
 package net.denis.weatherapp.features.main_forecast.mvi
 
+import net.denis.weatherapp.core.presentation.navigation.INavigationCommand
 import net.denis.weatherapp.core.presentation.redux.Action
 import net.denis.weatherapp.core.util.FailureResponse
 import net.denis.weatherapp.features.main_forecast.model.ForecastData
@@ -14,5 +15,5 @@ sealed class MainAction : Action {
 
     object ClearErrorState : MainAction()
 
-    object NavigateTo : MainAction()
+    data class NavigateTo(val destination: INavigationCommand) : MainAction()
 }

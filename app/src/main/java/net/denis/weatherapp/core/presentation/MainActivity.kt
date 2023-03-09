@@ -7,12 +7,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import net.denis.weatherapp.core.presentation.navigation.test.NavGraph
+import net.denis.weatherapp.core.presentation.navigation.NavGraph
+import net.denis.weatherapp.core.presentation.navigation.NavigationManager
 import net.denis.weatherapp.core.presentation.ui.theme.WeatherAppTheme
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var navigationManager: NavigationManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -21,8 +28,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    //SetupNavGraph()
-                    NavGraph()
+                    val navController = rememberNavController()
+
+                    NavGraph(navigationManager = navigationManager, navController = navController)
                 }
             }
         }

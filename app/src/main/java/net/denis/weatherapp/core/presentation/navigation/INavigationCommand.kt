@@ -1,10 +1,8 @@
-package net.denis.weatherapp.core.presentation.navigation.test
+package net.denis.weatherapp.core.presentation.navigation
 
 import androidx.navigation.NamedNavArgument
 
-interface NavigationCommand {
-
+interface INavigationCommand {
     val arguments: List<NamedNavArgument>
     val destination: String
-
 }
