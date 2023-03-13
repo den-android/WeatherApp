@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import net.denis.weatherapp.R
-import net.denis.weatherapp.core.presentation.navigation.ForecastDirections
+import net.denis.weatherapp.core.presentation.navigation.directions.CurrentForecastDirections
 import net.denis.weatherapp.core.presentation.ui.components.CustomCircularProgressIndicator
 import net.denis.weatherapp.core.presentation.ui.components.ErrorAlertDialog
 import net.denis.weatherapp.core.presentation.ui.theme.backgroundColor
@@ -44,7 +44,7 @@ fun MainScreen(
 
     Scaffold(
         bottomBar = {
-            BottomNavigateMenu(onFabClick = { vm.navigateTo(ForecastDirections.FetchNewCity) })
+            BottomNavigateMenu(onFabClick = { vm.navigateTo(CurrentForecastDirections.FetchNewCity) })
         }
     ) { padding ->
         Box(modifier = modifier.padding(padding)) {
@@ -76,7 +76,7 @@ fun MainScreen(
                             WeatherForecastDisplay(
                                 hourlyList = state.forecastData.hourlyList,
                                 onClick = {
-                                    vm.navigateTo(ForecastDirections.DetailForecast)
+                                    vm.navigateTo(CurrentForecastDirections.DetailForecast)
                                 }
                             )
                         }
