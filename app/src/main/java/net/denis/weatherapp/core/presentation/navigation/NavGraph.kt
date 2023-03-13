@@ -7,6 +7,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import net.denis.weatherapp.core.presentation.navigation.directions.CurrentForecastDirections
+import net.denis.weatherapp.core.presentation.navigation.directions.DetailForecastDirections
+import net.denis.weatherapp.core.presentation.navigation.directions.FetchCityDirections
 import net.denis.weatherapp.features.detail_forecast.mvi.DetailViewModel
 import net.denis.weatherapp.features.detail_forecast.screen.DetailScreen
 import net.denis.weatherapp.features.fetch_new_city.mvi.FetchCityViewModel
@@ -36,11 +38,11 @@ fun NavGraph(
             MainScreen(vm = hiltViewModel<CurrentForecastViewModel>())
         }
 
-        composable(CurrentForecastDirections.DetailForecast.destination) { backStackEntry ->
+        composable(DetailForecastDirections.DetailForecast.destination) { backStackEntry ->
             DetailScreen(vm = hiltViewModel<DetailViewModel>())
         }
 
-        composable(CurrentForecastDirections.FetchNewCity.destination) { backStackEntry ->
+        composable(FetchCityDirections.FetchNewCity.destination) { backStackEntry ->
             FetchCityScreen(vm = hiltViewModel<FetchCityViewModel>())
         }
 

@@ -13,7 +13,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import net.denis.weatherapp.R
-import net.denis.weatherapp.core.presentation.navigation.ForecastDirections
+import net.denis.weatherapp.core.presentation.navigation.directions.CurrentForecastDirections
 import net.denis.weatherapp.core.presentation.ui.components.ErrorAlertDialog
 import net.denis.weatherapp.core.presentation.ui.components.Toolbar
 import net.denis.weatherapp.core.presentation.ui.theme.backgroundColor
@@ -62,7 +62,7 @@ fun FetchCityScreen(
                 ResponseTextBox(
                     cityData = cityData,
                     onItemClick = {
-                        vm.navigateTo(ForecastDirections.CurrentForecast)
+                        vm.navigateTo(CurrentForecastDirections.CurrentForecast)
                     }
                 )
             }
