@@ -60,7 +60,7 @@ fun FetchCityScreen(
         state.cityData?.let { cityData ->
             item {
                 ResponseTextBox(
-                    cityData = cityData,
+                    cityName = cityData.name,
                     onItemClick = {
                         vm.navigateTo(CurrentForecastDirections.CurrentForecast, cityData)
                     }

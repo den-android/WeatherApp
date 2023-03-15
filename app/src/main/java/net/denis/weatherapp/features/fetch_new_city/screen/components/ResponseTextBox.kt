@@ -20,7 +20,7 @@ import net.denis.weatherapp.features.fetch_new_city.model.CityData
 @Composable
 fun ResponseTextBox(
     modifier: Modifier = Modifier,
-    cityData: CityData,
+    cityName: String,
     onItemClick: () -> Unit,
 ) {
     Box(
@@ -42,7 +42,7 @@ fun ResponseTextBox(
             verticalArrangement = Arrangement.Center,
         ) {
             Text(
-                text = cityData.name,
+                text = cityName,
                 color = PrimaryText,
                 fontSize = 32.sp,
                 textAlign = TextAlign.Center,
