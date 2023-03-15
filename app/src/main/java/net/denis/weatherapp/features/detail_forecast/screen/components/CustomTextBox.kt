@@ -1,6 +1,5 @@
 package net.denis.weatherapp.features.detail_forecast.screen.components
 
-import androidx.compose.foundation.background
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -9,7 +8,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
-import net.denis.weatherapp.core.presentation.ui.theme.SecondaryColor
 
 @Composable
 fun CustomTextBox(

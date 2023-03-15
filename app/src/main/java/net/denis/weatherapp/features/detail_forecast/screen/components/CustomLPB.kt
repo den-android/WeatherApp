@@ -1,7 +1,6 @@
 package net.denis.weatherapp.features.detail_forecast.screen.components
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -11,7 +10,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.dp
-import net.denis.weatherapp.core.presentation.ui.theme.SecondaryColor
 
 @Composable
 fun CustomLPB(

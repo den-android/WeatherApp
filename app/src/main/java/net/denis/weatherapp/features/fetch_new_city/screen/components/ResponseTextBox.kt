@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import net.denis.weatherapp.core.presentation.ui.theme.CellBorderColor
 import net.denis.weatherapp.core.presentation.ui.theme.PrimaryText
-import net.denis.weatherapp.features.fetch_new_city.model.CityData
 
 @Composable
 fun ResponseTextBox(

@@ -8,8 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import net.denis.weatherapp.core.presentation.ui.theme.WeatherText
-import net.denis.weatherapp.features.detail_forecast.screen.components.CustomTextBox
 import net.denis.weatherapp.features.current_forecast.model.WeatherType
+import net.denis.weatherapp.features.detail_forecast.screen.components.CustomTextBox
 
 @Composable
 fun CurrentWeatherDisplay(

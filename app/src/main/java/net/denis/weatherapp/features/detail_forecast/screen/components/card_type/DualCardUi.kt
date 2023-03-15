@@ -1,6 +1,5 @@
 package net.denis.weatherapp.features.detail_forecast.screen.components.card_type
 
-import android.widget.Space
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
