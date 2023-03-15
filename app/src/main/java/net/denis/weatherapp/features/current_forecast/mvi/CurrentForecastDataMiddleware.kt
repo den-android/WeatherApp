@@ -13,6 +13,7 @@ import net.denis.weatherapp.core.util.FailureResponse
 import net.denis.weatherapp.core.util.OnExceptionError
 import net.denis.weatherapp.core.util.OnHttpError
 import net.denis.weatherapp.core.util.network.NetworkResult
+import net.denis.weatherapp.features.fetch_new_city.model.CityData
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -30,7 +31,12 @@ class CurrentForecastDataMiddleware(
     ) {
         when (action) {
             is CurrentForecastAction.FetchForecast -> {
-                fetchForecast(lat = DEFAULT_LAT, lon = DEFAULT_LON, store = store)
+                try {
+                    val coords = dataBuffer.getData() as CityData
+                    fetchForecast(lat = coords.lat, lon = coords.lon, store = store)
+                } catch (ex: Exception) {
+                    fetchForecast(lat = DEFAULT_LAT, lon = DEFAULT_LON, store = store)
+                }
             }
 
             is CurrentForecastAction.NavigateTo -> {
