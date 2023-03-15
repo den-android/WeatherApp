@@ -16,16 +16,15 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import net.denis.weatherapp.R
-import net.denis.weatherapp.core.presentation.navigation.directions.CurrentForecastDirections
 import net.denis.weatherapp.core.presentation.navigation.directions.DetailForecastDirections
 import net.denis.weatherapp.core.presentation.navigation.directions.FetchCityDirections
 import net.denis.weatherapp.core.presentation.ui.components.CustomCircularProgressIndicator
 import net.denis.weatherapp.core.presentation.ui.components.ErrorAlertDialog
 import net.denis.weatherapp.core.presentation.ui.theme.backgroundColor
-import net.denis.weatherapp.features.detail_forecast.screen.components.BottomNavigateMenu
 import net.denis.weatherapp.features.current_forecast.mvi.CurrentForecastViewModel
 import net.denis.weatherapp.features.current_forecast.screen.components.CurrentWeatherDisplay
 import net.denis.weatherapp.features.current_forecast.screen.components.WeatherForecastDisplay
+import net.denis.weatherapp.features.detail_forecast.screen.components.BottomNavigateMenu
 import kotlin.system.exitProcess
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,9 +33,9 @@ fun MainScreen(
     modifier: Modifier = Modifier,
     vm: CurrentForecastViewModel
 ) {
-    val mainState by vm.viewState.collectAsState()
+    val state by vm.viewState.collectAsState()
 
-    mainState.failureResponse?.let {
+    state.failureResponse?.let {
         ErrorAlertDialog(
             onActionErrorClick = { vm.onActionErrorClicked() },
             onExitClick = { exitProcess(-1) },
@@ -46,11 +45,13 @@ fun MainScreen(
 
     Scaffold(
         bottomBar = {
-            BottomNavigateMenu(onFabClick = { vm.navigateTo(FetchCityDirections.FetchNewCity) })
+            BottomNavigateMenu(onFabClick = {
+                vm.navigateTo(FetchCityDirections.FetchNewCity, null)
+            })
         }
     ) { padding ->
         Box(modifier = modifier.padding(padding)) {
-            mainState?.let { state ->
+            state?.let { state ->
                 Column(
                     modifier = modifier
                         .fillMaxSize()
@@ -70,15 +71,18 @@ fun MainScreen(
                                 weatherIcon = itemForecast.meteorology[0].id,
                                 temp = itemForecast.temp,
                                 weatherDesc = itemForecast.meteorology[0].description,
-                                currentDateTime = itemForecast.dateTime.toString()
+                                currentDateTime = itemForecast.dateTime
                             )
                         }
 
                         Box(modifier = modifier.weight(1f)) {
                             WeatherForecastDisplay(
                                 hourlyList = state.forecastData.hourlyList,
-                                onClick = {
-                                    vm.navigateTo(DetailForecastDirections.DetailForecast)
+                                onClick = { hourlyItem ->
+                                    vm.navigateTo(
+                                        destination = DetailForecastDirections.DetailForecast,
+                                        params = hourlyItem.detailData
+                                    )
                                 }
                             )
                         }

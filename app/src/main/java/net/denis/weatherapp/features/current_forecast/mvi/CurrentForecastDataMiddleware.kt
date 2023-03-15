@@ -1,6 +1,7 @@
 package net.denis.weatherapp.features.current_forecast.mvi
 
 import android.util.Log
+import net.denis.weatherapp.core.data.datasource.local.DataBuffer
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.mapToForecastData
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.presentation.navigation.NavigationManager
@@ -19,6 +20,7 @@ import java.net.UnknownHostException
 class CurrentForecastDataMiddleware(
     private val weatherRepository: IWeatherRepository,
     private val navigationManager: NavigationManager,
+    private val dataBuffer: DataBuffer,
 ) : Middleware<CurrentForecastState, CurrentForecastAction> {
 
     override suspend fun process(
@@ -32,6 +34,7 @@ class CurrentForecastDataMiddleware(
             }
 
             is CurrentForecastAction.NavigateTo -> {
+                action.params?.let { dataBuffer.setData(it) }
                 navigationManager.navigate(action.destination)
             }
 
@@ -89,7 +92,10 @@ class CurrentForecastDataMiddleware(
         }
     }
 
-    private suspend fun handlerHttpCode(code: Int, store: Store<CurrentForecastState, CurrentForecastAction>) {
+    private suspend fun handlerHttpCode(
+        code: Int,
+        store: Store<CurrentForecastState, CurrentForecastAction>
+    ) {
         when (code) {
             1 -> {
                 store.dispatch(CurrentForecastAction.SendErrorToUI(OnHttpError.Code1))
@@ -103,7 +109,10 @@ class CurrentForecastDataMiddleware(
         }
     }
 
-    private suspend fun handlerException(ex: Exception, store: Store<CurrentForecastState, CurrentForecastAction>) {
+    private suspend fun handlerException(
+        ex: Exception,
+        store: Store<CurrentForecastState, CurrentForecastAction>
+    ) {
         when (ex) {
             is UnknownHostException -> {
                 store.dispatch(CurrentForecastAction.SendErrorToUI(OnExceptionError.ExUnknownHostException))
@@ -116,5 +125,4 @@ class CurrentForecastDataMiddleware(
             }
         }
     }
-
 }

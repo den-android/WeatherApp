@@ -15,5 +15,5 @@ sealed class CurrentForecastAction : Action {
 
     object ClearErrorState : CurrentForecastAction()
 
-    data class NavigateTo(val destination: INavigationCommand) : CurrentForecastAction()
+    data class NavigateTo(val destination: INavigationCommand, val params: Any?) : CurrentForecastAction()
 }

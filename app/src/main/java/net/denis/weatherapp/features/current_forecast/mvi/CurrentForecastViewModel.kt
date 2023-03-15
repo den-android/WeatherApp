@@ -16,10 +16,10 @@ class CurrentForecastViewModel @Inject constructor(
     val viewState: StateFlow<CurrentForecastState> = currentForecastStore.state
 
     init {
-        fetchForecast()
+        initCurrentScreen()
     }
 
-    private fun fetchForecast() {
+    private fun initCurrentScreen() {
         viewModelScope.launch {
             currentForecastStore.dispatch(CurrentForecastAction.FetchForecast)
         }
@@ -31,9 +31,9 @@ class CurrentForecastViewModel @Inject constructor(
         }
     }
 
-    fun navigateTo(destination: INavigationCommand) {
+    fun navigateTo(destination: INavigationCommand, params: Any?) {
         viewModelScope.launch {
-            currentForecastStore.dispatch(CurrentForecastAction.NavigateTo(destination = destination))
+            currentForecastStore.dispatch(CurrentForecastAction.NavigateTo(destination = destination, params = params))
         }
     }
 
