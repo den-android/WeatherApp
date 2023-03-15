@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import net.denis.weatherapp.features.current_forecast.model.HourlyItem
 import javax.inject.Inject
 
 @HiltViewModel
@@ -14,9 +13,13 @@ class DetailViewModel @Inject constructor(
 ) : ViewModel() {
     val viewState: StateFlow<DetailState> = detailStore.state
 
-    fun getHourlyItem(hourlyItem: HourlyItem) {
+    init {
+        loadingDetailData()
+    }
+
+    private fun loadingDetailData() {
         viewModelScope.launch {
-            detailStore.dispatch(DetailAction.GetHourlyItem(hourlyItem = hourlyItem))
+            detailStore.dispatch(DetailAction.LoadingDetailData)
         }
     }
 

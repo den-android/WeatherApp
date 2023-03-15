@@ -29,7 +29,7 @@ fun DetailScreen(
     vm: DetailViewModel
 ) {
     val context = LocalContext.current
-    val detailState by vm.viewState.collectAsState()
+    val state by vm.viewState.collectAsState()
 
     LazyColumn(
         modifier = modifier
@@ -41,14 +41,13 @@ fun DetailScreen(
             ),
     ) {
         item {
-            detailState?.hourlyItem?.let {
+            state.detailData?.cityDetail?.cityName?.let {
                 Toolbar(
-                    label = it.detailData.cityDetail.cityName,
-                    temp = it.temp
+                    label = it,
                 )
             }
         }
-        detailState.hourlyItem?.detailData?.detailList?.let { listWeather ->
+        state.detailData?.detailList?.let { listWeather ->
             items(listWeather) { item ->
                 when (item) {
 

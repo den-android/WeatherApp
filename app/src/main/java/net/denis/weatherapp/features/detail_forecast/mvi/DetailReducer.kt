@@ -6,11 +6,16 @@ class DetailReducer : Reducer<DetailState, DetailAction> {
 
     override fun reduce(currentState: DetailState, action: DetailAction): DetailState {
         return when (action) {
+            is DetailAction.LoadingDetailData -> {
+                currentState.copy(
+                    isLoading = true
+                )
+            }
 
-            is DetailAction.GetHourlyItem -> {
+            is DetailAction.LoadedDetailData -> {
                 currentState.copy(
                     isLoading = false,
-                    hourlyItem = action.hourlyItem,
+                    detailData = action.detailData,
                 )
             }
 
