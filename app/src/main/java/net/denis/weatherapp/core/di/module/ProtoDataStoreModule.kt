@@ -14,16 +14,16 @@ import net.denis.weatherapp.core.util.CityDataPreferencesSerializer
 import net.denis.weatherapp.features.fetch_new_city.model.CityData
 import javax.inject.Singleton
 
-private const val CITY_PREFERENCES_NAME = "city_preferences"
+//private const val CITY_PREFERENCES_NAME = "city_preferences"
 private const val DATA_STORE_FILE_NAME = "city_prefs.pb"
 
 @InstallIn(SingletonComponent::class)
 @Module
-object DataStoreModule {
+object ProtoDataStoreModule {
 
     @Singleton
     @Provides
-    fun providePreferencesDataStore(
+    fun provideProtoDataStore(
         @ApplicationContext context: Context,
         scopeIo: CoroutineScope
     ): DataStore<CityData> {
