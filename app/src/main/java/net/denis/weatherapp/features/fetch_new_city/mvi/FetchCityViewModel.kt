@@ -26,9 +26,9 @@ class FetchCityViewModel @Inject constructor(
         }
     }
 
-    fun navigateTo(destination: INavigationCommand) {
+    fun navigateTo(destination: INavigationCommand, params: Any?) {
         viewModelScope.launch {
-            fetchCityStore.dispatch(FetchCityAction.NavigateTo(destination))
+            fetchCityStore.dispatch(FetchCityAction.NavigateTo(destination, params))
         }
     }
 

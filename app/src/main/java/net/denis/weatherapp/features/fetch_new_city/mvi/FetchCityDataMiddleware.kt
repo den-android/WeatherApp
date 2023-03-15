@@ -1,6 +1,7 @@
 package net.denis.weatherapp.features.fetch_new_city.mvi
 
 import android.util.Log
+import net.denis.weatherapp.core.data.datasource.local.DataBuffer
 import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.toEnCity
 import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.toRuCity
 import net.denis.weatherapp.core.data.interfaces.IGeocodingRepository
@@ -18,6 +19,7 @@ import java.net.UnknownHostException
 class FetchCityDataMiddleware(
     private val geocodingRepository: IGeocodingRepository,
     private val navigationManager: NavigationManager,
+    private val dataBuffer: DataBuffer
 ) : Middleware<FetchCityState, FetchCityAction> {
     override suspend fun process(
         action: FetchCityAction,
@@ -25,11 +27,13 @@ class FetchCityDataMiddleware(
         store: Store<FetchCityState, FetchCityAction>
     ) {
         when (action) {
+
             is FetchCityAction.FetchCity -> {
                 fetchNewCity(cityName = action.name, store = store)
             }
 
             is FetchCityAction.NavigateTo -> {
+                action.params?.let { dataBuffer.setData(it) }
                 navigationManager.navigate(directions = action.destination)
             }
 
@@ -42,8 +46,7 @@ class FetchCityDataMiddleware(
     }
 
     private suspend fun fetchNewCity(
-        cityName: String,
-        store: Store<FetchCityState, FetchCityAction>
+        cityName: String, store: Store<FetchCityState, FetchCityAction>
     ) {
         geocodingRepository.fetchNewCity(cityName).collect() { response ->
             when (response) {
@@ -67,8 +70,7 @@ class FetchCityDataMiddleware(
     }
 
     private suspend fun handlerErrors(
-        failureResponse: FailureResponse?,
-        store: Store<FetchCityState, FetchCityAction>
+        failureResponse: FailureResponse?, store: Store<FetchCityState, FetchCityAction>
     ) {
         when (failureResponse) {
             OnHttpError.Code1 -> {}
@@ -103,8 +105,7 @@ class FetchCityDataMiddleware(
     }
 
     private suspend fun handlerException(
-        ex: Exception,
-        store: Store<FetchCityState, FetchCityAction>
+        ex: Exception, store: Store<FetchCityState, FetchCityAction>
     ) {
         when (ex) {
             is UnknownHostException -> {

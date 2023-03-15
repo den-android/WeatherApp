@@ -28,9 +28,9 @@ fun FetchCityScreen(
     modifier: Modifier = Modifier,
     vm: FetchCityViewModel,
 ) {
-    val cityState by vm.viewState.collectAsState()
+    val state by vm.viewState.collectAsState()
 
-    cityState?.let {
+    state?.let {
         it.failureResponse?.let { failureResponse ->
             ErrorAlertDialog(
                 onActionErrorClick = { vm.onActionErrorClicked() },
@@ -57,12 +57,12 @@ fun FetchCityScreen(
                 vm.fetchCity(it)
             })
         }
-        cityState.cityData?.let { cityData ->
+        state.cityData?.let { cityData ->
             item {
                 ResponseTextBox(
                     cityData = cityData,
                     onItemClick = {
-                        vm.navigateTo(CurrentForecastDirections.CurrentForecast)
+                        vm.navigateTo(CurrentForecastDirections.CurrentForecast, cityData)
                     }
                 )
             }
