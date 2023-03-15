@@ -34,15 +34,15 @@ fun NavGraph(
         startDestination = CurrentForecastDirections.CurrentForecast.destination
     ) {
 
-        composable(CurrentForecastDirections.CurrentForecast.destination) { backStackEntry ->
+        composable(CurrentForecastDirections.CurrentForecast.destination) {
             MainScreen(vm = hiltViewModel<CurrentForecastViewModel>())
         }
 
-        composable(DetailForecastDirections.DetailForecast.destination) { backStackEntry ->
+        composable(DetailForecastDirections.DetailForecast.destination) {
             DetailScreen(vm = hiltViewModel<DetailViewModel>())
         }
 
-        composable(FetchCityDirections.FetchNewCity.destination) { backStackEntry ->
+        composable(FetchCityDirections.FetchNewCity.destination) {
             FetchCityScreen(vm = hiltViewModel<FetchCityViewModel>())
         }
 
