@@ -46,7 +46,7 @@ fun MainScreen(
     Scaffold(
         bottomBar = {
             BottomNavigateMenu(onFabClick = {
-                vm.navigateTo(FetchCityDirections.FetchNewCity, null)
+                vm.navigateTo(FetchCityDirections.FetchNewCity)
             })
         }
     ) { padding ->
