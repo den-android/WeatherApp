@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import net.denis.weatherapp.core.presentation.navigation.INavigationCommand
+import net.denis.weatherapp.features.detail_forecast.model.DetailData
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,7 +32,7 @@ class CurrentForecastViewModel @Inject constructor(
         }
     }
 
-    fun <P> navigateTo(destination: INavigationCommand, params: P? = null) {
+    fun navigateTo(destination: INavigationCommand, params: Any? = null) {
         viewModelScope.launch {
             currentForecastStore.dispatch(
                 CurrentForecastAction.NavigateTo(

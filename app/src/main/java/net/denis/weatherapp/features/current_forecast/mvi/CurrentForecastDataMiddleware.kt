@@ -1,8 +1,10 @@
 package net.denis.weatherapp.features.current_forecast.mvi
 
 import android.util.Log
+import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.City
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.mapToForecastData
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
+import net.denis.weatherapp.core.presentation.navigation.INavigationCommand
 import net.denis.weatherapp.core.presentation.navigation.NavigationManager
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
@@ -11,7 +13,6 @@ import net.denis.weatherapp.core.util.OnExceptionError
 import net.denis.weatherapp.core.util.OnHttpError
 import net.denis.weatherapp.core.util.network.NetworkResult
 import net.denis.weatherapp.features.detail_forecast.model.DetailData
-import net.denis.weatherapp.features.fetch_new_city.model.CityData
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -32,9 +33,7 @@ class CurrentForecastDataMiddleware(
             }
 
             is CurrentForecastAction.NavigateTo -> {
-                val data = action.params
-                writeDetailData(detailData = data)
-                navigationManager.navigate(action.destination)
+               navigateWithParams(params = action.params, destination = action.destination)
             }
 
             is CurrentForecastAction.OnActionErrorClicked -> {
@@ -48,28 +47,38 @@ class CurrentForecastDataMiddleware(
     private suspend fun fetchForecast(store: Store<CurrentForecastState, CurrentForecastAction>) {
         val cityData = readCityCoords()
         store.dispatch(CurrentForecastAction.FetchingForecast)
-        weatherRepository.fetchForecast(lat = cityData.lat, lon = cityData.lon).collect { response ->
-            when (response) {
-                is NetworkResult.Success -> {
-                    store.dispatch(
-                        CurrentForecastAction.ForecastLoaded(forecastData = response.data.mapToForecastData())
-                    )
-                }
-                is NetworkResult.Failure -> {
-                    handlerHttpCode(response.code, store)
-                }
-                is NetworkResult.Exception -> {
-                    handlerException(response.e, store)
+        weatherRepository.fetchForecast(lat = cityData.lat, lon = cityData.lon)
+            .collect { response ->
+                when (response) {
+                    is NetworkResult.Success -> {
+                        store.dispatch(
+                            CurrentForecastAction.ForecastLoaded(forecastData = response.data.mapToForecastData())
+                        )
+                    }
+                    is NetworkResult.Failure -> {
+                        handlerHttpCode(response.code, store)
+                    }
+                    is NetworkResult.Exception -> {
+                        handlerException(response.e, store)
+                    }
                 }
             }
+    }
+
+    private suspend fun navigateWithParams(params: Any?, destination: INavigationCommand) {
+        when (params) {
+            is DetailData -> {
+                writeDetailData(detailData = params)
+            }
         }
+        navigationManager.navigate(destination)
     }
 
     private suspend fun writeDetailData(detailData: DetailData) {
         weatherRepository.writeDetailParams(detailData = detailData)
     }
 
-    private suspend fun readCityCoords() = weatherRepository.readCityCoords()
+    private suspend fun readCityCoords()  = weatherRepository.readCityCoords()
 
     private suspend fun handlerErrors(
         failureResponse: FailureResponse?,

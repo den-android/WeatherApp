@@ -4,6 +4,7 @@ import android.util.Log
 import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.toEnCity
 import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.toRuCity
 import net.denis.weatherapp.core.data.interfaces.IGeocodingRepository
+import net.denis.weatherapp.core.presentation.navigation.INavigationCommand
 import net.denis.weatherapp.core.presentation.navigation.NavigationManager
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
@@ -31,9 +32,8 @@ class FetchCityDataMiddleware(
                 fetchNewCity(cityName = action.name, store = store)
             }
 
-            is FetchCityAction.NavigateTo -> {
-                writeCoords(cityData = action.params)
-                navigationManager.navigate(directions = action.destination)
+            is FetchCityAction.NavigateTo<*> -> {
+                navigateWithParams(params = action.params, destination = action.destination)
             }
 
             is FetchCityAction.OnActionErrorClicked -> {
@@ -66,6 +66,15 @@ class FetchCityDataMiddleware(
                 }
             }
         }
+    }
+
+    private suspend fun navigateWithParams(params: Any?, destination: INavigationCommand) {
+        when (params) {
+            is CityData -> {
+                writeCoords(cityData = params)
+            }
+        }
+        navigationManager.navigate(directions = destination)
     }
 
     private suspend fun writeCoords(cityData: CityData) {

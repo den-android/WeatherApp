@@ -13,5 +13,5 @@ sealed class FetchCityAction : Action {
     object OnActionErrorClicked : FetchCityAction()
     object ClearErrorState : FetchCityAction()
 
-    data class NavigateTo(val destination: INavigationCommand, val params: CityData) : FetchCityAction()
+    data class NavigateTo<P>(val destination: INavigationCommand, val params: P? = null) : FetchCityAction()
 }
