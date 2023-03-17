@@ -10,8 +10,8 @@ import javax.inject.Inject
 class LocalDatasource @Inject constructor(
     private val dataBuffer: DataBuffer
 ) : ILocalDatasource {
-    override suspend fun writeDetailParams(detailData: DetailData) {
-        dataBuffer.setData(detailData)
+    override suspend fun writeDetailParams(detailParams: DetailData) {
+        dataBuffer.setData(detailParams)
     }
 
     override suspend fun readDetailParams(): DetailData {

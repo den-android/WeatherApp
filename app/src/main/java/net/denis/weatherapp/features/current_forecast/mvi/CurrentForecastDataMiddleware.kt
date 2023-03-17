@@ -1,7 +1,6 @@
 package net.denis.weatherapp.features.current_forecast.mvi
 
 import android.util.Log
-import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.City
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.mapToForecastData
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.presentation.navigation.INavigationCommand
@@ -75,7 +74,7 @@ class CurrentForecastDataMiddleware(
     }
 
     private suspend fun writeDetailData(detailData: DetailData) {
-        weatherRepository.writeDetailParams(detailData = detailData)
+        weatherRepository.writeDetailParams(detailParams = detailData)
     }
 
     private suspend fun readCityCoords()  = weatherRepository.readCityCoords()

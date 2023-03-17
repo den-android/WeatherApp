@@ -27,9 +27,9 @@ class WeatherRepository @Inject constructor(
             }
         }
 
-    override suspend fun writeDetailParams(detailData: DetailData) {
+    override suspend fun writeDetailParams(detailParams: DetailData) {
         withContext(scopeIo.coroutineContext) {
-            localDatasource.writeDetailParams(detailData = detailData)
+            localDatasource.writeDetailParams(detailParams = detailParams)
         }
     }
 
