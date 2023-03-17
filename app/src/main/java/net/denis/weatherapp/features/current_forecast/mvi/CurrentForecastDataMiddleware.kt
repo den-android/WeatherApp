@@ -1,18 +1,16 @@
 package net.denis.weatherapp.features.current_forecast.mvi
 
 import android.util.Log
-import net.denis.weatherapp.core.data.datasource.local.DataBuffer
 import net.denis.weatherapp.core.data.datasource.remote.dto.weather_forecast.mapToForecastData
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.presentation.navigation.NavigationManager
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
-import net.denis.weatherapp.core.util.Constants.DEFAULT_LAT
-import net.denis.weatherapp.core.util.Constants.DEFAULT_LON
 import net.denis.weatherapp.core.util.FailureResponse
 import net.denis.weatherapp.core.util.OnExceptionError
 import net.denis.weatherapp.core.util.OnHttpError
 import net.denis.weatherapp.core.util.network.NetworkResult
+import net.denis.weatherapp.features.detail_forecast.model.DetailData
 import net.denis.weatherapp.features.fetch_new_city.model.CityData
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
@@ -20,8 +18,7 @@ import java.net.UnknownHostException
 
 class CurrentForecastDataMiddleware(
     private val weatherRepository: IWeatherRepository,
-    private val navigationManager: NavigationManager,
-    private val dataBuffer: DataBuffer,
+    private val navigationManager: NavigationManager
 ) : Middleware<CurrentForecastState, CurrentForecastAction> {
 
     override suspend fun process(
@@ -31,16 +28,12 @@ class CurrentForecastDataMiddleware(
     ) {
         when (action) {
             is CurrentForecastAction.FetchForecast -> {
-                try {
-                    val coords = dataBuffer.getData() as CityData
-                    fetchForecast(lat = coords.lat, lon = coords.lon, store = store)
-                } catch (ex: Exception) {
-                    fetchForecast(lat = DEFAULT_LAT, lon = DEFAULT_LON, store = store)
-                }
+                fetchForecast(store = store)
             }
 
             is CurrentForecastAction.NavigateTo -> {
-                action.params?.let { dataBuffer.setData(it) }
+                val data = action.params
+                writeDetailData(detailData = data)
                 navigationManager.navigate(action.destination)
             }
 
@@ -52,13 +45,10 @@ class CurrentForecastDataMiddleware(
         }
     }
 
-    private suspend fun fetchForecast(
-        lat: Double,
-        lon: Double,
-        store: Store<CurrentForecastState, CurrentForecastAction>
-    ) {
+    private suspend fun fetchForecast(store: Store<CurrentForecastState, CurrentForecastAction>) {
+        val cityData = readCityCoords()
         store.dispatch(CurrentForecastAction.FetchingForecast)
-        weatherRepository.fetchForecast(lat = lat, lon = lon).collect { response ->
+        weatherRepository.fetchForecast(lat = cityData.lat, lon = cityData.lon).collect { response ->
             when (response) {
                 is NetworkResult.Success -> {
                     store.dispatch(
@@ -74,6 +64,12 @@ class CurrentForecastDataMiddleware(
             }
         }
     }
+
+    private suspend fun writeDetailData(detailData: DetailData) {
+        weatherRepository.writeDetailParams(detailData = detailData)
+    }
+
+    private suspend fun readCityCoords() = weatherRepository.readCityCoords()
 
     private suspend fun handlerErrors(
         failureResponse: FailureResponse?,

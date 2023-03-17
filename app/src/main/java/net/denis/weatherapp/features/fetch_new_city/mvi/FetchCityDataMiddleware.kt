@@ -1,7 +1,6 @@
 package net.denis.weatherapp.features.fetch_new_city.mvi
 
 import android.util.Log
-import net.denis.weatherapp.core.data.datasource.local.DataBuffer
 import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.toEnCity
 import net.denis.weatherapp.core.data.datasource.remote.dto.geocoding.toRuCity
 import net.denis.weatherapp.core.data.interfaces.IGeocodingRepository
@@ -12,14 +11,14 @@ import net.denis.weatherapp.core.util.FailureResponse
 import net.denis.weatherapp.core.util.OnExceptionError
 import net.denis.weatherapp.core.util.OnHttpError
 import net.denis.weatherapp.core.util.network.NetworkResult
+import net.denis.weatherapp.features.fetch_new_city.model.CityData
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 class FetchCityDataMiddleware(
     private val geocodingRepository: IGeocodingRepository,
-    private val navigationManager: NavigationManager,
-    private val dataBuffer: DataBuffer
+    private val navigationManager: NavigationManager
 ) : Middleware<FetchCityState, FetchCityAction> {
     override suspend fun process(
         action: FetchCityAction,
@@ -33,7 +32,7 @@ class FetchCityDataMiddleware(
             }
 
             is FetchCityAction.NavigateTo -> {
-                action.params?.let { dataBuffer.setData(it) }
+                writeCoords(cityData = action.params)
                 navigationManager.navigate(directions = action.destination)
             }
 
@@ -67,6 +66,10 @@ class FetchCityDataMiddleware(
                 }
             }
         }
+    }
+
+    private suspend fun writeCoords(cityData: CityData) {
+        geocodingRepository.writeCityCoords(cityData = cityData)
     }
 
     private suspend fun handlerErrors(

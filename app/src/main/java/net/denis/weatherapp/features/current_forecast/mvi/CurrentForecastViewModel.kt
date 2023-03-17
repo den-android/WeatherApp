@@ -31,9 +31,14 @@ class CurrentForecastViewModel @Inject constructor(
         }
     }
 
-    fun navigateTo(destination: INavigationCommand, params: Any?) {
+    fun <P> navigateTo(destination: INavigationCommand, params: P? = null) {
         viewModelScope.launch {
-            currentForecastStore.dispatch(CurrentForecastAction.NavigateTo(destination = destination, params = params))
+            currentForecastStore.dispatch(
+                CurrentForecastAction.NavigateTo(
+                    destination = destination,
+                    params = params
+                )
+            )
         }
     }
 

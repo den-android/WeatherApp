@@ -7,6 +7,7 @@ import net.denis.weatherapp.core.data.interfaces.IGeocodingRepository
 import net.denis.weatherapp.core.data.interfaces.ILocalDatasource
 import net.denis.weatherapp.core.data.interfaces.IRemoteDatasource
 import net.denis.weatherapp.core.util.network.NetworkResult
+import net.denis.weatherapp.features.fetch_new_city.model.CityData
 import javax.inject.Inject
 
 class GeocodingRepository @Inject constructor(
@@ -19,6 +20,10 @@ class GeocodingRepository @Inject constructor(
         return flow {
             emit(value = response)
         }
+    }
+
+    override suspend fun writeCityCoords(cityData: CityData) {
+        localDatasource.writeCityCoords(cityData = cityData)
     }
 
 }

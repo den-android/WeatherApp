@@ -9,6 +9,8 @@ import net.denis.weatherapp.core.data.interfaces.ILocalDatasource
 import net.denis.weatherapp.core.data.interfaces.IRemoteDatasource
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.util.network.NetworkResult
+import net.denis.weatherapp.features.detail_forecast.model.DetailData
+import net.denis.weatherapp.features.fetch_new_city.model.CityData
 import javax.inject.Inject
 
 class WeatherRepository @Inject constructor(
@@ -24,4 +26,24 @@ class WeatherRepository @Inject constructor(
                 emit(value = response)
             }
         }
+
+    override suspend fun writeDetailParams(detailData: DetailData) {
+        withContext(scopeIo.coroutineContext) {
+            localDatasource.writeDetailParams(detailData = detailData)
+        }
+    }
+
+    override suspend fun readDetailParams(): DetailData {
+        return withContext(scopeIo.coroutineContext) {
+            return@withContext localDatasource.readDetailParams()
+        }
+    }
+
+    override suspend fun readCityCoords(): CityData {
+        return withContext(scopeIo.coroutineContext) {
+            return@withContext localDatasource.readCityCoords()
+        }
+    }
+
 }
+
