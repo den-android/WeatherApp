@@ -13,4 +13,8 @@ interface IWeatherRepository {
     suspend fun readDetailParams(): DetailData
     suspend fun readCityCoords(): CityData
 
+    suspend fun putData(params: Any?)
+
+    suspend fun getData(): Any?
+
 }

@@ -65,19 +65,16 @@ class CurrentForecastDataMiddleware(
     }
 
     private suspend fun navigateWithParams(params: Any?, destination: INavigationCommand) {
-        when (params) {
-            is DetailData -> {
-                writeDetailData(detailData = params)
-            }
-        }
+//        when (params) {
+//            is DetailData -> {
+//                weatherRepository.writeDetailParams(detailParams = params)
+//            }
+//        }
+        weatherRepository.putData(params)
         navigationManager.navigate(destination)
     }
 
-    private suspend fun writeDetailData(detailData: DetailData) {
-        weatherRepository.writeDetailParams(detailParams = detailData)
-    }
-
-    private suspend fun readCityCoords()  = weatherRepository.readCityCoords()
+    private suspend fun readCityCoords() = weatherRepository.readCityCoords()
 
     private suspend fun handlerErrors(
         failureResponse: FailureResponse?,

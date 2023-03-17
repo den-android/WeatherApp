@@ -23,7 +23,7 @@ class DetailDataMiddleware(
     }
 
     private suspend fun getDetailData(store: Store<DetailState, DetailAction>) {
-        val detailParams = weatherRepository.readDetailParams()
+        val detailParams = weatherRepository.getData()
         store.dispatch(DetailAction.LoadedDetailData(detailData = detailParams))
 
     }
