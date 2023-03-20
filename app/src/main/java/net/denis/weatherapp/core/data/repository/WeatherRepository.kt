@@ -9,8 +9,6 @@ import net.denis.weatherapp.core.data.interfaces.ILocalDatasource
 import net.denis.weatherapp.core.data.interfaces.IRemoteDatasource
 import net.denis.weatherapp.core.data.interfaces.IWeatherRepository
 import net.denis.weatherapp.core.util.network.NetworkResult
-import net.denis.weatherapp.features.detail_forecast.model.DetailData
-import net.denis.weatherapp.features.fetch_new_city.model.CityData
 import javax.inject.Inject
 
 class WeatherRepository @Inject constructor(

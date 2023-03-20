@@ -7,11 +7,12 @@ import net.denis.weatherapp.core.presentation.navigation.INavigationCommand
 import net.denis.weatherapp.core.presentation.navigation.NavigationManager
 import net.denis.weatherapp.core.presentation.redux.Middleware
 import net.denis.weatherapp.core.presentation.redux.Store
+import net.denis.weatherapp.core.util.Constants.DEFAULT_CITY
 import net.denis.weatherapp.core.util.FailureResponse
 import net.denis.weatherapp.core.util.OnExceptionError
 import net.denis.weatherapp.core.util.OnHttpError
 import net.denis.weatherapp.core.util.network.NetworkResult
-import net.denis.weatherapp.features.detail_forecast.model.DetailData
+import net.denis.weatherapp.features.fetch_new_city.model.CityData
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
@@ -32,7 +33,7 @@ class CurrentForecastDataMiddleware(
             }
 
             is CurrentForecastAction.NavigateTo -> {
-               navigateWithParams(params = action.params, destination = action.destination)
+                navigateWithParams(params = action.params, destination = action.destination)
             }
 
             is CurrentForecastAction.OnActionErrorClicked -> {
@@ -46,6 +47,7 @@ class CurrentForecastDataMiddleware(
     private suspend fun fetchForecast(store: Store<CurrentForecastState, CurrentForecastAction>) {
         val cityData = readCityCoords()
         store.dispatch(CurrentForecastAction.FetchingForecast)
+
         weatherRepository.fetchForecast(lat = cityData.lat, lon = cityData.lon)
             .collect { response ->
                 when (response) {
@@ -62,19 +64,15 @@ class CurrentForecastDataMiddleware(
                     }
                 }
             }
+
     }
 
     private suspend fun navigateWithParams(params: Any?, destination: INavigationCommand) {
-//        when (params) {
-//            is DetailData -> {
-//                weatherRepository.writeDetailParams(detailParams = params)
-//            }
-//        }
         weatherRepository.putData(params)
         navigationManager.navigate(destination)
     }
 
-    private suspend fun readCityCoords() = weatherRepository.readCityCoords()
+    private suspend fun readCityCoords() = weatherRepository.getData() as? CityData ?: DEFAULT_CITY
 
     private suspend fun handlerErrors(
         failureResponse: FailureResponse?,
