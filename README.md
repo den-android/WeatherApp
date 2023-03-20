@@ -2,6 +2,13 @@
 
 WeatherApp - это приложение для просмотра погоды. Оно позволяет пользователям получать актуальную информацию о погоде в выбранном городе.
 
+## Скриншоты
+
+![Главный экран](screenshots/Current_forecast_screenshot.png)
+![детальный прогноз](screenshots/Detail_forecast_screenshot.png)
+![Экран поиска города](screenshots/Fetch_city_screenshot.png)
+![Обновлённый главный экран](screenshots/Updated_current_forecast_screenshot.png)
+
 ## Особенности
 
 - Просмотр текущей погоды и прогноза на несколько дней вперед
