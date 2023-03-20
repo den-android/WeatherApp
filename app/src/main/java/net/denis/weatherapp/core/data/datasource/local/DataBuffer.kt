@@ -3,13 +3,13 @@ package net.denis.weatherapp.core.data.datasource.local
 import javax.inject.Inject
 
 class DataBuffer @Inject constructor() {
-    private var bufferData = Any()
+    private var bufferData: Any? = Any()
 
-    fun setData(data: Any) {
+    fun setData(data: Any?) {
         bufferData = data
     }
 
-    fun getData(): Any {
+    fun getData(): Any? {
         val newData = bufferData
         bufferData = Any()
         return newData
