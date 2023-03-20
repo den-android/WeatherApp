@@ -27,23 +27,16 @@ class WeatherRepository @Inject constructor(
             }
         }
 
-    override suspend fun writeDetailParams(detailParams: DetailData) {
+    override suspend fun putData(params: Any?) {
         withContext(scopeIo.coroutineContext) {
-            localDatasource.writeDetailParams(detailParams = detailParams)
+            localDatasource.putData(params = params)
         }
     }
 
-    override suspend fun readDetailParams(): DetailData {
+    override suspend fun getData(): Any? {
         return withContext(scopeIo.coroutineContext) {
-            return@withContext localDatasource.readDetailParams()
+            localDatasource.getData()
         }
     }
-
-    override suspend fun readCityCoords(): CityData {
-        return withContext(scopeIo.coroutineContext) {
-            return@withContext localDatasource.readCityCoords()
-        }
-    }
-
 }
 

@@ -9,10 +9,6 @@ import net.denis.weatherapp.features.fetch_new_city.model.CityData
 interface IWeatherRepository {
     suspend fun fetchForecast(lat: Double, lon: Double): Flow<NetworkResult<WeatherDto>>
 
-    suspend fun writeDetailParams(detailParams: DetailData)
-    suspend fun readDetailParams(): DetailData
-    suspend fun readCityCoords(): CityData
-
     suspend fun putData(params: Any?)
 
     suspend fun getData(): Any?
