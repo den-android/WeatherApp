@@ -4,10 +4,14 @@ WeatherApp - это приложение для просмотра погоды.
 
 ## Скриншоты
 
-![Главный экран](screenshots/Current_forecast_screenshot.png)
-![детальный прогноз](screenshots/Detail_forecast_screenshot.png)
-![Экран поиска города](screenshots/Fetch_city_screenshot.png)
-![Обновлённый главный экран](screenshots/Updated_current_forecast_screenshot.png)
+#Главный экран</br>
+![Главный экран](screenshots/Current_forecast_screenshot.png)</br>
+#Детальный прогноз</br>
+![Детальный прогноз](screenshots/Detail_forecast_screenshot.png)</br>
+#Экран поиска города</br>
+![Экран поиска города](screenshots/Fetch_city_screenshot.png)</br>
+#Обновлённый главный экран</br>
+![Обновлённый главный экран](screenshots/Updated_current_forecast_screenshot.png)</br>
 
 ## Особенности
 
